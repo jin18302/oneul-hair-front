@@ -11,11 +11,13 @@ export default function AreaFilterButton({selectArea, setSelectArea}:{selectArea
     const clickHandler = () => {setIsModal(true);}
     //사용자가 버튼 클릭시 isShow를 true로 바꾼다. 그러면 하위 컴포넌트가 호출될것
 
+    console.log('selectArea:',selectArea);
+
     return(
         <div>
             <button onClick={clickHandler}> 지역선택 </button>
             {isShowModal && <AreaChoicePopup setSelectArea = {setSelectArea} closeModal = {() => setIsModal(false)} />}
-            {selectArea && <div>selectArea</div>}
+            {selectArea && <div>{selectArea}</div>}
         </div>
     )
 }
