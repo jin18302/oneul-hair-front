@@ -1,7 +1,6 @@
 import { useState } from "react"
-import AreaChoicePopup from "./AreaChoicePopup";
-
-
+import AreaChoicePopup from "./AreaFilterModal";
+import "../styles/Modal.css"
 
 export default function AreaFilterButton({selectArea, setSelectArea}:{selectArea:string | null; setSelectArea:(area: string) => void;}){
 
@@ -17,7 +16,7 @@ export default function AreaFilterButton({selectArea, setSelectArea}:{selectArea
         <div>
             <button onClick={clickHandler}> 지역선택 </button>
             {isShowModal && <AreaChoicePopup setSelectArea = {setSelectArea} closeModal = {() => setIsModal(false)} />}
-            {selectArea && <div>{selectArea}</div>}
+            {selectArea && <div className="seleted-element">{selectArea}</div>}
         </div>
     )
 }

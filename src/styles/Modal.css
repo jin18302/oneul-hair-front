@@ -40,3 +40,14 @@ position: fixed;
   border-radius: 4px;
   cursor: pointer;
 }
+
+.seleted-element{
+
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 4px;
+  background: rgb(163, 163, 245);
+  border-radius: 4px;
+  cursor: pointer;
+
+}

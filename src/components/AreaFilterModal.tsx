@@ -14,7 +14,7 @@ export default function AreaChoicePopup({closeModal, setSelectArea}
 
     useEffect(() => {
 
-        if(areaCode == '0' || areaCode?.length == 5 && isSelectedArea){
+        if(areaCode == '0' && isSelectedArea || areaCode?.length == 5 ){
 
         const area = list.find(a => a.cd == areaCode);//사용자가 마지막으로 선택한 지역코드와 일치하는 것을 찾아 fullAddr를 출력한다
         setSelectArea(area?.fullAddress ?? "");
