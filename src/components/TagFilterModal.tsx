@@ -3,8 +3,8 @@ import { axiosInstance } from "../AxiosInstance"
 import type { ShopTag } from "../types/ShopTag";
 
 
-export default function SearchTagFilterModal({closeModal, selectedTags, setSeletedTags}
-    :{closeModal: () => void; selectedTags:ShopTag[]; setSeletedTags: (s: ShopTag) => void}){
+export default function SearchTagFilterModal({closeModal, selectedTags, setSelectTags}
+    :{closeModal: () => void; selectedTags:ShopTag[];  setSelectTags:(s:ShopTag) => void}){
 
     const[tagList, setTagList] = useState<ShopTag[]>([]);
     console.log("tagList 초기값:", selectedTags)
@@ -28,7 +28,7 @@ export default function SearchTagFilterModal({closeModal, selectedTags, setSelet
             return;
         }
 
-        setSeletedTags(s);
+        setSelectTags(s);
         console.log('tag 선택 후 tagList 상태:', selectedTags)
     };
 
