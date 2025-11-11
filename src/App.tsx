@@ -1,8 +1,15 @@
-import SearchArea from "./components/SearchArea";
+import { Route, Routes } from "react-router";
+import Main from "./assets/pages/main";
 
 
 export default function App() {
 
-    return <SearchArea />
+    return(
+        <>
+        <Routes>
+            <Route path="/" element={<Main />}/>
+        </Routes>
+        </>
+    )
 }
 
