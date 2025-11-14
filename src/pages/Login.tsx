@@ -1,6 +1,6 @@
 import { axiosInstance } from "../AxiosInstance";
 import { isAxiosError } from "axios";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
 import "../styles/Form.css"
 
@@ -12,8 +12,6 @@ export default function Login() {
         <>
             <Formik initialValues={{ email: "", password: "" }}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
-
-                    console.log("submit start")
                     setSubmitting(true);
 
                     try {
@@ -38,15 +36,20 @@ export default function Login() {
 
                 validationSchema={Yup.object().shape({
                      email: Yup.string()
-                        .email("유효하지 않은 이메일 형식입니다.").required(),
+                        .email("유효하지 않은 이메일 형식입니다.").required("이메일은 필수입력 요소입니다."),
                     password: Yup.string()
                          .matches(/^(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/, "비밀번호는 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.")
-                         .required()
+                         .required("비밀번호는 필수 입력요소입니다.")
                 })}
             >
                 <Form className="login-form">
                         <Field className="input-field" name="email"  type="email" placeholder="email:"/>
+                        <ErrorMessage name="password" component=""/>
+                    
+
                         <Field className="input-field" name="password" type="text" placeholder="password:" />
+                         <ErrorMessage name="email" component=""/>
+                        
                     <button className="login-button" id="login" type="submit"> 로그인 </button>
                 </Form>
             </Formik>
