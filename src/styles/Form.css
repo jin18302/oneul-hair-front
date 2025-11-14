@@ -1,14 +1,10 @@
 .input-field {
     width: 800px;
     height: 50px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     background-color: #D9D9D9;
     border-radius: 5px;
     border: none;
-}
-
-input:nth-last-of-type(){
-    margin-bottom: 50px;
 }
 
 .login-button {
@@ -31,9 +27,25 @@ input:nth-last-of-type(){
     background-color: #66D575;
 }
 
+#signup{
+    width: 400px;
+    height: 50px;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #3DADFF;
+}
 .login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+

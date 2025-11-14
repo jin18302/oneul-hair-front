@@ -11,16 +11,21 @@ export default function Authendication() {
     //반대일 경우 submit처리를 한다.
     //기본으로 login페이지와 매치시키고, 타입이 signup이라면 회원가입페이지를 매치시킨다.
 
+
+    const signupHandler = () => {setPageType("signup");}
+    const loginHandler = () => {setPageType("login");}
+
+    //+페이지 이동 
+
     return (
         <>
             <div className="container">
-                <div className="page-button">회원가입</div>
-                <div className="page-button">로그인</div>
+                <div className="page-button" onClick={signupHandler} >회원가입</div>
+                <div className="page-button" onClick={loginHandler} >로그인</div>
                 <div className="authendication-container">
                     <Outlet />
                 </div>
             </div>
-
         </>
     )
 }

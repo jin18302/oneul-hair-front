@@ -8,8 +8,10 @@ export default function AuthButton(){
 
     return(
         <div>
-            <button id = "auth-button"onClick={() => setIsShowAuthPage(true)}>로그인/회원가입</button>
+            <button id = "auth-button" onClick={() => setIsShowAuthPage(true)}>로그인/회원가입</button>
             {isShowAuthPage && <Authendication />}
         </div>
     )
 }
+
+//TODO: auth-button 을 누르면 네비게이션으로 auth/login페이지로 이동시킨다.
