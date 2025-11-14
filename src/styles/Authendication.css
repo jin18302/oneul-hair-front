@@ -9,14 +9,19 @@
     align-items: center;
 }
 
+.active .page-button{
+     background-color: #FFFFFF;
+}
 .page-button{
-    background-color: #FFFFFF;
-    height: 50px;
+    background-color: gray;
+    color: #000000;
+    height: 30px;
     width: 100px;
     display: inline-block;
     position: relative;
-    top: 15px;
-    border-radius: 5px;
+    top: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 
     text-align: center;
 }

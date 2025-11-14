@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import "../styles/Authendication.css"
 
 export default function Authendication() {
@@ -7,13 +7,13 @@ export default function Authendication() {
         <>
             <div className="container">
 
-                <Link to="/auth/signup">
+                <NavLink to="/auth/signup" className={({isActive}) => isActive ? "active" : "notActive"}>
                     <div className="page-button">회원가입</div>
-                </Link>
+                </NavLink>
 
-                <Link to="/auth/login">
+                <NavLink to="/auth/login" className={({isActive}) => isActive ? "active" : "notActive"}>
                     <div className="page-button">로그인</div>
-                </Link>
+                </NavLink>
 
                 <div className="authendication-container">
                     <Outlet />
