@@ -4,6 +4,6 @@ export interface ShopSummaryResponse{
     name: string;
     introduction: string;
     address: string;
-    ShopStatus: string;
+    shopStatus: string;
     imageList: string[];
 }
