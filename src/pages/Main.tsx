@@ -1,11 +1,9 @@
-import SearchArea from "../components/SearchArea";
-
 
 export default function Main(){
 
     return(
         <>
-        <SearchArea/>
+       <p>메인페이지</p>
         </>
     )
 }
