@@ -1,8 +1,5 @@
-
-h1{
-    /*TODO: 폰트설정*/
+h1 {
     color: #ffff;
-    position: absolute;
-    top:25px;
-    left: 40%;
+    font-size: 50px;
 }
+

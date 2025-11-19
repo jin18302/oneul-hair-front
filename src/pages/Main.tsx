@@ -1,9 +1,11 @@
+import "../styles/Layout.css"
+
 
 export default function Main(){
 
     return(
         <>
-       <p>메인페이지</p>
+       <main>main</main>
         </>
     )
 }

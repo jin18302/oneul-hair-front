@@ -1,17 +1,19 @@
-import { Outlet } from "react-router";
+import Main from "../pages/Main";
+import "../styles/Layout.css";
 import Article from "./Article";
+import Footer from "./Footer";
 import Header from "./Header";
-import SearchArea from "../components/SearchArea";
 
 export default function RootLayout() {
 
     return (
         <>
-            <Header />
-            <SearchArea />
-            <Article />
-            
-            <Outlet />
+            <div className="layout-container">
+                <Header />
+                <Article />
+                <Main />
+               <Footer />
+            </div>
         </>
     )
 }
