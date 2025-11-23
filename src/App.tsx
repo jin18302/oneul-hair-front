@@ -1,32 +1,25 @@
 import { Route, Routes } from "react-router";
 import RootLayout from "./layouts/RootLayout";
-import Login from "./pages/Login";
-import SignUp from "./pages/Signup";
-import Authendication from "./components/Authendication";
-import Main from "./pages/Main";
-import ShopListView from "./components/ShopListView";
-
+import SearchConditionProvider from "./providers/SearchConditionProvider";
+import Main from "./layouts/Main";
+import Init from "./components/Init";
 
 export default function App() {
+
 
     return (
         <>
             <Routes>
-                <Route element={<RootLayout />}>
-                    <Route path="/" element={<Main />} />
-
-                    <Route path="search">
-                        <Route path="shops" element={<ShopListView />}/>
+                    <Route element={<SearchConditionProvider><RootLayout /></SearchConditionProvider>}>
+                        <Route element={<Main/>}>
+                         <Route path = "/"element={<Init />}/>
+                        </Route>
                     </Route>
-
-                    <Route path="auth" element={<Authendication />}>
-                        <Route path="login" element={<Login />} />
-                        <Route path="signup" element={<SignUp />} />
-                    </Route>
-
-                </Route>
             </Routes>
+
         </>
+
     )
 }
+
 
