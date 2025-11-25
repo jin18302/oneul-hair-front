@@ -17,8 +17,8 @@ export default function RootLayout() {
         if (selectArea != "전체") { params.set("area", selectArea); }
         if (selectTags.length != 0) { params.set("tagIdList", selectTags.map((t: ShopTag) => t.id).join(",")); }
 
-        const navRequest = { pathname: "/search/shops", search: `?${params.toString()}` }
-        navigate(navRequest);
+        const navRequest = { pathname: "/search", search: `?${params.toString()}` }
+        navigate(navRequest); //검색버튼을 클릭하면 파람을 포함한 url로 이동된것처럼 사용자에게 보여준다.
     }
 
     return (
