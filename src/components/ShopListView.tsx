@@ -41,7 +41,7 @@ export default function ShopListView() {
 
         apiHandler();
 
-    }, []);
+    }, [searchParams]);
 
 
 
