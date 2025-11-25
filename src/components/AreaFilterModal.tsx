@@ -3,12 +3,14 @@ import { axiosInstance } from "../AxiosInstance"
 import type { AddrRes } from "../types/AddrRes";
 import { useEffect, useState } from "react";
 import "../styles/Modal.css"
+import { useSearchConditionContext } from "../hooks/UseSearchCondition";
 
-export default function AreaChoicePopup({closeModal, setSelectArea}
-    :{closeModal:() => void; setSelectArea:(area: string) => void}) {
+export default function AreaChoicePopup({closeModal}:{closeModal:() => void;}) {
 
     const[areaCode, setAreaCode] = useState<string | null>(null);//areaCode가 바뀔때마다 페이지는 리렌더링된다.
     const[list, setList] = useState<AddrRes[]>([]);
+    const {setSelectArea} = useSearchConditionContext();
+    
     // 화면에 렌더링할 지역리스트를 관리
 
     useEffect(() => {
