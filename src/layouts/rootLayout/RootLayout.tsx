@@ -1,8 +1,8 @@
 import { Outlet } from "react-router";
-import "../styles/Layout.css";
+import "../../styles/Layout.css"
+import Header from "./Header";
 import Article from "./Article";
 import Footer from "./Footer";
-import Header from "./Header";
 
 export default function RootLayout() {
 
