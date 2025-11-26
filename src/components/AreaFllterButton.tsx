@@ -1,8 +1,8 @@
-import AreaChoicePopup from "./AreaFilterModal";
-import "../styles/Modal.css"
-import "../styles/FilterArea.css"
-import { useSearchConditionContext } from "../hooks/UseSearchCondition";
 import { useState } from "react";
+import { useSearchConditionContext } from "../hooks/UseSearchCondition";
+import "../styles/FilterArea.css";
+import "../styles/Modal.css";
+import AreaFilterModal from "./AreaFilterModal";
 
 export default function AreaFilterButton(){
     
@@ -17,7 +17,7 @@ export default function AreaFilterButton(){
 
         <>
             <button className="filter-button" onClick={clickHandler}> 지역선택 </button>
-            {isShowModal && <AreaChoicePopup closeModal={() => setIsModal(false)} />}
+            {isShowModal && <AreaFilterModal closeModal={() => setIsModal(false)} />}
             {selectArea && <div className="seleted-element">{selectArea}</div>}
         </>
     )

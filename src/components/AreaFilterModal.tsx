@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import "../styles/Modal.css"
 import { useSearchConditionContext } from "../hooks/UseSearchCondition";
 
-export default function AreaChoicePopup({closeModal}:{closeModal:() => void;}) {
+export default function AreaFilterModal({closeModal}:{closeModal:() => void;}) {
 
     const[areaCode, setAreaCode] = useState<string | null>(null);//areaCode가 바뀔때마다 페이지는 리렌더링된다.
     const[list, setList] = useState<AddrRes[]>([]);
@@ -23,11 +23,13 @@ export default function AreaChoicePopup({closeModal}:{closeModal:() => void;}) {
         return;
         }
 
-        (async () => {
-            const { data } = await axiosInstance.get<AddrRes[]>('/address', {params: {code: areaCode}});
-            setList(data);
-            console.log('setList', list)
-        })();
+       const apiHandler =  async () => {
+            const response = await axiosInstance.get<AddrRes[]>('/address', {params: {code: areaCode}});
+            setList(response.data);
+            console.log('setList', list);
+        };
+
+        apiHandler();
 
     }, [areaCode]); //페이지가 리렌더링될때마다 api를 불러 상태를 변경하고, 이후에 변경된 리스트를 리렌더링한다.
 
