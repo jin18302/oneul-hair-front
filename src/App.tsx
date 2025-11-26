@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router";
-import RootLayout from "./layouts/RootLayout";
-import SearchConditionProvider from "./providers/SearchConditionProvider";
-import Main from "./layouts/Main";
 import Init from "./components/Init";
+import ShopDetail from "./components/ShopDetail";
 import ShopListView from "./components/ShopListView";
+import Main from "./layouts/rootLayout/Main";
+import SearchConditionProvider from "./providers/SearchConditionProvider";
+import RootLayout from "./layouts/rootLayout/RootLayout";
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
                         <Route element={<Main/>}>
                          <Route path = "/" element={<Init />}/>
                          <Route path = "search" element={<ShopListView />}/>
+                         <Route path="shop/detail/:shopId" element={<ShopDetail />} />
                         </Route>
                     </Route>
             </Routes>

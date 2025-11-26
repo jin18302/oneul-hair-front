@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import type { CursorPageResponse } from "../types/CursorPageResponse";
 import type { ShopSummaryResponse } from "../types/ShopSummaryReponse";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ export default function ShopListView() {
         lastCursor: 0,
         isLastPage: true
     };
+    
     const [searchResponse, setSearchResponse] = useState<CursorPageResponse<ShopSummaryResponse>>(responseInit);
     //검색결과를 저장할 상태 선언
 
@@ -43,9 +44,14 @@ export default function ShopListView() {
 
     }, [searchParams]);
 
-
-
     const { content } = searchResponse;
+
+    const navigate = useNavigate();
+    const clickHandler = (s:ShopSummaryResponse) => {
+
+        const navRequest = { pathname: `/shop/detail/${s.id}` };
+        navigate(navRequest);
+    }
 
     if (isLoding) { return <div className="loding">로딩 중...</div>; }
 
@@ -53,13 +59,14 @@ export default function ShopListView() {
         <>
                 <div className="shop-list-container">
                     {!isLoding && content.map(c =>
-                <div className="shop-summary-res" key={c.id}>
+                <div className="shop-summary-res" key={c.id} onClick={() => clickHandler(c)}>
                     {c.name}<br />
                     {c.introduction}<br />
                     {c.address}<br />
                     {c.shopStatus}<br />
                     {c.imageList}<br />
-                </div>)}
+                </div>
+            )}
                 </div>
         </>
     )
