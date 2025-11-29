@@ -49,7 +49,7 @@ export default function ShopListView() {
     const navigate = useNavigate();
     const clickHandler = (s:ShopSummaryResponse) => {
 
-        const navRequest = { pathname: `/shop/detail/${s.id}` };
+        const navRequest = { pathname: `/shops/detail/${s.id}` };
         navigate(navRequest);
     }
 
