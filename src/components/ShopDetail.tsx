@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { axiosInstance } from "../AxiosInstance";
 import type { ShopDetailRes } from "../types/ShopDetailRes";
 import type DesignerSummaryRes from "../types/DesignerSummaryRes";
+import "../styles/ShopDetail.css"
 
 export default function ShopDetail() {
 
@@ -19,49 +20,61 @@ export default function ShopDetail() {
             setShopDetail(response.data);
         }
 
-        const designerDataApiHandler = async() => {
+        const designerDataApiHandler = async () => {
             console.log("디자이너 api 호출함");
             const response = await axiosInstance.get<DesignerSummaryRes[]>(`/shops/${shopId}/designers`);
             setDesignerList(response.data);
             console.log(designerList);
         }
-    
+
         shopDetailApiHandler();
         designerDataApiHandler();
         setIsLoding(false);
 
-    },[]);
+    }, []);
 
     if (isLoding) { return <div>로딩중입니다...</div> }
 
     return (<>
 
-    {/* TODO: 이미지 처리하기 */}
+        {/* 
+        TODO: 
+        -이미지 처리
+        -이모티콘 처리
+        -링크처리
+         */}
+
+
         <div className="shop-detail-container">
 
-            <div className="shop-detail">
-                name: {shopDetail?.name}<br/>
-                address: {shopDetail?.address}<br/>
-                phoneNumber: {shopDetail?.phoneNumber}<br/>
-                introduction: {shopDetail?.introduction}<br/>
-                snsUriList: {shopDetail?.snsUriList}<br/>
-                openTime: {shopDetail?.openTime}<br/>
-                endTime:{shopDetail?.endTime}<br/>
-                shopStatus: {shopDetail?.shopStatus}<br/>
+            <div className="shop-images">imges</div>
+
+            <div className="shop-information">
+                <h2 className="info-element">{shopDetail?.name}</h2>
+                <p>{shopDetail?.introduction}<br /></p>
+                <p>{shopDetail?.address}<br /></p>
+                <p> {shopDetail?.phoneNumber}<br /></p>
+                {/* <p> snsUriList: {shopDetail?.snsUriList}<br /></p> */}
+                <p>
+                    운영상태: {shopDetail?.shopStatus}<br />
+                    운영시간 : {shopDetail?.openTime} ~ {shopDetail?.endTime}<br />
+                </p>
             </div>
 
             <div className="designer-list">
-                {designerList && designerList.map(d => 
-                    <div>
-                        id:{d.id}<br/>
-                        image: {d.profileImage}<br/>
-                        name:{d.name}<br/>
-                        introduce:{d.introduction}<br/>
+                <h3>designers</h3>
+                {designerList && designerList.map(d =>
+                    <div className="designer">
+                        id:{d.id}<br />
+                        image: {d.profileImage}<br />
+                        name:{d.name}<br />
+                        introduce:{d.introduction}<br />
                     </div>
                 )}
 
             </div>
         </div>
+
     </>
 
     )

@@ -1,0 +1,34 @@
+.images {
+    width: 500px;
+    height: 100px;
+    background-color: aqua;
+}
+
+.shop-detail-container {
+    grid-column: 1/12;
+    grid-row: 1/12;
+     overflow: auto;
+
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    align-items: start;
+    justify-items: start;
+    gap: 16px;
+
+}
+
+.shop-images {
+    grid-column: 2/10;
+    grid-row: 1/3;
+}
+
+.shop-information{
+    grid-column: 2/10;
+    grid-row: 4/8;
+}
+
+.designer-list{
+    grid-column: 2/10;
+    grid-row: 10/13;
+
+}
