@@ -1,6 +1,7 @@
 .layout-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     align-items: center;
     justify-items: center;
     gap: 16px;
@@ -25,9 +26,18 @@ main {
     /* 전체 그리드에서의 비율 */
     grid-column: 1/10;
     grid-row: 4/12;
-
     overflow: auto;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: 16px;
+
 }
+
+
 
 footer {
     grid-column: 1/13;

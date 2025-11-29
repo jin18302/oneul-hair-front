@@ -1,9 +1,12 @@
-
-
-.shop-summary-res{
+.shop-summary-res {
     width: 800px;
     height: 150px;
-
     font-size: 15px;
     border: 1px solid black;
+}
+
+.shop-list-container {
+    grid-column: 1/12;
+    grid-row: 1/12;
+    overflow: auto;
 }
