@@ -26,7 +26,6 @@ main {
     /* 전체 그리드에서의 비율 */
     grid-column: 2/10;
     grid-row: 3/12;
-    overflow: auto;
 
     display: grid;
     grid-template-columns: repeat(12, 1fr);

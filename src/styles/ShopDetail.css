@@ -30,5 +30,13 @@
 .designer-list{
     grid-column: 2/10;
     grid-row: 10/13;
+}
 
+.designer{
+    width: 800px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    margin-bottom: 10px;
 }
