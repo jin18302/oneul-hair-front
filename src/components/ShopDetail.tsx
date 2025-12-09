@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../AxiosInstance";
 import type { ShopDetailRes } from "../types/ShopDetailRes";
 import type DesignerSummaryRes from "../types/DesignerSummaryRes";
@@ -21,7 +21,7 @@ export default function ShopDetail() {
         }
 
         const designerDataApiHandler = async () => {
-            console.log("디자이너 api 호출함");
+            console.log("디자이너 리스트 api 호출함");
             const response = await axiosInstance.get<DesignerSummaryRes[]>(`/shops/${shopId}/designers`);
             setDesignerList(response.data);
             console.log(designerList);
@@ -33,7 +33,10 @@ export default function ShopDetail() {
 
     }, []);
 
-    if (isLoding) { return <div>로딩중입니다...</div> }
+    const navigate = useNavigate();
+    const designerClickHandler = (d: DesignerSummaryRes) => {navigate(`/designers/${d.id}`);}
+
+    if (isLoding) { return <div>로딩중입니다...</div> ;}
 
     return (<>
 
@@ -64,7 +67,7 @@ export default function ShopDetail() {
             <div className="designer-list">
                 <h3>designers</h3>
                 {designerList && designerList.map(d =>
-                    <div className="designer">
+                    <div className="designer" onClick={() => designerClickHandler(d)}>
                         id:{d.id}<br />
                         image: {d.profileImage}<br />
                         name:{d.name}<br />
