@@ -1,0 +1,13 @@
+
+.calendar-container{
+    grid-column: 1/12;
+    grid-row: 1/12;
+
+    width: 500px;
+}
+
+.fc_day_off{
+
+    background-color: gray;
+
+}
