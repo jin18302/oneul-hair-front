@@ -3,19 +3,19 @@ import FullCalendar from "@fullcalendar/react";
 import "../styles/Calendar.css";
 import { useEffect, useState } from 'react';
 import { axiosInstance } from '../AxiosInstance';
-import { useParams } from 'react-router';
 import type { DayOffResponse } from '../types/DayOffResponse';
 import DateFomatter from '../hooks/DateFomatter';
-
-export default function Calendar() {
+import interactionPlugin from "@fullcalendar/interaction";
+export default function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined}) {
 
   const dayOffInit = { closedDays: [] };
-
-  const { designerId } = useParams();
   const [dayOffList, setDayOffList] = useState<DayOffResponse>(dayOffInit);
   const [month] = useState<number>(new Date().getMonth() + 1);
   const [isLoding, setIsLoding] = useState<boolean>(true);
 
+
+  //TODO:
+  // 휴무일 클릭 불가 설정, td 날짜 클릭시 해당 날짜 타임슬롯 렌더링, 날짜 슬롯 선택시 디자이너 메뉴 렌더링
 
 
   useEffect(() => {
@@ -38,29 +38,36 @@ export default function Calendar() {
 
   return (
 
-    <div className="calendar-container">
-      {!isLoding &&
-        <FullCalendar
-          height={500}
-          contentHeight={500}
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
+    <>
+      <div className="calendar-container">
+        {!isLoding &&
+          <FullCalendar
+            height={500}
+            contentHeight={500}
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
 
-          dayCellClassNames={
-            (arg) => {
-              for (let i = 0; i < dayOffList.closedDays.length; i++) {
+            dateClick={(arg) => {
+              const date = DateFomatter({ date: arg.date });
+              setDate(date);
+            }}
 
-                if (DateFomatter({date: arg.date}) == dayOffList.closedDays[i]) {
-                  console.log("휴무일", dayOffList.closedDays[i]);
-                  return "fc_day_off";
+            dayCellClassNames={
+              (arg) => {
+                for (let i = 0; i < dayOffList.closedDays.length; i++) {
+                  if (DateFomatter({ date: arg.date }) == dayOffList.closedDays[i]) {
+                    return "fc_day_off";
+                  }
                 }
+                  return "";
               }
-              return "";
             }
-          }
-        /> //full
-      }
-    </div>
+          /> //full
+
+        }
+      </div>
+    </>
+
 
   )
 }

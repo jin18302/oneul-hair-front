@@ -10,21 +10,21 @@ import Reservation from "./pages/Reservation";
 
 export default function App() {
 
-    
+
 
 
     return (
         <>
             <Routes>
-                    <Route element={<SearchConditionProvider><RootLayout /></SearchConditionProvider>}>
-                        <Route element={<Main/>}>
-                         <Route path = "/" element={ <Init />}/>
-                         <Route path = "search" element={<ShopListView />}/>
-                         <Route path="shops/detail/:shopId" element={<ShopDetail />} />
-                         <Route path="designers/:designerId" element={<DesignerDetail />}/>
-                         <Route path="designers/:designerId/reservations" element={<Reservation />}/>
-                        </Route>
+                <Route element={<SearchConditionProvider><RootLayout /></SearchConditionProvider>}>
+                    <Route element={<Main />}>
+                        <Route path="/" element={<Init />} />
+                        <Route path="search" element={<ShopListView />} />
+                        <Route path="shops/detail/:shopId" element={<ShopDetail />} />
+                        <Route path="designers/:designerId" element={<DesignerDetail />} />
+                        <Route path="designers/:designerId/reservations" element={<Reservation />} />
                     </Route>
+                </Route>
             </Routes>
         </>
     )
