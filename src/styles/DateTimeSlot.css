@@ -1,0 +1,46 @@
+.time-slot {
+
+    display: inline-block;
+
+    width: 120px;
+    height: 40px;
+
+    background-color: rgb(186, 246, 211);
+    border-radius: 5px;
+
+    margin-right: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+
+
+}
+
+.time-slot-deactivation{
+
+      display: inline-block;
+
+    width: 120px;
+    height: 40px;
+
+    background-color: rgb(126, 127, 126);
+    border-radius: 5px;
+
+    margin-right: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.time-slot-container {
+
+    display:flex; 
+    justify-content:center;
+    align-items:center;
+     flex-wrap: wrap;
+  
+
+    grid-column: 1/12;
+    grid-row: 4/6;
+
+    width: 600px;
+
+}
