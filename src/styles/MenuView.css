@@ -1,0 +1,33 @@
+.service-menu-container {
+
+    grid-column: 1/12;
+    grid-row: 6/12;
+
+    width: 600px;
+}
+
+.service-category-container {
+
+    display: flex;
+    width: 600px;
+
+}
+
+.category-element {
+    flex: 1;
+
+    background-color: white;
+    border: 1px solid black;
+}
+
+.service-menus-container {
+
+     width: 600px;
+
+}
+
+.menu {
+    width: 600px;
+    background-color: white;
+    border: 1px solid black;
+}
