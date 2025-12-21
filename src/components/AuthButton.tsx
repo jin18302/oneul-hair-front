@@ -1,9 +1,15 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 import "../styles/AuthButton.css";
 
 
 export default function AuthButton(){
+
+    const nav = useNavigate();
+
+    const buttonHandler = () => {
+        nav('/auth/sign-in');
+    }
     return(
-        <Link to="/auth/login"><button id="auth-button">로그인/회원가입</button></Link>
+        <button id="auth-button" onClick={buttonHandler}>로그인/회원가입</button>
     )
 }

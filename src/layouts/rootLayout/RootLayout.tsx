@@ -14,6 +14,7 @@ export default function RootLayout() {
                 <Header  />
                 <Article />
                 <Outlet />
+                {/* main */}
                 <Footer />
             </div>
         </>
