@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import "../styles/Form.css"
 
 
-// /auth/login
+// /auth/sign-in
 
 export default function Login() {
     return (
@@ -25,13 +25,14 @@ export default function Login() {
                     } catch (e: unknown) {
 
                         if (isAxiosError(e)) {
-                            alert(e.response?.data?.errorMessage ?? "로그인에 실패하였습니다.")
+                            alert(e.response?.data?.errorMessage ?? "로그인에 실패하였습니다.");
                         }
-
                     } finally {
                         setSubmitting(false);
                         resetForm();
                     }
+
+                    alert("로그인이 완료되었습니다");
                 }}
 
                 validationSchema={Yup.object().shape({
