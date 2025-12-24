@@ -2,7 +2,7 @@ import { useState } from "react";
 import Calendar from "../components/Calendar";
 import DateTimeSlot from "../components/DateTimeSlot";
 import { useParams } from "react-router";
-import MenuView from "./MenuView";
+import MenuView from "../components/MenuView";
 import { axiosInstance } from "../AxiosInstance";
 import { HttpStatusCode } from "axios";
 

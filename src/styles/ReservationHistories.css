@@ -1,0 +1,17 @@
+.reservations-container {
+    grid-column: 2/12;
+    grid-row: 2/12;
+
+    width: 800px;
+
+    background-color: #ffff;
+    border: 1px solid black;
+}
+
+.reservation-element {
+    width: 800px;
+
+    background-color: #ffff;
+    border: 1px solid black;
+
+}
