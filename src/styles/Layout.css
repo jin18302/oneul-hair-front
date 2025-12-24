@@ -18,13 +18,13 @@ header {
 
 
 article {
-    grid-column: 10/13;
+    grid-column: 10/12;
     grid-row: 4/8;
 }
 
 main {
     /* 전체 그리드에서의 비율 */
-    grid-column: 2/10;
+    grid-column: 2/9;
     grid-row: 3/12;
 
     display: grid;

@@ -1,5 +1,7 @@
 .search-container {
     background-color: #ffff;
+    border: 1px solid black;
+    border-radius: 5px;
     /* position: absolute;
     left: 20%;
     top: 30%; */
