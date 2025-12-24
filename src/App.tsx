@@ -10,6 +10,8 @@ import RootLayout from "./layouts/rootLayout/RootLayout";
 import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
 import SearchConditionProvider from "./providers/SearchConditionProvider";
+import UserInfo from "./pages/UserInfo";
+import ReservationHistories from "./pages/ReservationHistories";
 
 export default function App() {
 
@@ -29,11 +31,15 @@ export default function App() {
                             <Route path = "sign-in" element={<Login />}/>
                         </Route>
 
-                        <Route path="search" element={<ShopListView />} />
+                        <Route path = "/users" element = {<UserInfo />}/>
 
+                        <Route path="search" element={<ShopListView />} />
                         <Route path="shops/detail/:shopId" element={<ShopDetail />} />
                         <Route path="designers/:designerId" element={<DesignerDetail />} />
+
                         <Route path="designers/:designerId/reservations" element={<Reservation />} />
+                        <Route path= "/users/reservation-histories" element = {<ReservationHistories />}/>
+                        
                     </Route>
                 </Route>
             </Routes>
