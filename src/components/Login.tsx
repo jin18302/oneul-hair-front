@@ -59,7 +59,7 @@ export default function Login() {
                     <ErrorMessage name="password" component="" />
 
 
-                    <Field className="input-field" name="password" type="text" placeholder="password:" />
+                    <Field className="input-field" name="password" type="password" placeholder="password:" />
                     <ErrorMessage name="email" component="" />
 
                     <button className="login-button" id="login" type="submit"> 로그인 </button>

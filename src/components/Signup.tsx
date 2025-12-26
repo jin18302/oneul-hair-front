@@ -15,7 +15,7 @@ export default function SignUp() {
                     setSubmitting(true);
 
                     try {
-                        await axiosInstance.post("/signup", {
+                        await axiosInstance.post("/auth/signup", {
                             name: data.name,
                             email: data.email,
                             password: data.password,
@@ -53,10 +53,10 @@ export default function SignUp() {
                     <Field className="input-field" name="email" type="email" placeholder="email:" />
                     <ErrorMessage name="email" component={"div"}/>
 
-                    <Field className="input-field" name="password" type="text" placeholder="password:" />
+                    <Field className="input-field" name="password" type="password" placeholder="password:" />
                     <ErrorMessage name="password" component={"div"}/>
 
-                    <Field className="input-field" name="phoneNumber" type="text" placeholder="phoneNumber:" />
+                    <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
                     <ErrorMessage name="password" component={"div"}/>
 
                     <Field className="input-field" name="gender" type="text" placeholder="gender" />
