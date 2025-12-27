@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router";
-import "../styles/SearchArea.css";
-import AreaFilterButton from "./AreaFllterButton";
-// import "../styles/FilterArea.css";
+import "../../styles/SearchArea.css";
+import { useSearchConditionContext } from "../../hooks/UseSearchCondition";
+import type { ShopTag } from "../../types/ShopTag";
+import AreaFilterButton from "./area/AreaFllterButton";
 import SearchButton from "./SearchButton";
-import TagFilterButton from "./TagFilterButton";
-import { useSearchConditionContext } from "../hooks/UseSearchCondition";
-import type { ShopTag } from "../types/ShopTag";
+import TagFilterButton from "./tag/TagFilterButton";
+// import "../styles/FilterArea.css";
+
 
 
 
 export default function SearchArea() {
+
+     console.log("SearchArea rendering");
 
       const navigate = useNavigate();
     const { selectArea, selectTags } = useSearchConditionContext();
