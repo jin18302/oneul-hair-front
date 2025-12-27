@@ -1,17 +1,18 @@
+
 import { useState } from "react";
-import { useSearchConditionContext } from "../hooks/UseSearchCondition";
-import "../styles/FilterArea.css";
-import "../styles/Modal.css";
+import { useSearchConditionContext } from "../../../hooks/UseSearchCondition";
+import "../../../styles/FilterArea.css";
+import "../../../styles/Modal.css";
 import AreaFilterModal from "./AreaFilterModal";
 
+
 export default function AreaFilterButton(){
+
+    console.log("AreaFilterButton rendering")
     
     const [isShowModal, setIsModal] = useState(false);
-    //isShow가 true라면 팝업 창을 띄운다.
-    const {selectArea} = useSearchConditionContext();
-
+    const { selectArea } = useSearchConditionContext();
     const clickHandler = () => { setIsModal(true); }
-    //사용자가 버튼 클릭시 isShow를 true로 바꾼다. 그러면 하위 컴포넌트가 호출될것
 
     return (
 
