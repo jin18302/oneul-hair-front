@@ -1,16 +1,17 @@
 import "../../styles/SearchArea.css";
-import AreaFilterButton from "./area/AreaFllterButton";
+import AreaFilter from "./area/AreaFllter";
 import SearchButton from "./SearchButton";
-import TagFilterButton from "./tag/TagFilter";
+import TagFilter from "./tag/TagFilter";
 
 
 export default function SearchArea() {
 
      console.log("SearchArea rendering");
+     
     return (
             <div className="search-container">
-                <AreaFilterButton />
-                <TagFilterButton />
+                <AreaFilter />
+                <TagFilter />
                <SearchButton/>
             </div>
     )
