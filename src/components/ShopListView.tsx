@@ -8,33 +8,26 @@ import { axiosInstance } from "../AxiosInstance";
 
 export default function ShopListView() {
 
-    const [searchParams] = useSearchParams(); //사용자가 선택한 검색조건 파람을 읽어온다.
-    const [isLoding, setIsLoding] = useState<boolean>(true);
+    console.log("ShopListView rendering");
 
-    const responseInit =
-    {
-        content: [],
-        lastCursor: 0,
-        isLastPage: true
-    };
-    
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams(); //사용자가 선택한 검색조건 파람을 읽어온다.
+    const responseInit = { content: [], lastCursor: 0, isLastPage: true };
+
+    const [cursor, setCursor] = useState<string | null>(searchParams.get("lastCursor"));
+    const [isLoding, setIsLoding] = useState<boolean>(true);
     const [searchResponse, setSearchResponse] = useState<CursorPageResponse<ShopSummaryResponse>>(responseInit);
-    //검색결과를 저장할 상태 선언
 
     useEffect(() => {
 
-        console.info("useEffet가 호출되었는가")
-
-        const area = searchParams.get("area");
-        const tagIdList = searchParams.getAll("tagIdList").join(",");
-
-
         const apiHandler = async () => {//사용자가 선택한 파람을 읽어와 서버로 요청을 보낸다.
-            const response = await axiosInstance.get("/shops"
-                , { params: { area: area, tagIdList: tagIdList } }
-            );
 
-            console.log("response:", response.data);
+            const area = searchParams.get("area");
+            const tagIdList = searchParams.getAll("tagIdList");
+
+            const response = await axiosInstance.get<CursorPageResponse<ShopSummaryResponse>>("/auth/shops"
+                , { params: { area: area, tagIdList: tagIdList, lastCursor: cursor } }
+            );
 
             setSearchResponse(response.data);//결과를 상태로 저장한다.
             setIsLoding(false);
@@ -42,34 +35,33 @@ export default function ShopListView() {
 
         apiHandler();
 
-    }, [searchParams]);
+    }, [searchParams, cursor]);
 
-    const { content } = searchResponse;
 
-    const navigate = useNavigate();
-    const clickHandler = (s:ShopSummaryResponse) => {
-
+    //handler
+    
+    const shopDetailViewHandler = (s: ShopSummaryResponse) => {
         const navRequest = { pathname: `/shops/detail/${s.id}` };
         navigate(navRequest);
     }
 
-    if (isLoding) { return <div className="loding">로딩 중...</div>; }
+    const nextPageHandler = () => {setCursor(String(searchResponse.lastCursor));}
 
+    if (isLoding) { return <div className="loding">로딩 중...</div>}
     return (
         <>
-                <div className="shop-list-container">
-                    {!isLoding && content.map(c =>
-                <div className="shop-summary-res" key={c.id} onClick={() => clickHandler(c)}>
-                    {c.name}<br />
-                    {c.introduction}<br />
-                    {c.address}<br />
-                    {c.shopStatus}<br />
-                    {c.imageList}<br />
-                </div>
-            )}
-                </div>
+            <div className="shop-list-container">
+                {!isLoding && searchResponse.content.map(c =>
+                    <div className="shop-summary-res" key={c.id} onClick={() => shopDetailViewHandler(c)}>
+                        {c.name}<br />
+                        {c.introduction}<br />
+                        {c.address}<br />
+                        {c.shopStatus}<br />
+                        {c.imageList}<br />
+                    </div>
+                )}
+                <button className="next-page-button" onClick={nextPageHandler}>다음 페이지</button>
+            </div>
         </>
     )
-
-
 }
