@@ -1,25 +1,24 @@
 
 import { useState } from "react";
-import { useSearchConditionContext } from "../../../hooks/UseSearchCondition";
 import "../../../styles/Modal.css";
 import "../../../styles/SearchArea.css"
 import AreaFilterModal from "./AreaFilterModal";
+import { searchConditionStore } from "../../../contexts/searchConditionStore";
 
 
 export default function AreaFilter(){
 
-    console.log("AreaFilterButton rendering")
+    console.log("AreaFilterArea rendering")
     
-    const [ isShowModal, setIsModal ] = useState(false);
-    const { selectArea } = useSearchConditionContext();
-    const clickHandler = () => { setIsModal(true); }
+    const [ isShowAreaModal, setIsShowAreaModal ] = useState<boolean>(false);
+    const selectArea = searchConditionStore((s) => s.selectArea);
+    const clickHandler = () => { setIsShowAreaModal(true); }
 
     return (
-
-        <>
-            <button className="tag-filter-button" onClick={clickHandler}> 지역선택 </button>
-            {isShowModal && <AreaFilterModal closeModal={() => setIsModal(false)} />}
+      <div className="area-filter-container">
+        <button className="area-filter-button" onClick={clickHandler}> 지역선택 </button>
+            {isShowAreaModal && <AreaFilterModal closeModal={() => setIsShowAreaModal(false)} />}
             {selectArea && <div className="seleted-element">{ selectArea }</div>}
-        </>
+      </div>
     )
 }

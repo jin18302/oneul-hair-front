@@ -1,24 +1,24 @@
 
-import { useEffect, useState } from "react";
 import "../../../styles/Modal.css"
-import { axiosInstance } from "../../../AxiosInstance";
-import { useSearchConditionContext } from "../../../hooks/UseSearchCondition";
-import type { AddrRes } from "../../../types/AddrRes";
 
+import { axiosInstance } from "../../../AxiosInstance";
+import { useEffect, useState } from "react";
+import type { AddrRes } from "../../../types/AddrRes";
+import { searchConditionStore } from "../../../contexts/searchConditionStore";
 
 export default function AreaFilterModal({ closeModal }: { closeModal: () => void; }) {
 
     console.log("AreaFilterModal rendering");
 
     const [ areaCode, setAreaCode ] = useState<AddrRes | null>(null);
-    const [subAreaList, setSubAreaList] = useState<AddrRes[]>([]);
-    const { setSelectArea } = useSearchConditionContext();
+    const [ subAreaList, setSubAreaList ] = useState<AddrRes[]>([]);
+    const setSelectArea  = searchConditionStore((s) => s.setSelectArea);
 
     useEffect(() => {
 
         const apiHandler = async () => {
             const response = await axiosInstance.get<AddrRes[]>('/auth/address', { params: { code: areaCode?.cd } });
-            setSubAreaList(response.data);;
+            setSubAreaList(response.data);
         };
 
         apiHandler();

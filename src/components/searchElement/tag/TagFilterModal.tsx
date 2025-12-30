@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import { axiosInstance } from "../../../AxiosInstance";
-import { useSearchConditionContext } from "../../../hooks/UseSearchCondition";
 import type { ShopTag } from "../../../types/ShopTag";
+import React from "react";
+import { searchConditionStore } from "../../../contexts/searchConditionStore";
 
 
 
-export default function SearchTagFilterModal({closeModal}:{closeModal: () => void;}){
+export function SearchTagFilterModal({closeModal}:{closeModal: () => void;}){
 
-      console.log("SearchTagFilterModal rendering");
+    console.log("SearchTagFilterModal rendering");
 
     const[tagList, setTagList] = useState<ShopTag[]>([]);
-    const {selectTags, tagAdd} = useSearchConditionContext();
+    const tagAdd = searchConditionStore((s) => s.addTag);
 
     useEffect(() => {
 
@@ -22,14 +23,7 @@ export default function SearchTagFilterModal({closeModal}:{closeModal: () => voi
         apiHandler();
     },[]);
 
-    const tagClickHandler = (s: ShopTag) => {
-
-        if(selectTags.length == 3){
-            alert('태그는 최대 3개까지만 선택가능합니다.')
-            return;
-        }
-        tagAdd(s);
-    };
+    const tagClickHandler = (s: ShopTag) => tagAdd(s);
 
     return (
         <>
@@ -37,7 +31,7 @@ export default function SearchTagFilterModal({closeModal}:{closeModal: () => voi
             <div className="modal">
             {tagList.map(t => (<div className="element" key={t.id} onClick = {() => tagClickHandler(t)}>{t.name}</div>))}
             {/* 요소를 클릭한다면 요소의 클래스 이름을 추가하고, 리스트에 저장한다. */}
-                <button onClick={closeModal}>창닫기</button>
+                <button onClick={closeModal}>창 닫기</button>
                 <button onClick={closeModal}>확인</button>
              </div>
         </div>
@@ -45,3 +39,5 @@ export default function SearchTagFilterModal({closeModal}:{closeModal: () => voi
         </>
     )
 }
+
+ export default React.memo(SearchTagFilterModal);

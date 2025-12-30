@@ -9,17 +9,15 @@ import Main from "./layouts/rootLayout/Main";
 import RootLayout from "./layouts/rootLayout/RootLayout";
 import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
-import SearchConditionProvider from "./providers/TagConditionProvider";
 import UserInfo from "./pages/UserInfo";
 import ReservationHistories from "./pages/ReservationHistories";
-import ShopRegistration from "./pages/ShopRegistration";
 
 export default function App() {
 
     return (
         <>
             <Routes>
-                <Route element={<SearchConditionProvider><RootLayout /></SearchConditionProvider>}>
+                <Route element={<RootLayout />}>
                     <Route element={<Main />}>
                         <Route path="/" element={<Init />} />
 
