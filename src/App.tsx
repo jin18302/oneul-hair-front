@@ -1,22 +1,20 @@
 import { Route, Routes } from "react-router";
 import DesignerDetail from "./components/DesignerDetail";
 import Init from "./components/Init";
-import Login from "./components/Login";
+import Login from "./components/authendicationElement/Login";
 import ShopDetail from "./components/ShopDetail";
 import ShopListView from "./components/ShopListView";
-import SignUp from "./components/Signup";
+import SignUp from "./components/authendicationElement/Signup";
 import Main from "./layouts/rootLayout/Main";
 import RootLayout from "./layouts/rootLayout/RootLayout";
 import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
-import SearchConditionProvider from "./providers/SearchConditionProvider";
+import SearchConditionProvider from "./providers/TagConditionProvider";
 import UserInfo from "./pages/UserInfo";
 import ReservationHistories from "./pages/ReservationHistories";
+import ShopRegistration from "./pages/ShopRegistration";
 
 export default function App() {
-
-
-
 
     return (
         <>
@@ -39,6 +37,8 @@ export default function App() {
 
                         <Route path="designers/:designerId/reservations" element={<Reservation />} />
                         <Route path= "/users/reservation-histories" element = {<ReservationHistories />}/>
+
+                        {/* <Route path="/shops" element={<ShopRegistration/>}/> */}
                         
                     </Route>
                 </Route>
