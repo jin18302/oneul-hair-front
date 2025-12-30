@@ -7,6 +7,8 @@ export default function MenuView({ designerId, setMenu}
 : { designerId : string | undefined, setMenu : (menuId:number) => void }
 ){
 
+     console.log("MenuView rendering");
+
     const [categoryList] = useState<string[]>(["CUT", "PARM", "COLOR", "CLINIC", "DRY", "SET", "EVENT"]);
     const [selectCategory, setSelectCategory] = useState<string>(categoryList[0]);
     const [menuList, setMenuList] = useState<ServiceMenuRes[]>([]);
@@ -16,7 +18,7 @@ export default function MenuView({ designerId, setMenu}
     useEffect(() => {
 
         const menuApiHandler = async () => {
-            const response = await axiosInstance.get(`/designers/${designerId}/service-menus`,
+            const response = await axiosInstance.get(`/auth/designers/${designerId}/service-menus`,
                 { params: { category: selectCategory } });
 
             setMenuList(response.data);
