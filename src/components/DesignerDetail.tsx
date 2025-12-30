@@ -6,6 +6,7 @@ import type { DesignerDetail } from "../types/DesignerDetail";
 export default function DesignerDetail() {
 
     const { designerId } = useParams();
+    const navigate = useNavigate();
 
     const detailInit = {
         id: 0,
@@ -15,17 +16,16 @@ export default function DesignerDetail() {
         introduction: "",
         imageUrlList: [],
         snsUrlList: []
-    }
+    };
 
     const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(detailInit);
     const [isLoding, setIsLoding] = useState<boolean>(true);
 
+    
     useEffect(() => {
 
         const apiHandler = async () => {
-
-            console.log("designer-detail loding");
-            const response = await axiosInstance.get<DesignerDetail>(`/designers/${designerId}`);
+            const response = await axiosInstance.get<DesignerDetail>(`/auth/designers/${designerId}`);
 
             setDesignerDetail(response.data);
             setIsLoding(false);
@@ -35,7 +35,7 @@ export default function DesignerDetail() {
 
     }, []);
 
-    const navigate = useNavigate();
+
     const reservationButtonHandler = () => { navigate(`/designers/${designerId}/reservations`); };
 
 
@@ -51,7 +51,6 @@ export default function DesignerDetail() {
                         <p>{designerDetail?.introduction}</p>
                         <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button></div>
                 }
-
             </div>
 
         </>
