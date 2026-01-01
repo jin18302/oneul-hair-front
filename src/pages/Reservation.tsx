@@ -4,22 +4,19 @@ import DateTimeSlot from "../components/reservationElement/DateTimeSlot";
 import { useNavigate, useParams } from "react-router";
 import MenuView from "../components/MenuView";
 import { axiosInstance } from "../AxiosInstance";
-import { HttpStatusCode } from "axios";
+import { HttpStatusCode, isAxiosError } from "axios";
+import type { Reservation } from "../types/Reservaton";
 
 export default function Reservation() {
 
-
      console.log("Reservation rendering");
 
-     const navigator = useNavigate();
-
+    const navigator = useNavigate();
     const { designerId } = useParams();
+
     const [ date, setDate ] = useState<string>("");
     const [ timeSlot, setTimeSlot ] = useState<string>();
     const [ menu, setMenu ] = useState<number | null>(null);
-
-
-    //값과 함수들을 메모제이션
 
     const reservationHandler = async() => {
 
@@ -36,12 +33,19 @@ export default function Reservation() {
             navigator("/auth/sign-in");
         }
 
-        const response = await axiosInstance.post(`/designers/${designerId}/reservations`, 
+        try{
+             const response = await axiosInstance.post<Reservation>(`/designers/${designerId}/reservations`, 
             requestBody,
             { headers: { 'Authorization': token }});
 
         if( response.status === HttpStatusCode.Created ){
-            console.log("예약 성공", response.data);
+            navigator(`/reseration-success/${response.data.id}`);
+        }
+
+        }catch(e: unknown){
+            if(isAxiosError(e)){
+                alert(e.response?.data?.errorMessage ?? "예약중 오류가 발생했습니다. 다시 시도해주세요");
+            }
         }
     }
 
