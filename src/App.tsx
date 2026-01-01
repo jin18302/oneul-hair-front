@@ -11,6 +11,7 @@ import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
 import UserInfo from "./pages/UserInfo";
 import ReservationHistories from "./pages/ReservationHistories";
+import ReservationSuccess from "./pages/ReservationSuccess";
 
 export default function App() {
 
@@ -34,7 +35,8 @@ export default function App() {
                         <Route path="designers/:designerId" element={<DesignerDetail />} />
 
                         <Route path="designers/:designerId/reservations" element={<Reservation />} />
-                        <Route path= "/users/reservation-histories" element = {<ReservationHistories />}/>
+                        <Route path= "users/reservation-histories" element = {<ReservationHistories />}/>
+                        <Route path = "reseration-success/:reservationId" element = {<ReservationSuccess />}/>
 
                         {/* <Route path="/shops" element={<ShopRegistration/>}/> */}
                         
