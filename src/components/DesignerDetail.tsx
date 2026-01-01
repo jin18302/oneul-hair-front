@@ -36,7 +36,16 @@ export default function DesignerDetail() {
     }, []);
 
 
-    const reservationButtonHandler = () => { navigate(`/designers/${designerId}/reservations`); };
+    const reservationButtonHandler = () => { 
+        const token = localStorage.getItem("token");
+
+        if(token == null){
+            alert("해당 서비스는 로그인 후 가능합니다.");
+            navigate("/auth/sign-in");
+        }
+       
+        navigate(`/designers/${designerId}/reservations`);
+     };
 
 
     if (isLoding) { return <div>로딩중입니다...</div> };
