@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router";
-import "../styles/AuthButton.css";
+import "../../styles/AuthButton.css";
 
 
 export default function AuthButton(){
+
+    console.log("AuthButton rendering")
 
     const nav = useNavigate();
 
