@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../AxiosInstance";
 import type { ServiceMenuRes } from "../types/ServiceMenuRes";
 import "../styles/MenuView.css"
+import React from "react";
 
-export default function MenuView({ designerId, setMenu} 
+ function MenuView({ designerId, setMenu} 
 : { designerId : string | undefined, setMenu : (menuId:number) => void }
 ){
 
      console.log("MenuView rendering");
 
-    const [categoryList] = useState<string[]>(["CUT", "PARM", "COLOR", "CLINIC", "DRY", "SET", "EVENT"]);
-    const [selectCategory, setSelectCategory] = useState<string>(categoryList[0]);
+    const [ categoryList ] = useState<string[]>(["CUT", "PARM", "COLOR", "CLINIC", "DRY", "SET", "EVENT"]);
+    const [selectCategory, setSelectCategory] = useState<string>("CUT");
     const [menuList, setMenuList] = useState<ServiceMenuRes[]>([]);
 
     const [isLoding, setIsLoding] = useState<boolean>(true);
@@ -22,9 +23,10 @@ export default function MenuView({ designerId, setMenu}
                 { params: { category: selectCategory } });
 
             setMenuList(response.data);
+            setIsLoding(false);
         }
         menuApiHandler();
-        setIsLoding(false);
+       
 
     }, [selectCategory]);
 
@@ -57,3 +59,5 @@ export default function MenuView({ designerId, setMenu}
         </>
     )
 }
+
+export default React.memo(MenuView);
