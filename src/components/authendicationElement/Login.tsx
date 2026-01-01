@@ -1,9 +1,9 @@
-import { axiosInstance } from "../AxiosInstance";
+import { axiosInstance } from "../../AxiosInstance";
 import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import "../styles/Form.css"
-import { useLoginInfo } from "../hooks/UseLoginInfo";
+import "../../styles/Form.css"
+import { useLoginInfo } from "../../hooks/UseLoginInfo";
 import { useNavigate } from "react-router";
 
 
@@ -11,7 +11,9 @@ import { useNavigate } from "react-router";
 
 export default function Login() {
 
-    const { setIsLogin, setUserName } = useLoginInfo();
+     console.log("Login rendering");
+
+    const { setIsLogin, setUserName } = useLoginInfo(); //TODO
     const navigator = useNavigate();
 
     return (

@@ -1,9 +1,11 @@
 import { AxiosError } from "axios";
-import { axiosInstance } from "../AxiosInstance";
+import { axiosInstance } from "../../AxiosInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
 
 export default function SignUp() {
+
+    console.log("SignUp rendering");
 
     return (
         <>
