@@ -1,5 +1,5 @@
 
-import AuthButton from "../../components/AuthButton"
+import AuthButton from "../../components/authendicationElement/AuthButton"
 import { useLoginInfo } from "../../hooks/UseLoginInfo"
 import MyPage from "../../pages/MyPage";
 import "../../styles/Layout.css"
@@ -13,5 +13,4 @@ export default function Article(){
             {isLoggedIn ? <MyPage />  : <AuthButton />}
         </article>
     )
-
 }

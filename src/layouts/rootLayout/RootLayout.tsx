@@ -7,7 +7,7 @@ import LoginInfoProvider from "../../providers/LoginInfoProvider";
 
 export default function RootLayout() {
 
-
+    console.log("rayout rendering");
 
     return (
         <>
@@ -15,11 +15,10 @@ export default function RootLayout() {
                 <Header />
 
                 <LoginInfoProvider>
-                      <Article />
-                    <Outlet />
+                    <Article />
+                    <Outlet /> {/* main */}
                 </LoginInfoProvider>
-                  
-                {/* main */}
+
                 <Footer />
             </div>
         </>
