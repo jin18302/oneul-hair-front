@@ -1,10 +1,11 @@
+import React from "react";
 import "../../styles/SearchArea.css";
 import AreaFilter from "./area/AreaFllter";
 import SearchButton from "./SearchButton";
 import TagFilter from "./tag/TagFilter";
 
 
-export default function SearchArea() {
+ function SearchArea() {
 
      console.log("SearchArea rendering");
      
@@ -16,3 +17,5 @@ export default function SearchArea() {
             </div>
     )
 }
+
+export default React.memo(SearchArea);
