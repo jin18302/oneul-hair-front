@@ -9,9 +9,9 @@ import Main from "./layouts/rootLayout/Main";
 import RootLayout from "./layouts/rootLayout/RootLayout";
 import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
-import ReservationHistories from "./pages/ReservationHistories";
 import ReservationSuccess from "./pages/ReservationSuccess";
-import UserInfo from "./pages/UserInfo";
+import UserInfo from "./components/myPage/user/UserInfo";
+import ReservationHistories from "./components/myPage/user/ReservationHistories";
 
 export default function App() {
 
@@ -27,8 +27,7 @@ export default function App() {
                             <Route path="sign-in" element={<Login />} />
                             <Route path="sign-up" element={<Register />} />
                         </Route>
-
-
+                        
                         <Route path="/users" element={<UserInfo />} />
 
                         <Route path="search" element={<ShopListView />} />

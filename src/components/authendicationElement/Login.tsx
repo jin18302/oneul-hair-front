@@ -1,10 +1,11 @@
-import { axiosInstance } from "../../AxiosInstance";
 import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from 'yup';
-import "../../styles/Form.css"
-import { useLoginInfo } from "../../hooks/UseLoginInfo";
 import { useNavigate } from "react-router";
+import * as Yup from 'yup';
+import { axiosInstance } from "../../AxiosInstance";
+import "../../styles/Form.css";
+import type { UserRes } from "../../types/UserRes";
+import { userInfoStore } from "../../contexts/userInfoStore";
 
 
 // /auth/sign-in
@@ -13,7 +14,7 @@ export default function Login() {
 
     console.log("Login rendering");
 
-    const { setIsLogin } = useLoginInfo(); //TODO
+    const setUserInfo = userInfoStore(r => r.setUserInfo);
     const navigator = useNavigate();
 
     return (
@@ -30,8 +31,10 @@ export default function Login() {
                     });
 
                     localStorage.setItem("token", response.data.accessToken);
-                    setIsLogin(true);
-                    navigator('/');
+                    
+                    const readRespose = await axiosInstance.get<UserRes>("/users",{ headers: { 'Authorization': response.data.accessToken }})
+                    setUserInfo(readRespose.data);
+                    navigator('/'); //TODO
 
                 } catch (e: unknown) {
 
@@ -43,8 +46,6 @@ export default function Login() {
                     setSubmitting(false);
                     resetForm();
                 }
-
-
             }}
 
             validationSchema={Yup.object().shape({

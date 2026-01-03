@@ -1,16 +1,16 @@
 
 import AuthButton from "../../components/authendicationElement/AuthButton"
-import { useLoginInfo } from "../../hooks/UseLoginInfo"
-import MyPage from "../../pages/MyPage";
+import UserType from "../../components/myPage/UserType";
+import { userInfoStore } from "../../contexts/userInfoStore";
 import "../../styles/Layout.css"
 
 export default function Article(){
 
-    const { isLoggedIn } = useLoginInfo();
+    const isLoggedIn = userInfoStore(s => s.isLoggedIn);
 
     return(
         <article>
-            {isLoggedIn ? <MyPage />  : <AuthButton />}
+            {isLoggedIn ? <UserType />  : <AuthButton />}
         </article>
     )
 }

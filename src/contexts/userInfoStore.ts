@@ -18,5 +18,9 @@ export const userInfoStore = create<UserInfo>((set) => ({
     userRole : "",
 
     setUserInfo: (u : UserRes) => {set({isLoggedIn: true, userName: u.name, userRole: u.userRole})},
-    logOut : () => set({isLoggedIn: false, userName: "", userRole: ""})
-}));
+    logOut : () => {
+        localStorage.removeItem("token");
+        set({isLoggedIn: false, userName: "", userRole: ""}); 
+    } 
+})
+);
