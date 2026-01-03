@@ -2,14 +2,11 @@ import { AxiosError } from "axios";
 import { axiosInstance } from "../../AxiosInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import { useNavigate } from "react-router";
 
-export default function SignUp() {
+export default function SignUp({setRegisterType}:{setRegisterType:(t:string) => void}) {
 
     console.log("SignUp rendering");
-
-    const navigator = useNavigate();
-    const shopRegisterPageHandler = () => {navigator('/shops');}
+    const pageHandler = () => setRegisterType("SHOP")
 
     return (
         <>
@@ -69,7 +66,7 @@ export default function SignUp() {
                     <ErrorMessage name="gender" component=""/>
 
                     <button id = "signup-button" type="submit">회원가입</button>
-                    <button id = "shop-register-button"onClick={shopRegisterPageHandler}>기업 회원가입</button>
+                    <button id = "shop-register-button"onClick={pageHandler}>기업 회원가입</button>
 
                 </Form>
             </Formik>

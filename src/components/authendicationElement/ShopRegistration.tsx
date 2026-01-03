@@ -1,16 +1,14 @@
 import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { axiosInstance } from "../../AxiosInstance";
 import type { ShopDetailRes } from "../../types/ShopDetailRes";
 
-export default function ShopRegistration() {
+export default function ShopRegistration({ setRegisterType }: { setRegisterType: (t: string) => void }) {
 
     console.log("ShopRegistration rendering");
 
-    const navigator = useNavigate();
-
+    const pageHandler = () => setRegisterType("USER")
 
     return (
         <>
@@ -18,11 +16,11 @@ export default function ShopRegistration() {
                 name: "", businessId: "", email: "", password: "", address: "", phoneNumber: "",
                 openTime: "", endTime: "", introduction: "", imageUrlList: "", snsUriList: "", shopTagIdSet: ""
             }}
-                onSubmit={async (data, { setSubmitting, resetForm }) => {
+                onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
 
                     try {
-                        const response = await axiosInstance.post<ShopDetailRes>("/shops", {
+                        await axiosInstance.post<ShopDetailRes>("/auth/shops", {
                             name: data.name,
                             businessId: data.businessId,
                             address: data.address,
@@ -30,11 +28,9 @@ export default function ShopRegistration() {
                             openTime: data.openTime,
                             endTime: data.endTime,
                             introduction: data.introduction,
-                            imageUrlList: data.imageUrlList,
-                            snsUriList: data.snsUriList,
-                            shopTagIdSet: data.shopTagIdSet,
-                            email: data.email,
-                            password: data.password,
+                            imageUrlList: [],
+                            snsUriList: data.snsUriList == "" ? [] : data.snsUriList.split(","),
+                            shopTagIdSet: [],
                             ownerSignUpRequest: {
                                 name: data.name,
                                 email: data.email,
@@ -45,8 +41,7 @@ export default function ShopRegistration() {
                             }
                         });
 
-                        navigator(`/shops-success/${response.data.id}`);
-
+                        alert("등록이 완료되었습니다.");
 
                     } catch (e: unknown) {
 
@@ -56,7 +51,7 @@ export default function ShopRegistration() {
                         }
                     } finally {
                         setSubmitting(false);
-                        resetForm();
+                        // resetForm();
                     }
                 }}
 
@@ -70,12 +65,9 @@ export default function ShopRegistration() {
                         .required("비밀번호는 필수 입력 요소입니다."),
                     address: Yup.string().required(),//TODO 주소 api 호출 
                     phoneNumber: Yup.string().matches(/^\d{2,3}-\d{3,4}-\d{4}$/).required(),
-                    openTime: Yup.string().required(), //TODO 시간 설정 ui제공
+                    openTime: Yup.string().required(),
                     endTime: Yup.string().required(),
                     introduction: Yup.string().required(),
-                    imageUrlList: Yup.string().required(),
-                    snsUriList: Yup.string().required(),
-                    shopTagIdSet: Yup.string().required() //커서를 이 칸에 두면 모든 태그 조회 api 호출
                 })}
             >
                 <Form className="form">
@@ -103,7 +95,7 @@ export default function ShopRegistration() {
                     <Field className="input-field" name="endTime" type="time" placeholder="endTime:" />
                     <ErrorMessage name="endTime" component="" />
 
-                    <Field className="input-field" name="introduction" type="text" placeholder="introduction:" />
+                    <Field className="input-field" as="textarea" name="introduction" type="text" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="" />
 
                     <Field className="input-field" name="imageUrlList" type="file" placeholder="imageUrlList:" />
@@ -112,10 +104,8 @@ export default function ShopRegistration() {
                     <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
                     <ErrorMessage name="snsUriList" component="" />
 
-                    <Field className="input-field" name="shopTagIdSet" type="checkbox" placeholder="shopTagIdSet:" />
-                    <ErrorMessage name="shopTagIdSet" component="" />
-
-                    <button id = "shop-register-button" > 등록 </button>
+                    <button id="shop-register-button" > 등록 </button>
+                    <button onClick={pageHandler}>일반 회원가입</button>
                 </Form>
             </Formik>
         </>

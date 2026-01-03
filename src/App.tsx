@@ -1,18 +1,17 @@
 import { Route, Routes } from "react-router";
 import DesignerDetail from "./components/DesignerDetail";
 import Init from "./components/Init";
-import Login from "./components/authendicationElement/Login";
 import ShopDetail from "./components/ShopDetail";
 import ShopListView from "./components/ShopListView";
-import SignUp from "./components/authendicationElement/Signup";
+import Login from "./components/authendicationElement/Login";
+import Register from "./components/authendicationElement/Register";
 import Main from "./layouts/rootLayout/Main";
 import RootLayout from "./layouts/rootLayout/RootLayout";
 import Authendication from "./pages/Authendication";
 import Reservation from "./pages/Reservation";
-import UserInfo from "./pages/UserInfo";
 import ReservationHistories from "./pages/ReservationHistories";
 import ReservationSuccess from "./pages/ReservationSuccess";
-import ShopRegistration from "./components/authendicationElement/ShopRegistration";
+import UserInfo from "./pages/UserInfo";
 
 export default function App() {
 
@@ -26,9 +25,7 @@ export default function App() {
                         {/* 로그인, 회원가입 관련 */}
                         <Route element={<Authendication />}>
                             <Route path="sign-in" element={<Login />} />
-                            <Route path="sign-up" element={<SignUp />} />
-                            <Route path="shops" element={<ShopRegistration />} />
-                            {/* 기업 회원가입 */}
+                            <Route path="sign-up" element={<Register />} />
                         </Route>
 
 
