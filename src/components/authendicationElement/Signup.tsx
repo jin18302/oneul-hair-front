@@ -2,16 +2,20 @@ import { AxiosError } from "axios";
 import { axiosInstance } from "../../AxiosInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
+import { useNavigate } from "react-router";
 
 export default function SignUp() {
 
     console.log("SignUp rendering");
 
+    const navigator = useNavigate();
+    const shopRegisterPageHandler = () => {navigator('/shops');}
+
     return (
         <>
             <Formik initialValues={{
                 name: "", email: "", password: "",
-                phoneNumber: "", gender: "", userRole: ""
+                phoneNumber: "", gender: "", 
             }}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
@@ -23,7 +27,7 @@ export default function SignUp() {
                             password: data.password,
                             phoneNumber: data.phoneNumber,
                             gender: data.gender,
-                            userRole: data.userRole
+                            userRole: "CUSTOMER"
                         })
                         alert("회원가입이 완료되었습니다.")
                     } catch (e) {
@@ -48,26 +52,24 @@ export default function SignUp() {
                 })}
             >
 
-                <Form className="signup-form">
+                <Form className="form">
                     <Field className="input-field" name="name" type="text" placeholder="name:" />
-                    <ErrorMessage name="name" component={"div"}/>
+                    <ErrorMessage name="name" component=""/>
 
                     <Field className="input-field" name="email" type="email" placeholder="email:" />
-                    <ErrorMessage name="email" component={"div"}/>
+                    <ErrorMessage name="email" component=""/>
 
                     <Field className="input-field" name="password" type="password" placeholder="password:" />
-                    <ErrorMessage name="password" component={"div"}/>
+                    <ErrorMessage name="password" component=""/>
 
                     <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
-                    <ErrorMessage name="password" component={"div"}/>
+                    <ErrorMessage name="phoneNumber" component=""/>
 
                     <Field className="input-field" name="gender" type="text" placeholder="gender" />
-                    <ErrorMessage name="gender" component={"div"}/>
+                    <ErrorMessage name="gender" component=""/>
 
-                    <Field className="input-field" name="userRole" type="text" placeholder="userRole" />
-                    <ErrorMessage name="userRole" component={"div"}/>
-
-                    <button id = "signup" type="submit">회원가입</button>
+                    <button id = "signup-button" type="submit">회원가입</button>
+                    <button id = "shop-register-button"onClick={shopRegisterPageHandler}>기업 회원가입</button>
 
                 </Form>
             </Formik>

@@ -7,15 +7,16 @@
     border: none;
 }
 
-.login-button {
+#login-button {
+    
     width: 400px;
     height: 50px;
+
     box-sizing: border-box;
     display: block;
-    margin-bottom: 10px;
-}
 
-#login {
+    margin-bottom: 10px;
+    margin-top: 10px;
     background-color: #3DADFF;
 }
 
@@ -27,7 +28,7 @@
     background-color: #66D575;
 }
 
-#signup{
+#signup-button{
     width: 400px;
     height: 50px;
     box-sizing: border-box;
@@ -35,17 +36,28 @@
     margin-bottom: 10px;
     background-color: #3DADFF;
 }
-.login-form {
+
+#shop-register-button{
+    width: 400px;
+    height: 50px;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #b4dbf7;
+
+}
+
+#shop-register-button{
+    width: 400px;
+    height: 50px;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #3DADFF;
+}
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
-.signup-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
