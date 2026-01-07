@@ -1,6 +1,9 @@
-import { userInfoStore } from "../../../contexts/userInfoStore"
+import { useNavigate } from "react-router";
+import { userInfoStore } from "../../../contexts/userInfoStore";
 
 export default function ShopOwnerMyPage() {
+
+    const navigator = useNavigate();
 
     const userName = userInfoStore(s => s.userName);
     const logOut = userInfoStore(s => s.logOut);
@@ -12,7 +15,7 @@ export default function ShopOwnerMyPage() {
                 <button onClick={() => logOut()}>로그아웃</button>
             </div>
 
-            <div>shop 정보관리</div>
+            <div onClick={() => navigator("/my/shops")}>shop 정보관리</div>
             <div>스케줄 관리</div>
             <div>디자이너 관리</div>
 
