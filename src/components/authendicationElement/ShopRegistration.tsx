@@ -3,23 +3,59 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
 import { axiosInstance } from "../../AxiosInstance";
 import type { ShopDetailRes } from "../../types/ShopDetailRes";
+import { useEffect, useState } from "react";
+import type { ShopTag } from "../../types/ShopTag";
 
 export default function ShopRegistration({ setRegisterType }: { setRegisterType: (t: string) => void }) {
 
     console.log("ShopRegistration rendering");
 
-    const pageHandler = () => setRegisterType("USER")
+    const [shopTagList, setShopTagList] = useState<ShopTag[]>([]);
+    const [selectTagIdList, setSelectTagIdList] = useState<number[]>([]);
+    const [isLoding, setIsLoding] = useState<boolean>(true);
+  
+    useEffect(() => {
+
+        const shopTagApiHandler = async() => {
+            try{
+                 const respone = await axiosInstance.get("/auth/shop-tags");
+                 setShopTagList(respone.data);
+                 setIsLoding(false);
+            }catch(e: unknown){
+
+                if(isAxiosError(e)){
+                    throw Error("데이터 로드 중 오류 발생");
+                }
+            }
+        };
+
+        shopTagApiHandler();
+    },[]);
+
+      const pageHandler = () => setRegisterType("USER");
+
+      const checkHandler = (e: React.ChangeEvent<HTMLInputElement>, newTag: ShopTag) => { 
+        if(e.target.checked){
+            setSelectTagIdList((prev) => [...prev, newTag.id]);
+        }else{
+           setSelectTagIdList(selectTagIdList.filter(t => t != newTag.id));
+        }
+    }
 
     return (
         <>
+        {!isLoding && 
+        <div className="form-container">
             <Formik initialValues={{
                 name: "", businessId: "", email: "", password: "", address: "", phoneNumber: "",
                 openTime: "", endTime: "", introduction: "", imageUrlList: "", snsUriList: "", shopTagIdSet: ""
             }}
-                onSubmit={async (data, { setSubmitting }) => {
+                onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
                     try {
+
+                        console.log("imageList", data.imageUrlList);
                         await axiosInstance.post<ShopDetailRes>("/auth/shops", {
                             name: data.name,
                             businessId: data.businessId,
@@ -30,7 +66,7 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                             introduction: data.introduction,
                             imageUrlList: [],
                             snsUriList: data.snsUriList == "" ? [] : data.snsUriList.split(","),
-                            shopTagIdSet: [],
+                            shopTagIdSet: selectTagIdList,
                             ownerSignUpRequest: {
                                 name: data.name,
                                 email: data.email,
@@ -51,7 +87,7 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                         }
                     } finally {
                         setSubmitting(false);
-                        // resetForm();
+                        resetForm();
                     }
                 }}
 
@@ -98,16 +134,32 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                     <Field className="input-field" as="textarea" name="introduction" type="text" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="" />
 
-                    <Field className="input-field" name="imageUrlList" type="file" placeholder="imageUrlList:" />
+                    <Field className="input-field" name="imageUrlList" type="file" m placeholder="imageUrlList:" />
                     <ErrorMessage name="imageUrlList" component="" />
 
                     <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
                     <ErrorMessage name="snsUriList" component="" />
 
-                    <button id="shop-register-button" > 등록 </button>
+                    <div>
+                        <h2>shopTag list</h2>
+                        {shopTagList.map(tag => (
+                            <>
+                             <input type="checkBox" id = {tag.name}
+                              checked={selectTagIdList.includes(tag.id)}
+                              onChange={(e) => checkHandler(e, tag)}
+                              />
+                              <label htmlFor={tag.name}>{tag.name}</label>
+                                <br/>
+                            </>
+                        ))}
+                    </div>
+                    
+                    <button type="submit" id="shop-register-button" > 등록 </button>
                     <button onClick={pageHandler}>일반 회원가입</button>
                 </Form>
             </Formik>
+        </div>
+    }
         </>
     )
 }
