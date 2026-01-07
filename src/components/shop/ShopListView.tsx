@@ -1,9 +1,9 @@
 import { useNavigate, useSearchParams } from "react-router";
-import type { CursorPageResponse } from "../types/CursorPageResponse";
-import type { ShopSummaryResponse } from "../types/ShopSummaryReponse";
+import type { CursorPageResponse } from "../../types/CursorPageResponse";
+import type { ShopSummaryResponse } from "../../types/ShopSummaryReponse";
 import { useEffect, useState } from "react";
-import "../styles/SearchShopView.css"
-import { axiosInstance } from "../AxiosInstance";
+import "../../styles/SearchShopView.css"
+import { axiosInstance } from "../../AxiosInstance";
 
 
 export default function ShopListView() {

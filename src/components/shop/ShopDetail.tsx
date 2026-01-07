@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../AxiosInstance";
-import type { ShopDetailRes } from "../types/ShopDetailRes";
-import type DesignerSummaryRes from "../types/DesignerSummaryRes";
-import "../styles/ShopDetail.css"
-import type { ShopDetailState } from "../types/ShopDetailState";
+import { axiosInstance } from "../../AxiosInstance";
+import type { ShopDetailRes } from "../../types/ShopDetailRes";
+import type DesignerSummaryRes from "../../types/DesignerSummaryRes";
+import "../../styles/ShopDetail.css"
+import type { ShopDetailState } from "../../types/ShopDetailState";
 
 export default function ShopDetail() {
 

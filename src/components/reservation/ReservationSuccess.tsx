@@ -1,10 +1,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
-import { axiosInstance } from "../AxiosInstance";
-import { reservationInit, type Reservation } from "../types/Reservaton";
 
-import "../styles/ReservationSuccess.css"
+
+import "../../styles/ReservationSuccess.css"
+import { axiosInstance } from "../../AxiosInstance";
+import { reservationInit, type Reservation } from "../../types/Reservaton";
 
 export default function ReservationSuccess() {
 

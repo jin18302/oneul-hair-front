@@ -1,11 +1,11 @@
 import { NavLink, Outlet } from "react-router";
-import "../styles/Authendication.css"
+import "../../styles/Authendication.css"
 
 export default function Authendication() {
 
     return (
         <>
-            <div className="container">
+            <div className="form-container">
 
                 <NavLink to="sign-up" className={({isActive}) => isActive ? "active" : "notActive"}>
                     <div className="page-button">회원가입</div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../AxiosInstance";
-import type { DesignerDetail } from "../types/DesignerDetail";
+import { axiosInstance } from "../../AxiosInstance";
+import type { DesignerDetail } from "../../types/DesignerDetail";
+
 
 export default function DesignerDetail() {
 

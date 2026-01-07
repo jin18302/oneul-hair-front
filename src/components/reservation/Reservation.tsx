@@ -1,11 +1,14 @@
-import {useState } from "react";
-import Calendar from "../components/reservationElement/Calendar";
-import DateTimeSlot from "../components/reservationElement/DateTimeSlot";
-import { useNavigate, useParams } from "react-router";
-import MenuView from "../components/MenuView";
-import { axiosInstance } from "../AxiosInstance";
+
 import { HttpStatusCode, isAxiosError } from "axios";
-import type { Reservation } from "../types/Reservaton";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { axiosInstance } from "../../AxiosInstance";
+import MenuView from "../MenuView";
+import DateTimeSlot from "../reservationElement/DateTimeSlot";
+import type { Reservation } from "../../types/Reservaton";
+import Calendar from "../reservationElement/Calendar";
+
+
 
 export default function Reservation() {
 
