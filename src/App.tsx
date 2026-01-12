@@ -14,6 +14,10 @@ import Reservation from "./components/reservation/Reservation";
 import ReservationSuccess from "./components/reservation/ReservationSuccess";
 import OwnerShopDetail from "./components/shop/OwnerShopDetail";
 import ShopDetailEdit from "./components/shop/ShopDetailEdit";
+import DesignerRegister from "./components/designer/DesignerRegister";
+import DesignerManagement from "./components/designer/DesignerManagement";
+import Menu from "./components/menu/Menu";
+import DesignerEdit from "./components/designer/DesignerEdit";
 
 export default function App() {
 
@@ -34,10 +38,15 @@ export default function App() {
 
                         <Route path="search" element={<ShopListView />} />
                         <Route path="my/shops" element={<OwnerShopDetail />} />
-                        <Route path="shops/:shopId" element={<ShopDetail />} />
+                        <Route path="shops/detail/:shopId" element={<ShopDetail />} />
                         <Route path="shops/:shopId/edit" element={<ShopDetailEdit />} />
 
                         <Route path="designers/:designerId" element={<DesignerDetail />} />
+                        <Route path="my/designers/management"  element={<DesignerManagement/>}/>
+                        <Route path = "my/shops/designers" element={<DesignerRegister/>}/>
+                        <Route path = "designers/:designerId/edit" element={<DesignerEdit/>}/>
+
+                        <Route path="designers/:designerId/menus" element={<Menu/>}/>
 
                         <Route path="designers/:designerId/reservations" element={<Reservation />} />
                         <Route path="users/reservation-histories" element={<ReservationHistories />} />
