@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../../AxiosInstance";
-import type { DesignerDetail } from "../../types/DesignerDetail";
+import { userInfoStore } from "../../contexts/userInfoStore";
+import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
+import MenuView from "../MenuView";
 
 
 export default function DesignerDetail() {
 
     const { designerId } = useParams();
-    const navigate = useNavigate();
+    const userType = userInfoStore(r => r.userRole);
+    const navigator = useNavigate();
 
-    const detailInit = {
-        id: 0,
-        shopId: 0,
-        name: "",
-        profileImage: "",
-        introduction: "",
-        imageUrlList: [],
-        snsUrlList: []
-    };
-
-    const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(detailInit);
+    const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(designerDetailInit);
     const [isLoding, setIsLoding] = useState<boolean>(true);
 
-    
+
     useEffect(() => {
 
         const apiHandler = async () => {
@@ -37,16 +30,18 @@ export default function DesignerDetail() {
     }, []);
 
 
-    const reservationButtonHandler = () => { 
+    const reservationButtonHandler = () => {
         const token = localStorage.getItem("token");
 
-        if(token == null){
+        if (token == null) {
             alert("해당 서비스는 로그인 후 가능합니다.");
-            navigate("/auth/sign-in");
+            navigator("/auth/sign-in");
         }
-       
-        navigate(`/designers/${designerId}/reservations`);
-     };
+
+        navigator(`/designers/${designerId}/reservations`);
+    };
+
+    const editPageHandler = () => { navigator(`/designers/${designerId}/edit`) };
 
 
     if (isLoding) { return <div>로딩중입니다...</div> };
@@ -56,11 +51,17 @@ export default function DesignerDetail() {
 
             <div className="designer-detail">
 
-                {!isLoding &&
-                    <div> <div className="images"> profile-image</div>
-                        <p>{designerDetail?.introduction}</p>
-                        <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button></div>
-                }
+
+                <div className="designer-profile">
+                    <div className="images"> profile-image</div>
+                    <p>{designerDetail.name}</p>
+                    <p>{designerDetail?.introduction}</p>
+                    {userType == "OWNER" && <button onClick={editPageHandler}>프로필 수정</button>}
+                </div>
+
+                <MenuView designerId={designerId}/>
+
+                {userType == "USER" && <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>}
             </div>
 
         </>
