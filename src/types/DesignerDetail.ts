@@ -8,3 +8,14 @@ export interface DesignerDetail {
     imageUrlList: string[];
     snsUrlList: string[];
 }
+
+export const designerDetailInit = 
+ {
+    id: 0,
+    shopId: 0,
+    name:"",
+    profileImage:"",
+    introduction: "",
+    imageUrlList: [],
+    snsUrlList: []
+}
