@@ -1,0 +1,41 @@
+.menu-container {
+    grid-row: 1/12;
+    grid-column: 1/12;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    text-align: center;
+
+    width: 800px;
+    border: 1px solid black;
+}
+
+.category-container {
+    display: flex;
+
+    width: 800px;
+    border: 1px solid black;
+}
+
+.menu-register-container{
+    width: 700px;
+    border: 1px solid black;
+
+}
+
+.category-element {
+
+    flex-grow: 1;
+
+    border: 1px solid black;
+    display: inline-block;
+}
+
+.menu-element {
+
+    width: 800px;
+    border: 1px solid black;
+}
+
