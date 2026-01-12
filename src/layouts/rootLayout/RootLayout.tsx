@@ -3,7 +3,6 @@ import "../../styles/Layout.css"
 import Header from "./Header";
 import Article from "./Article";
 import Footer from "./Footer";
-import LoginInfoProvider from "../../providers/LoginInfoProvider";
 
 export default function RootLayout() {
 
@@ -13,12 +12,8 @@ export default function RootLayout() {
         <>
             <div className="layout-container">
                 <Header />
-
-                <LoginInfoProvider>
-                    <Article />
-                    <Outlet /> {/* main */}
-                </LoginInfoProvider>
-
+                <Article />
+                <Outlet /> {/* main */}
                 <Footer />
             </div>
         </>
