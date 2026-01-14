@@ -1,53 +1,85 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from 'yup';
-import type { requestType } from "./Menu";
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { axiosInstance } from "../../AxiosInstance";
 import "../../styles/Menu.css";
+import MenuRegisterModal from "./MenuRegisterModal";
 
-export default function MenuRegister({ selectCategory, setRequest, setIsShowModal }
-    : { selectCategory: string, setRequest: Dispatch<SetStateAction<requestType[]>>, setIsShowModal: (b: boolean) => void }
-) {
+export type requestType = {
+    category: string,
+    name: string,
+    price: number,
+    introduction: string
+};
+
+export default function MenuRegister() {
+
+    console.log("Menu rendering");
+
+    const { designerId } = useParams();
+    const navigator = useNavigate();
+
+    const [categoryList, setCategoryList] = useState<string[]>([]);
+    const [selectCategory, setSelectCategory] = useState<string>("CUT") //분리 고려
+    const [isShowModal, setIsShowModal] = useState<boolean>(false);
+    const [requestList, setRequest] = useState<requestType[]>([]);
+
+    useEffect(() => {
+
+        const categoryApiHandler = async () => {
+
+            const response = await axiosInstance.get<string[]>('/auth/menu-categories');
+            setCategoryList(response.data);
+            setSelectCategory(response.data[0]);
+        }
+
+        categoryApiHandler();
+    }, []);
+
+
+    const menuRegisterHanelr = () => { setIsShowModal(true) }
+    const categoryChangeHandler = (c: string) => { setSelectCategory(c); }
+
+    const submitHandler = async () => {
+
+        if (requestList.length == 0) {
+            alert("하나 이상의 메뉴를 등록해야합니다.");
+        }
+
+        const token = localStorage.getItem("token");
+        await axiosInstance.post(`/designers/${designerId}/service-menus`,
+            requestList, { headers: { 'Authorization': token } })
+
+        alert("등록이 완료되었습니다.");
+        navigator("/my/designers/management");
+    }
+
 
     return (
-        <div className="menu-register-container">
-            <Formik initialValues={{ name: "", price: "", introduction: "" }}
-             
-             onSubmit={async (data, { setSubmitting, resetForm }) => {
+        <div>
+            <div className="menu-container">
+                <div className="category-container">
+                    {categoryList.map(c => (
+                        <div className="category-element" onClick={() => categoryChangeHandler(c)} key={c}>{c}</div>
+                    ))}
+                </div>
 
-                    setSubmitting(true);
+                <div className="menu-list">
+                    {requestList.filter(r => r.category == selectCategory).map(m =>
+                        <div className="menu-element" key={m.name}>
+                            {m.name}<br />
+                            {m.price}<br />
+                            {m.introduction}
+                        </div>)}
+                </div>
 
-                    const request = {
-                        category: selectCategory,
-                        name: data.name,
-                        price: Number(data.price),
-                        introduction: data.introduction 
-                    };
+                {isShowModal &&
+                    <MenuRegisterModal
+                        selectCategory={selectCategory} setRequest={setRequest} setIsShowModal={setIsShowModal} />
+                }
 
-                    setRequest(prev => [...prev, request]);
-                    setIsShowModal(false);
-                    resetForm();
-                }}
-
-                validationSchema={Yup.object().shape({
-                    name: Yup.string().required(),
-                    price: Yup.string().required(),
-                    introduction: Yup.string().required()
-
-                })}
-            >
-                <Form className="form">
-                    <Field className="input-field" name="name" type="name" placeholder="name:" />
-                    <ErrorMessage name="name" component="" />
-
-
-                    <Field className="input-field" name="price" type="text" placeholder="price:" />
-                    <ErrorMessage name="price" component="" />
-
-                    <Field className="input-field" name="introduction" type="text" placeholder="introduction:" />
-                    <ErrorMessage name="introduction" component="" />
-
-                    <button type="submit"> 완료 </button>
-                </Form>
-            </Formik>
-        </div>)
+                <button onClick={menuRegisterHanelr}>추가</button>
+            </div>
+            <button type="submit" onClick={submitHandler}>등록</button>
+        </div>
+    )
 }
