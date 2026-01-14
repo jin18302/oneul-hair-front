@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../../AxiosInstance";
 import { userInfoStore } from "../../contexts/userInfoStore";
 import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
-import MenuView from "../MenuView";
+import MenuListView from "../menu/MenuListView";
 
 
 export default function DesignerDetail() {
@@ -50,18 +50,18 @@ export default function DesignerDetail() {
         <>
 
             <div className="designer-detail">
-
-
                 <div className="designer-profile">
                     <div className="images"> profile-image</div>
                     <p>{designerDetail.name}</p>
                     <p>{designerDetail?.introduction}</p>
-                    {userType == "OWNER" && <button onClick={editPageHandler}>프로필 수정</button>}
                 </div>
+                {
+                    userType == "OWNER"
+                        ? <button onClick={editPageHandler}>프로필 수정</button>
+                        : <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>
+                }
 
-                <MenuView designerId={designerId}/>
-
-                {userType == "USER" && <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>}
+                <MenuListView designerId={Number(designerId)} menuClickFuntion = {undefined}/>
             </div>
 
         </>
