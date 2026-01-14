@@ -1,6 +1,6 @@
-import { userInfoStore } from "../../contexts/userInfoStore";
-import ShopOwnerMyPage from "./owner/ShopOwnerMyPage";
-import UserMyPage from "./user/UserMyPage";
+import { userInfoStore } from "../../../contexts/userInfoStore";
+import ShopOwnerMyPage from "../owner/ShopOwnerMyPage";
+import UserMyPage from "./UserMyPage";
 
 export default function UserType(){
 
