@@ -14,7 +14,7 @@ import { shopDetailInit, type ShopDetailRes } from "../../types/ShopDetailRes";
 
 export default function Schedule() {
 
-    const [date, setDate] = useState(DateFommater({ date: new Date() }));
+    const [date, setDate] = useState<string>(DateFommater({date: new Date}));
     const [resourceList, setResourceList] = useState<ResourceInput[]>();
     const [eventList, setEventList] = useState<EventInput[]>();
     const [shopDetail, setShopDetail] = useState<ShopDetailRes>(shopDetailInit);
@@ -52,25 +52,20 @@ export default function Schedule() {
             setIsLoading(false);
         }
         apiHanelr();
-    }, []);
+    }, [date]);
 
-
-
-    if (isLoading) {
-        return <div>Loading...</div>
-    } else {
-        console.log("resourceList", resourceList);
-        console.log("eventList", eventList);
-    }
+    if (isLoading) {return <div>Loading...</div>}
 
     return (
         <div className="shop-schedule-container">
             <FullCalendar height={500} contentHeight={500}
                 plugins={[dayGridPlugin, interactionPlugin, resourceTimelinePlugin]}
                 initialView="resourceTimeline"
+
                 resourceAreaHeaderContent="designers"
                 resourcesInitiallyExpanded={false}
 
+                datesSet={(info) => {setDate(DateFommater({date: info.start}))}}
                 slotMinTime={shopDetail.openTime}
                 slotMaxTime={shopDetail.endTime}
                 slotDuration={{ minute: 30 }}

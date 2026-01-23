@@ -6,7 +6,7 @@ import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction"
 import { axiosInstance } from '../../AxiosInstance';
 import type { DayOffResponse } from '../../types/DayOffResponse';
 import React from 'react';
-import DateFommater from '../../hooks/DateFomatter';
+import  { DateFommater, getMonth } from '../../hooks/DateFomatter';
 import type { DayCellContentArg } from '@fullcalendar/core/index.js';
 
 export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined }) {
@@ -66,6 +66,8 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
         <FullCalendar height={500} contentHeight={500}
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
+
+          datesSet={(info) => setMonth(getMonth(info.start))}
           dateClick={(arg) => dateClickHandler(arg)}
           dayCellClassNames={(arg) => classNameHandler(arg)}
         /> //fullCalendar
