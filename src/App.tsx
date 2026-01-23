@@ -1,23 +1,24 @@
 import { Route, Routes } from "react-router";
-import Init from "./components/common/Init";
-import ShopDetail from "./components/shop/ShopDetail";
-import ShopListView from "./components/shop/ShopListView";
+import Authendication from "./components/authendicationElement/Authendication";
 import Login from "./components/authendicationElement/Login";
 import Register from "./components/authendicationElement/Register";
-import Main from "./layouts/rootLayout/Main";
-import RootLayout from "./layouts/rootLayout/RootLayout";
-import Authendication from "./components/authendicationElement/Authendication";
-import UserInfo from "./components/myPage/user/UserInfo";
-import ReservationHistories from "./components/myPage/user/ReservationHistories";
+import Init from "./components/common/Init";
 import DesignerDetail from "./components/designer/DesignerDetail";
+import DesignerEdit from "./components/designer/DesignerEdit";
+import DesignerManagement from "./components/designer/DesignerManagement";
+import DesignerRegister from "./components/designer/DesignerRegister";
+import Menu from "./components/menu/MenuRegister";
+import ReservationHistories from "./components/myPage/user/ReservationHistories";
+import UserInfo from "./components/myPage/user/UserInfo";
 import Reservation from "./components/reservation/Reservation";
 import ReservationSuccess from "./components/reservation/ReservationSuccess";
 import OwnerShopDetail from "./components/shop/OwnerShopDetail";
+import ShopDetail from "./components/shop/ShopDetail";
 import ShopDetailEdit from "./components/shop/ShopDetailEdit";
-import DesignerRegister from "./components/designer/DesignerRegister";
-import DesignerManagement from "./components/designer/DesignerManagement";
-import Menu from "./components/menu/Menu";
-import DesignerEdit from "./components/designer/DesignerEdit";
+import ShopListView from "./components/shop/ShopListView";
+import Main from "./layouts/rootLayout/Main";
+import RootLayout from "./layouts/rootLayout/RootLayout";
+import Schedule from "./components/common/Schedule";
 
 export default function App() {
 
@@ -47,10 +48,11 @@ export default function App() {
                         <Route path = "designers/:designerId/edit" element={<DesignerEdit/>}/>
 
                         <Route path="designers/:designerId/menus" element={<Menu/>}/>
-
+                
                         <Route path="designers/:designerId/reservations" element={<Reservation />} />
                         <Route path="users/reservation-histories" element={<ReservationHistories />} />
                         <Route path="reseration-success/:reservationId" element={<ReservationSuccess />} />
+                        <Route path="/shops/schedules" element={<Schedule/>}/>
 
                     </Route>
                 </Route>

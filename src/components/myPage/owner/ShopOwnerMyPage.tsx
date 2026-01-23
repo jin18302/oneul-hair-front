@@ -16,7 +16,7 @@ export default function ShopOwnerMyPage() {
             </div>
 
             <div onClick={() => navigator("/my/shops")}>shop 정보관리</div>
-            <div>스케줄 관리</div>
+            <div onClick={() => navigator("/shops/schedules")}>스케줄 관리</div>
             <div onClick = {() => navigator("my/designers/management")}>디자이너 관리</div>
         </>
     )

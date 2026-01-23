@@ -1,0 +1,9 @@
+.shop-schedule-container{
+
+    grid-column: 1/12;
+    grid-row: 1/12;
+
+    width: 1000px;
+    height: 800px;
+
+}
