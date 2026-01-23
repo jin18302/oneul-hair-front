@@ -67,7 +67,7 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
 
-          datesSet={(info) => setMonth(getMonth(info.start))}
+          datesSet={(info) => {setMonth(getMonth(info.start)); setDate("");}}
           dateClick={(arg) => dateClickHandler(arg)}
           dayCellClassNames={(arg) => classNameHandler(arg)}
         /> //fullCalendar
