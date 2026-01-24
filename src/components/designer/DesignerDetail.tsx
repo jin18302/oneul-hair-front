@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../../AxiosInstance";
-import { userInfoStore } from "../../contexts/userInfoStore";
+import { getUserInfo } from "../../userInfo";
 import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
 import MenuListView from "../menu/MenuListView";
 
@@ -9,7 +9,7 @@ import MenuListView from "../menu/MenuListView";
 export default function DesignerDetail() {
 
     const { designerId } = useParams();
-    const userType = userInfoStore(r => r.userRole);
+    const userRole = getUserInfo().userRole;
     const navigator = useNavigate();
 
     const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(designerDetailInit);
@@ -56,7 +56,7 @@ export default function DesignerDetail() {
                     <p>{designerDetail?.introduction}</p>
                 </div>
                 {
-                    userType == "OWNER"
+                    userRole == "OWNER"
                         ? <button onClick={editPageHandler}>프로필 수정</button>
                         : <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>
                 }

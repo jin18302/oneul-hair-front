@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { userInfoStore } from "../../contexts/userInfoStore";
 import type { ServiceMenuRes } from "../../types/ServiceMenuRes";
 import MenuEditModal from "./MenuEditModal";
 import "../../styles/MenuView.css"
+import { getUserInfo } from "../../userInfo";
 
 export default function MenuItem({ menuRes, menuClickFuntion}
     : { menuRes: ServiceMenuRes, menuClickFuntion:((n: number) => void) | undefined}) {
@@ -10,7 +10,7 @@ export default function MenuItem({ menuRes, menuClickFuntion}
     const [isEditMode, setEditMode] = useState<boolean>(false);
 
     
-    const userRole = userInfoStore(r => r.userRole);
+    const userRole = getUserInfo().userRole;
     const element = userRole == "OWNER" ? <button onClick={() => setEditMode(true)} >수정</button> : null;
 
     const fun = menuClickFuntion == undefined ? undefined : menuClickFuntion(menuRes.id);

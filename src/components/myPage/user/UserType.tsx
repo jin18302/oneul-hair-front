@@ -1,12 +1,12 @@
-import { userInfoStore } from "../../../contexts/userInfoStore";
+import { getUserInfo } from "../../../userInfo";
 import ShopOwnerMyPage from "../owner/ShopOwnerMyPage";
 import UserMyPage from "./UserMyPage";
 
 export default function UserType(){
 
-    const userType = userInfoStore(s => s.userRole);
+    const userRole = getUserInfo().userRole;
 
-    switch(userType){
+    switch(userRole){
         case "CUSTOMER" : return <div className="my-page-container"><UserMyPage/></div>
         case "OWNER" : return <div className="my-page-container"><ShopOwnerMyPage /></div>
         default : throw new Error("유효하지 않은 userRole입니다.");

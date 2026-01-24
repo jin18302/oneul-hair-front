@@ -1,16 +1,14 @@
 
-import AuthButton from "../../components/authendicationElement/AuthButton"
+import AuthButton from "../../components/authendicationElement/AuthButton";
 import UserType from "../../components/myPage/user/UserType";
-import { userInfoStore } from "../../contexts/userInfoStore";
-import "../../styles/Layout.css"
+import { getIsLoggedIn } from "../../userInfo";
+import "../../styles/Layout.css";
 
 export default function Article(){
-
-    const isLoggedIn = userInfoStore(s => s.isLoggedIn);
-
+    console.log("isLoggedIn", getIsLoggedIn());
     return(
         <article>
-            {isLoggedIn ? <UserType />  : <AuthButton />}
+            {getIsLoggedIn() ? <UserType />  :  <AuthButton />}
         </article>
     )
 }
