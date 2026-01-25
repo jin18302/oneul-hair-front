@@ -3,11 +3,11 @@ import FullCalendar from "@fullcalendar/react";
 import "../../styles/Calendar.css";
 import { useEffect, useState } from 'react';
 import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction";
-import { axiosInstance } from '../../AxiosInstance';
+import { axiosInstance } from '../../utils/axiosInstance';
 import type { DayOffResponse } from '../../types/DayOffResponse';
 import React from 'react';
-import  { DateFommater, getMonth } from '../../hooks/DateFomatter';
 import type { DayCellContentArg } from '@fullcalendar/core/index.js';
+import { getMonth, parseDateToString } from '../../utils/date';
 
 export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined }) {
 
@@ -49,7 +49,7 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
   }
 
   const classNameHandler = (arg: DayCellContentArg) => {
-    const date = DateFommater({ date: arg.date });
+    const date = parseDateToString({ date: arg.date });
 
     if (arg.isPast || isDayOff(date)) { return "disabled-day"; }
     return "";
