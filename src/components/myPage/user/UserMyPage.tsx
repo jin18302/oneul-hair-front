@@ -1,15 +1,17 @@
 
 import { useNavigate } from "react-router";
+import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import "../../../styles/MyPage.css";
-import { getUserInfo } from "../../../userInfo";
 
 
 export default function UserMyPage() {
 
     console.log("UserMyPage rendering");
 
-    const userInfo = getUserInfo();
     const navagator = useNavigate();
+
+     const userName = useLoginInfoStore(s => s.userName);
+        const logOut = useLoginInfoStore(s => s.logOut);
 
     const memberInfoPageHandler = () => { navagator('/users') };
     const reservationHistoryHandler = () => { navagator('/users/reservation-histories') };
@@ -18,8 +20,8 @@ export default function UserMyPage() {
     return (
         <>
             <div className="user-info">
-                <p>{userInfo.userName}님</p>
-                <button>로그아웃</button>
+                <p>{userName}님</p>
+                <button onClick={logOut}>로그아웃</button>
             </div>
 
             <div className="member-info" onClick={memberInfoPageHandler}>나의 정보 확인</div>

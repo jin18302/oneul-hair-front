@@ -2,24 +2,19 @@ import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { axiosInstance } from "../../AxiosInstance";
+import { axiosInstance } from "../../utils/AxiosInstance";
 import "../../styles/Form.css";
+import { setAccessToken } from "../../utils/User";
 import type { UserRes } from "../../types/UserRes";
-import { userInfoStore } from "../../contexts/userInfoStore";
-
-
-// /auth/sign-in
+import { useLoginInfoStore } from "../../contexts/loginInfoStore";
 
 export default function Login() {
 
-    console.log("Login rendering");
-
-    const setUserInfo = userInfoStore(r => r.setUserInfo);
+    console.log("Login rendering")
     const navigator = useNavigate();
+    const setLoginInfo = useLoginInfoStore(s => s.setLoginInfo);
 
     return (
-
-
         <Formik initialValues={{ email: "", password: "" }}
             onSubmit={async (data, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
@@ -29,11 +24,11 @@ export default function Login() {
                         email: data.email,
                         password: data.password
                     });
+                     setAccessToken(response.data.accessToken);
 
-                    localStorage.setItem("token", response.data.accessToken);
-                    
-                    const readRespose = await axiosInstance.get<UserRes>("/users",{ headers: { 'Authorization': response.data.accessToken }})
-                    setUserInfo(readRespose.data);
+                    const readRespose = await axiosInstance.get<UserRes>("/users", { headers: { 'Authorization': response.data.accessToken } })
+                    setLoginInfo(readRespose.data)
+
                     navigator('/'); //TODO
 
                 } catch (e: unknown) {

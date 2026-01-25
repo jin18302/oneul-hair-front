@@ -2,15 +2,15 @@ import { useState } from "react";
 import type { ServiceMenuRes } from "../../types/ServiceMenuRes";
 import MenuEditModal from "./MenuEditModal";
 import "../../styles/MenuView.css"
-import { getUserInfo } from "../../userInfo";
+import { useLoginInfoStore } from "../../contexts/loginInfoStore";
 
-export default function MenuItem({ menuRes, menuClickFuntion}
-    : { menuRes: ServiceMenuRes, menuClickFuntion:((n: number) => void) | undefined}) {
-
-    const [isEditMode, setEditMode] = useState<boolean>(false);
+export default function MenuItem({ menuRes, menuClickFuntion }
+    : { menuRes: ServiceMenuRes, menuClickFuntion: ((n: number) => void) | undefined }) {
 
     
-    const userRole = getUserInfo().userRole;
+    const [isEditMode, setEditMode] = useState<boolean>(false);
+    
+    const userRole = useLoginInfoStore(s => s.userRole);
     const element = userRole == "OWNER" ? <button onClick={() => setEditMode(true)} >수정</button> : null;
 
     const fun = menuClickFuntion == undefined ? undefined : menuClickFuntion(menuRes.id);

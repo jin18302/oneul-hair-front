@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../../AxiosInstance";
-import { getUserInfo } from "../../userInfo";
+import { axiosInstance } from "../../utils/AxiosInstance";
 import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
 import MenuListView from "../menu/MenuListView";
+import { useLoginInfoStore } from "../../contexts/loginInfoStore";
+
 
 
 export default function DesignerDetail() {
 
     const { designerId } = useParams();
-    const userRole = getUserInfo().userRole;
     const navigator = useNavigate();
+    const userRole = useLoginInfoStore(s => s.userRole);
 
     const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(designerDetailInit);
     const [isLoding, setIsLoding] = useState<boolean>(true);
@@ -61,7 +62,7 @@ export default function DesignerDetail() {
                         : <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>
                 }
 
-                <MenuListView designerId={Number(designerId)} menuClickFuntion = {undefined}/>
+                <MenuListView designerId={Number(designerId)} menuClickFuntion={undefined} />
             </div>
 
         </>

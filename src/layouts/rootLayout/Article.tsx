@@ -1,14 +1,21 @@
 
 import AuthButton from "../../components/authendicationElement/AuthButton";
 import UserType from "../../components/myPage/user/UserType";
-import { getIsLoggedIn } from "../../userInfo";
+import { useLoginInfoStore } from "../../contexts/loginInfoStore";
 import "../../styles/Layout.css";
 
-export default function Article(){
-    console.log("isLoggedIn", getIsLoggedIn());
-    return(
+export default function Article() {
+
+    const isLoggedIn = useLoginInfoStore(s => s.isLoggedIn);
+
+
+
+    return (
         <article>
-            {getIsLoggedIn() ? <UserType />  :  <AuthButton />}
+            {isLoggedIn ? <UserType /> : <AuthButton />}
         </article>
     )
 }
+
+
+//loginInfo는 새로고침을 해도 값이 초기화 되면 안됨
