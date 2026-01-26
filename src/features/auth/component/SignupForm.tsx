@@ -1,9 +1,8 @@
-import { AxiosError } from "axios";
-import { axiosInstance } from "../../AxiosInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
+import { authService } from "../service/authService";
 
-export default function SignUp({setRegisterType}:{setRegisterType:(t:string) => void}) {
+export default function SignUpForm({ setRegisterType }: { setRegisterType: (t: string) => void }) {
 
     console.log("SignUp rendering");
     const pageHandler = () => setRegisterType("SHOP")
@@ -12,30 +11,15 @@ export default function SignUp({setRegisterType}:{setRegisterType:(t:string) => 
         <>
             <Formik initialValues={{
                 name: "", email: "", password: "",
-                phoneNumber: "", gender: "", 
+                phoneNumber: "", gender: "", userRole:"CUSTOMER"
             }}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
-                    try {
-                        await axiosInstance.post("/auth/signup", {
-                            name: data.name,
-                            email: data.email,
-                            password: data.password,
-                            phoneNumber: data.phoneNumber,
-                            gender: data.gender,
-                            userRole: "CUSTOMER"
-                        })
-                        alert("회원가입이 완료되었습니다.")
-                    } catch (e) {
+                    authService.signUp(data);
 
-                        if (e instanceof AxiosError) {
-                            alert(e.response?.data?.errorMessage ?? "회원가입에 실패하였습니다.");
-                        }
-                    } finally {
-                        setSubmitting(false);
-                        resetForm();
-                    }
+                    setSubmitting(false);
+                    resetForm();
                 }}
 
                 validationSchema={Yup.object().shape({
@@ -51,22 +35,22 @@ export default function SignUp({setRegisterType}:{setRegisterType:(t:string) => 
 
                 <Form className="form">
                     <Field className="input-field" name="name" type="text" placeholder="name:" />
-                    <ErrorMessage name="name" component=""/>
+                    <ErrorMessage name="name" component="" />
 
                     <Field className="input-field" name="email" type="email" placeholder="email:" />
-                    <ErrorMessage name="email" component=""/>
+                    <ErrorMessage name="email" component="" />
 
                     <Field className="input-field" name="password" type="password" placeholder="password:" />
-                    <ErrorMessage name="password" component=""/>
+                    <ErrorMessage name="password" component="" />
 
                     <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
-                    <ErrorMessage name="phoneNumber" component=""/>
+                    <ErrorMessage name="phoneNumber" component="" />
 
                     <Field className="input-field" name="gender" type="text" placeholder="gender" />
-                    <ErrorMessage name="gender" component=""/>
+                    <ErrorMessage name="gender" component="" />
 
-                    <button id = "signup-button" type="submit">회원가입</button>
-                    <button id = "shop-register-button"onClick={pageHandler}>기업 회원가입</button>
+                    <button id="signup-button" type="submit">회원가입</button>
+                    <button id="shop-register-button" onClick={pageHandler}>기업 회원가입</button>
 
                 </Form>
             </Formik>

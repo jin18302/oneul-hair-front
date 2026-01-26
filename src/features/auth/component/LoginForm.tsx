@@ -1,14 +1,11 @@
-import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { axiosInstance } from "../../utils/AxiosInstance";
+import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import "../../styles/Form.css";
-import { setAccessToken } from "../../utils/User";
-import type { UserRes } from "../../types/UserRes";
-import { useLoginInfoStore } from "../../contexts/loginInfoStore";
+import { authService } from "../service/authService";
 
-export default function Login() {
+export default function LoginForm() {
 
     console.log("Login rendering")
     const navigator = useNavigate();
@@ -19,28 +16,15 @@ export default function Login() {
             onSubmit={async (data, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
 
-                try {
-                    const response = await axiosInstance.post("/auth/login", {
-                        email: data.email,
-                        password: data.password
-                    });
-                     setAccessToken(response.data.accessToken);
+                authService.login(data);
 
-                    const readRespose = await axiosInstance.get<UserRes>("/users", { headers: { 'Authorization': response.data.accessToken } })
-                    setLoginInfo(readRespose.data)
+                const readRespose = await axiosInstance.get<UserRes>("/users", { headers: { 'Authorization': response.data.accessToken } })
+                setLoginInfo(readRespose.data)
 
-                    navigator('/'); //TODO
+                setSubmitting(false);
+                resetForm();
 
-                } catch (e: unknown) {
-
-                    if (isAxiosError(e)) {
-                        alert(e.response?.data?.errorMessage ?? "로그인에 실패하였습니다.");
-                        return;
-                    }
-                } finally {
-                    setSubmitting(false);
-                    resetForm();
-                }
+                navigator('/'); //TODO
             }}
 
             validationSchema={Yup.object().shape({
