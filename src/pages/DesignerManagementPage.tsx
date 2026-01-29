@@ -5,7 +5,7 @@ import { getAccessToken } from "../utils/tokenmanager";
 import "../../styles/DesignerMenagement.css";
 import { designerService } from "../features/designer/service/designerService";
 
-export default function DesignerManagement() {
+export default function DesignerManagementPage() {
 
     const navigator = useNavigate();
 
