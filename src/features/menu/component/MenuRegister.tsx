@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../../AxiosInstance";
 import "../../styles/Menu.css";
 import MenuRegisterModal from "./MenuRegisterModal";
+import { menuService } from "../service/menuService";
+import type { CreateMenuReq } from "../type/request";
+import { getAccessToken } from "../../../utils/tokenmanager";
 
-export type requestType = {
-    category: string,
-    name: string,
-    price: number,
-    introduction: string
-};
 
 export default function MenuRegister() {
 
@@ -21,15 +17,15 @@ export default function MenuRegister() {
     const [categoryList, setCategoryList] = useState<string[]>([]);
     const [selectCategory, setSelectCategory] = useState<string>("CUT") //분리 고려
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [requestList, setRequest] = useState<requestType[]>([]);
+    const [requestList, setRequest] = useState<CreateMenuReq[]>([]);
 
     useEffect(() => {
 
         const categoryApiHandler = async () => {
 
-            const response = await axiosInstance.get<string[]>('/auth/menu-categories');
-            setCategoryList(response.data);
-            setSelectCategory(response.data[0]);
+           const categoryResponse = await menuService.getMenuCategoryList();
+            setCategoryList(categoryResponse);
+            setSelectCategory(categoryResponse[0]);
         }
 
         categoryApiHandler();
@@ -41,13 +37,8 @@ export default function MenuRegister() {
 
     const submitHandler = async () => {
 
-        if (requestList.length == 0) {
-            alert("하나 이상의 메뉴를 등록해야합니다.");
-        }
-
-        const token = localStorage.getItem("token");
-        await axiosInstance.post(`/designers/${designerId}/service-menus`,
-            requestList, { headers: { 'Authorization': token } })
+        if (requestList.length == 0) {  alert("하나 이상의 메뉴를 등록해야합니다.");};
+        menuService.createMenu(designerId, requestList, getAccessToken());
 
         alert("등록이 완료되었습니다.");
         navigator("/my/designers/management");

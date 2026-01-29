@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../AxiosInstance";
-import type { ServiceMenuRes } from "../../types/ServiceMenuRes";
 import MenuItem from "./MenuItem";
+import type { MenuRes } from "../type/response";
+import { menuService } from "../service/menuService";
 
 export default function MenuListView({designerId, menuClickFuntion}
     :{designerId : number, menuClickFuntion:((n: number) => void) | undefined}
@@ -11,14 +11,14 @@ export default function MenuListView({designerId, menuClickFuntion}
     
     const [categoryList, setCategoryList] = useState<string[]>([]);
     const [selectCategory, setSelectCategory] = useState<string>("CUT");
-    const [menuList, setMenuList] = useState<ServiceMenuRes[]>([]);
+    const [menuList, setMenuList] = useState<MenuRes[]>([]);
     const [isLoding, setIsLoding] = useState<boolean>(true);
 
     useEffect(() => {
 
         const categoryApiHandler = async() => {
-            const response = await axiosInstance.get<string[]>(`/auth/menu-categories`);
-            setCategoryList(response.data);
+            const response = await menuService.getMenuCategoryList();
+            setCategoryList(response);
         }
         categoryApiHandler();
     },[])
@@ -26,10 +26,8 @@ export default function MenuListView({designerId, menuClickFuntion}
     useEffect(() => {
 
         const menuApiHandler = async () => {
-            const response = await axiosInstance.get<ServiceMenuRes[]>(`/auth/designers/${designerId}/service-menus`,
-                { params: { category: selectCategory } });
-
-            setMenuList(response.data);
+            const response = await menuService.getMenuListByDegisner(designerId, selectCategory);
+            setMenuList(response);
             setIsLoding(false);
         }
         menuApiHandler();

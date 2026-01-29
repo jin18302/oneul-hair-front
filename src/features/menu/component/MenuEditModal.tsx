@@ -1,11 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import { axiosInstance } from "../../AxiosInstance";
 import "../../styles/Menu.css";
-import { type ServiceMenuRes } from "../../types/ServiceMenuRes";
+import type { MenuRes } from "../type/response";
+import { menuService } from "../service/menuService";
+import { getAccessToken } from "../../../utils/tokenmanager";
 
 export default function MenuEditModal({menuRes, setEditMode}
-    :{menuRes:ServiceMenuRes, setEditMode: (b:boolean) => void}) {
+    :{menuRes:MenuRes, setEditMode: (b:boolean) => void}) {
 
     // const navigator = useNavigate();
 
@@ -24,10 +25,8 @@ export default function MenuEditModal({menuRes, setEditMode}
                            price: Number(data.price),
                            introduction: data.introduction 
                        };
-
-                       const token = localStorage.getItem("token");
-                       await axiosInstance.patch(`/service-menus/${menuRes.id}`, request,  { headers: { 'Authorization': token } });
-
+                     
+                       menuService.updateMenu(menuRes, request, getAccessToken());
                        alert("수정이 완료되었습니다.");
                        setEditMode(false);
    

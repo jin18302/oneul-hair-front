@@ -1,11 +1,11 @@
 import { useState } from "react";
-import type { ServiceMenuRes } from "../../types/ServiceMenuRes";
 import MenuEditModal from "./MenuEditModal";
 import "../../styles/MenuView.css"
-import { useLoginInfoStore } from "../../contexts/loginInfoStore";
+import type { MenuRes } from "../type/response";
+import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 
 export default function MenuItem({ menuRes, menuClickFuntion }
-    : { menuRes: ServiceMenuRes, menuClickFuntion: ((n: number) => void) | undefined }) {
+    : { menuRes: MenuRes, menuClickFuntion: ((n: number) => void) | undefined }) {
 
     
     const [isEditMode, setEditMode] = useState<boolean>(false);

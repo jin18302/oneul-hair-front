@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import { designerService } from "../service/designerService";
 import { designerDetailInit, type DesignerDetail } from "../type/response";
-import MenuListView from "../../../components/menu/MenuListView";
+import MenuListView from "../../menu/component/MenuListView";
 
 export default function DesignerDetail() {
 

@@ -1,4 +1,4 @@
-export interface ServiceMenuRes {
+export interface MenuRes {
     id: number,
     category: string,
     name: string,
