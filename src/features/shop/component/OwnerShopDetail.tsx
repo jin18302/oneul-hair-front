@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { shopDetailInit, type ShopDetailRes } from "../../types/ShopDetailRes";
-import { axiosInstance } from "../../AxiosInstance";
 import { useNavigate } from "react-router";
+import { shopDetailInit, type ShopDetailRes } from "../../../types/ShopDetailRes";
+import { getAccessToken } from "../../../utils/tokenmanager";
+import { shopService } from "../service/shopService";
 
 export default function OwnerShopDetail(){
 
@@ -16,9 +17,9 @@ export default function OwnerShopDetail(){
 
         const apiHandler = async() => {
 
-            const token = localStorage.getItem("token");
-            const responose = await axiosInstance.get('/shops', { headers: { 'Authorization': token }});
-            setShopDetail(responose.data);
+            const response = await shopService.getShopDetailByOwner(getAccessToken());
+            
+            setShopDetail(response);
             setIsLoding(false);
         }
 

@@ -1,9 +1,9 @@
-import { useNavigate, useSearchParams } from "react-router";
-import type { CursorPageResponse } from "../../types/CursorPageResponse";
-import type { ShopSummaryResponse } from "../../types/ShopSummaryReponse";
 import { useEffect, useState } from "react";
-import "../../styles/SearchShopView.css"
-import { axiosInstance } from "../../AxiosInstance";
+import { useNavigate, useSearchParams } from "react-router";
+import "../../styles/SearchShopView.css";
+import { shopService } from "../service/shopService";
+import type { CursorPageResponse } from "../../../types/CursorPageResponse";
+import type { ShopSummaryResponse } from "../../../types/ShopSummaryReponse";
 
 
 export default function ShopListView() {
@@ -25,11 +25,8 @@ export default function ShopListView() {
             const area = searchParams.get("area");
             const tagIdList = searchParams.getAll("tagIdList");
 
-            const response = await axiosInstance.get<CursorPageResponse<ShopSummaryResponse>>("/auth/shops"
-                , { params: { area: area, tagIdList: tagIdList, lastCursor: cursor } }
-            );
-
-            setSearchResponse(response.data);//결과를 상태로 저장한다.
+            const response = await shopService.getShopListByFiltering(area,tagIdList,cursor)
+            setSearchResponse(response);//결과를 상태로 저장한다.
             setIsLoding(false);
         }
 

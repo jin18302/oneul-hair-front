@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../../AxiosInstance";
-import type { ShopDetailRes } from "../../types/ShopDetailRes";
-import type DesignerSummaryRes from "../../types/DesignerSummaryRes";
-import "../../styles/ShopDetail.css"
-import type { ShopDetailState } from "../../types/ShopDetailState";
+import type DesignerSummaryRes from "../../../types/DesignerSummaryRes";
+import type { ShopDetailState } from "../../../types/ShopDetailState";
+import { axiosInstance } from "../../../utils/axiosInstance";
+import "../../styles/ShopDetail.css";
+import { shopService } from "../service/shopService";
 
 export default function ShopDetail() {
 
@@ -22,10 +22,10 @@ export default function ShopDetail() {
 
         const apiHandler = async () => {
 
-            const shopDetailresponse = await axiosInstance.get<ShopDetailRes>(`/auth/shops/${shopId}`);
+            const shopDetailresponse = await shopService.getShopDetailById(shopId);
             const designerListResponse = await axiosInstance.get<DesignerSummaryRes[]>(`/auth/shops/${shopId}/designers`);
 
-            const data = { shopDetail: shopDetailresponse.data, designerList: designerListResponse.data};
+            const data = { shopDetail: shopDetailresponse, designerList: designerListResponse.data};
 
             setShopDetailState(data);
             setIsLoding(false);
