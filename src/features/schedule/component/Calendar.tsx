@@ -1,13 +1,12 @@
-import dayGridPlugin from '@fullcalendar/daygrid';
-import FullCalendar from "@fullcalendar/react";
-import "../../styles/Calendar.css";
-import { useEffect, useState } from 'react';
-import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction";
-import { axiosInstance } from '../../utils/axiosInstance';
-import type { DayOffResponse } from '../../types/DayOffResponse';
-import React from 'react';
 import type { DayCellContentArg } from '@fullcalendar/core/index.js';
-import { getMonth, parseDateToString } from '../../utils/date';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import React, { useEffect, useState } from 'react';
+import { getMonth, parseDateToString } from '../../../utils/date';
+import "../../styles/Calendar.css";
+import { scheduleService } from '../service/scheduleService';
+import type { DayOffResponse } from '../type/response';
 
 export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined }) {
 
@@ -22,11 +21,9 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
 
     const apiHandler = async () => {
 
-      const response = await axiosInstance.get<DayOffResponse>(`/auth/designers/${designerId}/off-days`,
-        { params: { month: month } }
-      );
+      const response = await scheduleService.getDayOffListByDesigner(designerId, month)
 
-      setDayOffList(response.data);
+      setDayOffList(response);
       setIsLoding(false);
     }
 

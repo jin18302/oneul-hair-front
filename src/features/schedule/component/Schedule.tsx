@@ -1,17 +1,17 @@
-import FullCalendar from "@fullcalendar/react";
+import type { EventInput } from "@fullcalendar/core";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import "../../styles/Shedule.css"
-import { useEffect, useState } from "react";
-import type { DesignerBlock } from "../../types/DesignerBlock";
-import { axiosInstance } from "../../utils/axiosInstance";
 import type { ResourceInput } from "@fullcalendar/resource/index.js";
-import type DesignerSummaryRes from "../../types/DesignerSummaryRes";
-import type { EventInput } from "@fullcalendar/core";
-import { shopDetailInit, type ShopDetailRes } from "../../types/ShopDetailRes";
-import { getAccessToken } from "../../utils/tokenmanager";
-import { parseDateToString } from "../../utils/date";
+import { useEffect, useState } from "react";
+import { parseDateToString } from "../../../utils/date";
+import { getAccessToken } from "../../../utils/tokenmanager";
+import { designerService } from "../../designer/service/designerService";
+import { shopService } from "../../shop/service/shopService";
+import { shopDetailInit, type ShopDetailRes } from "../../shop/type/response";
+import "../../styles/Shedule.css";
+import { scheduleService } from "../service/scheduleService";
 
 export default function Schedule() {
 
@@ -26,25 +26,23 @@ export default function Schedule() {
 
         const apiHanelr = async () => {
 
-            const token = getAccessToken();
+            const shopData = await shopService.getShopDetailByOwner(getAccessToken());
+            setShopDetail(shopData);
 
-            const shopData = await axiosInstance.get<ShopDetailRes>(`/shops`, { headers: { 'Authorization': token } });
-            setShopDetail(shopData.data);
+            const designerData = await designerService.getDesignerListByOwner(getAccessToken());
+            setResourceList(designerData.map(d => ({ id: String(d.id), title: d.name })));
 
-            const designerData = await axiosInstance.get<DesignerSummaryRes[]>('/shops/designers', { headers: { 'Authorization': token } });
-            setResourceList(designerData.data.map(d => ({ id: String(d.id), title: d.name })));
-
-            const eventData = await axiosInstance.get<DesignerBlock[]>(`/shops/schedule-blocks`, { params: { date: date }, headers: { Authorization: token } });
+            const eventData = await scheduleService.getShopSchedule(getAccessToken(), date);
 
             const events: object[] = [];
 
-            for (let i = 0; i < eventData.data.length; i++) {
-                for (let j = 0; j < eventData.data[i].blockResponseList.length; j++) {
+            for (let i = 0; i < eventData.length; i++) {
+                for (let j = 0; j < eventData[i].blockResponseList.length; j++) {
 
-                    const d = new Date(`${eventData.data[i].blockResponseList[j].date}T${eventData.data[i].blockResponseList[j].time}:00`);
+                    const d = new Date(`${eventData[i].blockResponseList[j].date}T${eventData[i].blockResponseList[j].time}:00`);
                     events.push({
-                        id: eventData.data[i].blockResponseList[j].id,
-                        resourceId: eventData.data[i].designerId,
+                        id: eventData[i].blockResponseList[j].id,
+                        resourceId: eventData[i].designerId,
                         start: d,
                         end: new Date(d.getTime() + 30 * 60 * 1000)
                     })

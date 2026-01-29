@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 import "../../styles/DateTimeSlot.css"
-import { axiosInstance } from "../../AxiosInstance";
-import type { TimeSlotRes } from "../../types/TimeSlotRes";
 import React from "react";
+import type { TimeSlotRes } from "../type/response";
+import { scheduleService } from "../service/scheduleService";
 
 
 function DateTimeSlot({ designerId, date, setTimeSlot } : { designerId: string | undefined, date: string, setTimeSlot: (t: string) => void }) {
@@ -17,11 +17,8 @@ function DateTimeSlot({ designerId, date, setTimeSlot } : { designerId: string |
 
           const designerTsGetHandler = async() => {
 
-            const response = await axiosInstance.get<TimeSlotRes[]>(`/auth/designers/${designerId}/time-slots`
-                ,{ params: { date: date }});
-                console.log("response:", response.data);
-
-                setTimeSlotList(response.data);
+            const response = await scheduleService.getTimeSlotByDesigner(designerId, date);
+                setTimeSlotList(response);
                 setIsLoding(false);
           }
 
