@@ -1,4 +1,3 @@
-
 export interface DesignerDetail {
     id: number;
     shopId: number;

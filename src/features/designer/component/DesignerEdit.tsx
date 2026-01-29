@@ -2,9 +2,9 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import * as Yup from 'yup';
-import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
-import { axiosInstance } from "../../AxiosInstance";
-import { isAxiosError } from "axios";
+import { designerDetailInit, type DesignerDetail } from "../type/response";
+import { designerService } from "../service/designerService";
+import { getAccessToken } from "../../../utils/tokenmanager";
 
 export default function DesignerEdit() {
 
@@ -17,8 +17,8 @@ export default function DesignerEdit() {
     useEffect(() => {
 
         const apiHandler = async () => {
-            const response = await axiosInstance.get<DesignerDetail>(`/auth/designers/${designerId}`);
-            setDesignerDetail(response.data);
+            const response = await designerService.getDesignerDetail(designerId);
+            setDesignerDetail(response);
             setIsLoading(false);
             
         }
@@ -37,10 +37,6 @@ export default function DesignerEdit() {
 
                     setSubmitting(true);
 
-                    try {
-
-                        const token = localStorage.getItem("token");
-
                         const requestBody = {
                             name: data.name,
                             introduction: data.introduction,
@@ -48,26 +44,14 @@ export default function DesignerEdit() {
                             snsUriList: data.snsUrlList
                         }
 
-                        await axiosInstance.patch<DesignerDetail>(`/designers/${designerId}`,
-                            requestBody,
-                            { headers: { 'Authorization': token } }
-                        );
+                        designerService.updateDesingerInfo(designerId, getAccessToken(), requestBody);
 
+                     
                         alert("정보 수정이 완료되었습니다.");
                         nav(`/designers/${designerId}`);
 
                         resetForm();
-
-                    } catch (e: unknown) {
-
-                        if (isAxiosError(e)) {
-                            alert(e.response?.data?.errorMessage ?? "잠시후 다시 시도해주세요.");
-                            return;
-                        }
-                    } finally {
                         setSubmitting(false);
-                    }
-
                 }}
 
                 validationSchema={Yup.object().shape({

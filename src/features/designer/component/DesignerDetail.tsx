@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { axiosInstance } from "../../utils/AxiosInstance";
-import { designerDetailInit, type DesignerDetail } from "../../types/DesignerDetail";
-import MenuListView from "../menu/MenuListView";
-import { useLoginInfoStore } from "../../contexts/loginInfoStore";
-
-
+import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
+import { designerService } from "../service/designerService";
+import { designerDetailInit, type DesignerDetail } from "../type/response";
+import MenuListView from "../../../components/menu/MenuListView";
 
 export default function DesignerDetail() {
 
@@ -20,9 +18,10 @@ export default function DesignerDetail() {
     useEffect(() => {
 
         const apiHandler = async () => {
-            const response = await axiosInstance.get<DesignerDetail>(`/auth/designers/${designerId}`);
 
-            setDesignerDetail(response.data);
+            const response = await designerService.getDesignerDetail(designerId);
+           
+            setDesignerDetail(response);
             setIsLoding(false);
         }
 

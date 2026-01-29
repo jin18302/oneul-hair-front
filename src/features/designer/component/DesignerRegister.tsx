@@ -1,9 +1,8 @@
-import { isAxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { axiosInstance } from "../../AxiosInstance";
-import type { DesignerDetail } from "../../types/DesignerDetail";
+import { getAccessToken } from "../../../utils/tokenmanager";
+import { designerService } from "../service/designerService";
 
 export default function DesignerRegister() {
 
@@ -18,10 +17,6 @@ export default function DesignerRegister() {
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
-                    try {
-
-                        const token = localStorage.getItem("token");
-
                         const requestBody = {
                             name: data.name,
                             introduction: data.introduction,
@@ -29,23 +24,12 @@ export default function DesignerRegister() {
                             snsUriList: data.snsUriList.split(',')
                         }
 
-                       const response = await axiosInstance.post<DesignerDetail>(`/shops/designers`,
-                            requestBody,
-                            { headers: { 'Authorization': token } }
-                        );
+                        const response = await designerService.createDesigner(requestBody, getAccessToken());
 
-                        navigator(`/designers/${response.data.id}/menus`);
+                        navigator(`/designers/${response.id}/menus`);
+                        
                         resetForm();
-
-                    } catch (e: unknown) {
-
-                        if (isAxiosError(e)) {
-                            alert(e.response?.data?.errorMessage ?? "잠시후 다시 시도해주세요.");
-                            return;
-                        }
-                    } finally {
                         setSubmitting(false);
-                    }
                 }}
 
                 validationSchema={Yup.object().shape({
