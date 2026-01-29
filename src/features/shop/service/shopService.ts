@@ -1,10 +1,9 @@
 import { AxiosError, isAxiosError } from "axios";
 import { axiosInstance } from "../../../utils/axiosInstance";
-import type { ShopTag } from "../../../types/ShopTag";
-import type { ShopDetailRes } from "../../../types/ShopDetailRes";
 import type { CursorPageResponse } from "../../../types/CursorPageResponse";
-import type { ShopSummaryResponse } from "../../../types/ShopSummaryReponse";
-import type { CreateShopReq } from "../type/CreateShopReq";
+import type { CreateShopReq } from "../type/request";
+import type { ShopDetailRes, ShopSummaryResponse } from "../type/response";
+import type { ShopTag } from "../type/entity";
 
 export const shopService = {
 

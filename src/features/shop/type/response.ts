@@ -1,4 +1,3 @@
-
 export interface ShopDetailRes {
     id: number;
     name: string;
@@ -16,7 +15,7 @@ export interface ShopDetailRes {
     deletedAt: string | null;
 }
 
-export const shopDetailInit = {
+export const shopDetailInit = { // TODO: 이것을 파일을 따로 뺄지 고민
     id: 0,
     name: "",
     address: "",
@@ -31,4 +30,13 @@ export const shopDetailInit = {
     createdAt: "",   
     updatedAt: "",    
     deletedAt:  null
+}
+
+export interface ShopSummaryResponse{
+    id: number;
+    name: string;
+    introduction: string;
+    address: string;
+    shopStatus: string;
+    imageList: string[];
 }

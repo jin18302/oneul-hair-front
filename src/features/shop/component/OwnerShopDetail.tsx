@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { shopDetailInit, type ShopDetailRes } from "../../../types/ShopDetailRes";
 import { getAccessToken } from "../../../utils/tokenmanager";
 import { shopService } from "../service/shopService";
+import { shopDetailInit, type ShopDetailRes } from "../type/response";
 
 export default function OwnerShopDetail(){
 

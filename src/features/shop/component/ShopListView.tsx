@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import "../../styles/SearchShopView.css";
 import { shopService } from "../service/shopService";
 import type { CursorPageResponse } from "../../../types/CursorPageResponse";
-import type { ShopSummaryResponse } from "../../../types/ShopSummaryReponse";
+import type { ShopSummaryResponse } from "../type/response";
 
 
 export default function ShopListView() {
