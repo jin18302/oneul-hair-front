@@ -1,5 +1,5 @@
 
-export interface Reservation {
+export interface ReservationRes {
 
     id: number,
     serviceMenuName: string,

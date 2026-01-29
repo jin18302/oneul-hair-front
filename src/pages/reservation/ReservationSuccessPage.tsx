@@ -1,28 +1,24 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
-
-
 import "../../styles/ReservationSuccess.css"
-import { axiosInstance } from "../../AxiosInstance";
-import { reservationInit, type Reservation } from "../../types/Reservaton";
+import { getAccessToken } from "../../utils/tokenmanager";
+import { reservationInit, type ReservationRes } from "../../features/reservation/type/response";
+import { reservationService } from "../../features/reservation/service/reservationService";
 
-export default function ReservationSuccess() {
+export default function ReservationSuccessPage() {
 
     const { reservationId } = useParams();
 
-    const [reservation, setReservation] = useState<Reservation>(reservationInit);
+    const [reservation, setReservation] = useState<ReservationRes>(reservationInit);
     const [isLoding, setIsLoding] = useState<boolean>(true);
 
     useEffect(() => {
 
         const apiHandler = async () => {
 
-                const token = localStorage.getItem("token");
-                const response = await axiosInstance.get<Reservation>(`/reservations/${reservationId}`,
-                    { headers: { 'Authorization': token } }
-                );
-                setReservation(response.data);
+                const response = await reservationService.getReservationDetail(reservationId, getAccessToken());
+                setReservation(response);
                 setIsLoding(false);
          
         }
