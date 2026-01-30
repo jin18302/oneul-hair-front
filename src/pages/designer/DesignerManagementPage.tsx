@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import type DesignerSummaryRes from "../types/DesignerSummaryRes";
-import { getAccessToken } from "../utils/tokenmanager";
+import type DesignerSummaryRes from "../../types/DesignerSummaryRes";
+import { getAccessToken } from "../../utils/tokenmanager";
 import "../../styles/DesignerMenagement.css";
-import { designerService } from "../features/designer/service/designerService";
+import { designerService } from "../../features/designer/service/designerService";
 
 export default function DesignerManagementPage() {
 

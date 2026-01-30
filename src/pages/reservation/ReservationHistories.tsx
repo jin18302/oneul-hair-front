@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react"
 import "../../../styles/ReservationHistories.css"
-import { axiosInstance } from "../../../AxiosInstance";
-import type { CursorPageResponse } from "../../../types/CursorPageResponse";
-import type { Reservation } from "../../../types/Reservaton";
+import { axiosInstance } from "../../utils/axiosInstance";
+import type { CursorPageResponse } from "../../types/CursorPageResponse";
+import { getAccessToken } from "../../utils/tokenmanager";
+import type { ReservationRes } from "../../features/reservation/type/response";
 
 export default function ReservationHistories(){
 
     console.log("ReservationHistories rendering");
 
     const [isLoding, setIsLoding] = useState<boolean>(true);
-    const [reservationList, setReservationList] = useState<CursorPageResponse<Reservation>>();
+    const [reservationList, setReservationList] = useState<CursorPageResponse<ReservationRes>>();
 
     useEffect(() => {
 
         const apiHandler = async() => {
             
-            const token = localStorage.getItem("token");
-            const response = await axiosInstance.get<CursorPageResponse<Reservation>>('/reservations',
-                {  headers: { 'Authorization': token } }
+            const response = await axiosInstance.get<CursorPageResponse<ReservationRes>>('/reservations',
+                {  headers: { 'Authorization': getAccessToken() } }
             );
 
             setReservationList(response.data);
