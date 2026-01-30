@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import "../../styles/Form.css";
 import { authService } from "../service/authService";
+import { getAccessToken } from "../../../utils/tokenmanager";
+import { userService } from "../../user/service/userService";
 
 export default function LoginForm() {
 
@@ -18,8 +20,8 @@ export default function LoginForm() {
 
                 authService.login(data);
 
-                const readRespose = await axiosInstance.get<UserRes>("/users", { headers: { 'Authorization': response.data.accessToken } })
-                setLoginInfo(readRespose.data)
+                const readRespose = await userService.getUserInfo(getAccessToken());
+                setLoginInfo(readRespose);
 
                 setSubmitting(false);
                 resetForm();

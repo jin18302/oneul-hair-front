@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router";
 import "../../styles/Authendication.css"
 
-export default function Authendication() {
+export default function AuthendicationPage() {
 
     return (
         <>
