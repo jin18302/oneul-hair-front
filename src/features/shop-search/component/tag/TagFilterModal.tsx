@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react"
-import { axiosInstance } from "../../../AxiosInstance";
-import type { ShopTag } from "../../../types/ShopTag";
-import React from "react";
-import { searchConditionStore } from "../../../contexts/searchConditionStore";
+import React, { useEffect, useState } from "react";
+import { searchConditionStore } from "../../../../contexts/searchConditionStore";
+import { shopService } from "../../../shop/service/shopService";
+import type { ShopTag } from "../../../shop/type/entity";
 
 
 
@@ -16,8 +15,8 @@ export function SearchTagFilterModal({closeModal}:{closeModal: () => void;}){
     useEffect(() => {
 
         const apiHandler =  async () => {
-            const { data } = await axiosInstance.get<ShopTag[]>('/auth/shop-tags');
-            setTagList(data);
+            const response = await shopService.getShopTagList();
+            setTagList(response);
         };
 
         apiHandler();

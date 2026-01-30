@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "../../../styles/SearchArea.css"
 import TagFilterModal from "./TagFilterModal";
-import { searchConditionStore } from "../../../contexts/searchConditionStore";
+import { searchConditionStore } from "../../../../contexts/searchConditionStore";
 
 export default function TagFilter(){
 

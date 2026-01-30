@@ -1,10 +1,10 @@
 
-import "../../../styles/Modal.css"
+import "../../../styles/Modal.css";
 
-import { axiosInstance } from "../../../AxiosInstance";
 import { useEffect, useState } from "react";
-import type { AddrRes } from "../../../types/AddrRes";
-import { searchConditionStore } from "../../../contexts/searchConditionStore";
+import { searchConditionStore } from "../../../../contexts/searchConditionStore";
+import { shopSearchService } from "../../service/shopSearchService";
+import type { AddrRes } from "../../type/response";
 
 export default function AreaFilterModal({ closeModal }: { closeModal: () => void; }) {
 
@@ -17,8 +17,8 @@ export default function AreaFilterModal({ closeModal }: { closeModal: () => void
     useEffect(() => {
 
         const apiHandler = async () => {
-            const response = await axiosInstance.get<AddrRes[]>('/auth/address', { params: { code: areaCode?.cd } });
-            setSubAreaList(response.data);
+            const response = await shopSearchService.getAllAddress(areaCode?.cd);
+            setSubAreaList(response);
         };
 
         apiHandler();

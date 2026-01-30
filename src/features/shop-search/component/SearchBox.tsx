@@ -5,7 +5,7 @@ import SearchButton from "./SearchButton";
 import TagFilter from "./tag/TagFilter";
 
 
- function SearchArea() {
+ function SearchBox() {
 
      console.log("SearchArea rendering");
      
@@ -18,4 +18,4 @@ import TagFilter from "./tag/TagFilter";
     )
 }
 
-export default React.memo(SearchArea);
+export default React.memo(SearchBox);

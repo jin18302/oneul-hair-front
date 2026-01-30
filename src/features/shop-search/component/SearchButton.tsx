@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router";
 import "../../styles/SearchArea.css"
-import type { ShopTag } from "../../types/ShopTag";
-import { searchConditionStore } from "../../contexts/searchConditionStore";
+import { searchConditionStore } from "../../../contexts/searchConditionStore";
+import type { ShopTag } from "../../shop/type/entity";
 
 export default function SearchButton() {
 
     console.log("SearchButton rendering");
 
     const navigate = useNavigate();
+    
     const selectTags = searchConditionStore((s) => s.tagList);
     const selectArea = searchConditionStore((s) => s.selectArea);
 
@@ -28,3 +29,4 @@ export default function SearchButton() {
         <button className="search-button" onClick={searchHandler}>검색</button>
     )
 }
+
