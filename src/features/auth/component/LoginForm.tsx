@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import "../../styles/Form.css";
 import { authService } from "../service/authService";
-import { getAccessToken } from "../../../utils/tokenmanager";
+import { getAccessToken } from "../../../utils/tokenManager";
 import { userService } from "../../user/service/userService";
 
 export default function LoginForm() {

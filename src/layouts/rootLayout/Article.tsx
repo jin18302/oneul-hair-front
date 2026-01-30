@@ -1,6 +1,6 @@
 
-import AuthButton from "../../components/authendicationElement/AuthButton";
-import UserType from "../../components/myPage/user/UserType";
+import AuthButton from "../../features/auth/ui/AuthButton";
+import UserType from "../../utils/UserType";
 import { useLoginInfoStore } from "../../contexts/loginInfoStore";
 import "../../styles/Layout.css";
 

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import {persist} from "zustand/middleware"
-import type { UserRes } from "../types/UserRes";
+import type { UserRes } from "../features/user/type/UserRes";
 
 export interface LoginInfo{
 

@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router"
-import SearchArea from "../../components/searchElement/SearchArea"
+import SearchArea from "../../features/shop-search/component/SearchBox"
 import "../../styles/Header.css"
 import "../../styles/Layout.css"
 import React from "react";
