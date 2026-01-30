@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
+import { useLoginInfoStore } from "../../../../contexts/loginInfoStore";
 
 export default function ShopOwnerMyPage() {
 
@@ -18,8 +18,6 @@ export default function ShopOwnerMyPage() {
             <div onClick={() => navigator("/my/shops")}>shop 정보관리</div>
             <div onClick={() => navigator("/shops/schedules")}>스케줄 관리</div>
             <div onClick={() => navigator("my/designers/management")}>디자이너 관리</div>
-
-            {/* TODO: 컴포넌트 재사용 가능한쪽으로 리팩 */}
         </>
     )
 
