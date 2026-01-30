@@ -8,6 +8,13 @@ export interface DesignerDetail {
     snsUrlList: string[];
 }
 
+export  interface DesignerSummaryRes {
+    id: number,
+    profileImage: string,
+    name: string,
+    introduction: string
+}
+
 export const designerDetailInit = 
  {
     id: 0,
@@ -18,3 +25,4 @@ export const designerDetailInit =
     imageUrlList: [],
     snsUrlList: []
 }
+

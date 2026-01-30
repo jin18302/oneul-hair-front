@@ -1,8 +1,7 @@
 import { isAxiosError } from "axios";
 import { axiosInstance } from "../../../utils/axiosInstance";
 import type { CreateDesignerReq, UpdateDesignerReq } from "../type/request";
-import type { DesignerDetail } from "../type/response";
-import type DesignerSummaryRes from "../../../types/DesignerSummaryRes";
+import type { DesignerDetail, DesignerSummaryRes } from "../type/response";
 
 export const designerService = {
 
