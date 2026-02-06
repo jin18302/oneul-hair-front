@@ -1,11 +1,12 @@
 
-let _accessToken: string | undefined = undefined;
+let _accessToken: string;
 
 export function setAccessToken(token: string) {
     _accessToken = token;
 }
 
-export function getAccessToken() {
+export function getAccessToken():string {
+     console.log("getAccessToken :", _accessToken);
     return _accessToken;
 }
 
