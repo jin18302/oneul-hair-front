@@ -3,9 +3,9 @@ import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 // import "../../styles/Form.css";
-import { setAccessToken } from "../../../utils/tokenManager";
 import { useGetUserInfoQuery } from "../../user/hook/useUserQuery";
 import { useLoginQuery } from "../hook/useAuthQuery";
+import { setAccessToken } from "../../../utils/tokenManager";
 
 export default function LoginForm() {
 
