@@ -8,9 +8,8 @@ export default function DesignerDetail() {
 
     console.log("designer detail rendering");
 
-    const { designerId } = useParams();
+    const { designerId } = useParams() as {designerId: string};
     const navigator = useNavigate();
-
     const userRole = useLoginInfoStore(s => s.userRole);
     const { data: designerDetail} = useGetDesignerInfo(designerId);
 
@@ -42,7 +41,7 @@ export default function DesignerDetail() {
                         : <button className="reservation-button" onClick={reservationButtonHandler}>예약하기</button>
                 }
 
-                <MenuListView designerId={Number(designerId)} menuClickFuntion={undefined} />
+                <MenuListView designerId={designerId} menuClickFuntion={undefined} />
             </div>
 
         </>

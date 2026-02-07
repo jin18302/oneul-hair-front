@@ -1,8 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from 'yup';
-import { useCreateShopQuery, useGetShopTagQuery } from "../service/shopService";
+
 import type { ShopTag } from "../type/entity";
+import { useGetShopTagQuery, useCreateShopQuery } from "../hook/useShopQuery";
 
 export default function ShopRegistration({ setRegisterType }: { setRegisterType: (t: string) => void }) {
 
@@ -11,7 +12,7 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
 
     const [selectTagIdList, setSelectTagIdList] = useState<number[]>([]);
     const {data: shopTagList} = useGetShopTagQuery();
-    const {mutateAsync: createShop} = useCreateShopQuery();//TODO
+    const {mutateAsync: createShop} = useCreateShopQuery();
 
    
 

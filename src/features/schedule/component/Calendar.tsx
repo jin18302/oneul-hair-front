@@ -4,10 +4,10 @@ import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction"
 import FullCalendar from "@fullcalendar/react";
 import React, { useState } from 'react';
 import { getMonth, parseDateToString } from '../../../utils/date';
+import { useGetDesignerDayOffQuery } from '../hook/useScheduleQuery';
 // import "../../styles/Calendar.css";
-import { useGetDesignerDayOffQuery } from '../service/scheduleService';
 
-export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined }) {
+export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string}) {
 
   console.log("Calendar rendering");
 

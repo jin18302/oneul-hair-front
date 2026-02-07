@@ -2,13 +2,13 @@ import { useNavigate, useParams } from "react-router";
 // import "../../styles/ShopDetail.css";
 import { useGetDesignerList } from "../../designer/hook/useDesignerQuery";
 import type { DesignerSummaryRes } from "../../designer/type/response";
-import { useGetShopQuery } from "../service/shopService";
+import { useGetShopQuery } from "../hook/useShopQuery";
 
 export default function ShopDetail() {
 
     console.log("ShopDetail rendering");
 
-    const { shopId } = useParams<{ shopId: string }>();
+    const { shopId } = useParams() as { shopId: string };
     const navigate = useNavigate();
 
     const {data: shopDetail} = useGetShopQuery(shopId);

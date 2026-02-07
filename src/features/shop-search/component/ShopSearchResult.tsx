@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router";
 // import "../../styles/SearchShopView.css";
 import ShopSummary from "../../shop/component/ShopSummary";
-import { useGetFilteringShop } from "../service/shopSearchService";
+import { useGetFilteringShop } from "../hook/useShopSearchQuery";
 
 
 export default function ShopSearchResult() {

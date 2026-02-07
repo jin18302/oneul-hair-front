@@ -22,19 +22,31 @@ export function useUpdateShopQuery(){
 }
 
 export function useGetShopTagQuery() {
-    const { data, isLoading } = useSuspenseQuery({
+    const { data } = useSuspenseQuery({
         queryKey: ["shop-tag"],
         queryFn:  () => { return shopService.getShopTagList();}
     });
-    return { data, isLoading };
+    return { data };
 }
 
 export function useGetShopQuery(shopId: string) {
-    const { data, isLoading } = useSuspenseQuery({
+    const { data } = useSuspenseQuery({
         queryKey: ["shop", shopId],
         queryFn: () => {
           return shopService.getShop(shopId);
         }
     });
-    return { data, isLoading };
+    return { data };
+}
+
+export function useGetMyShopQuery(){
+
+     const { data } = useSuspenseQuery({
+        queryKey: ["my-shop"],
+        queryFn: () => {
+          return shopService.getMyShop();
+        }
+    });
+    return { data };
+
 }

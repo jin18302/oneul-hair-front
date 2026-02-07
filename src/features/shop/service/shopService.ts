@@ -10,7 +10,7 @@ export const shopService = {
         return respone.data;
     },
 
-    updateShop: async(shopId: number, request: UpdateShopReq) =>{
+    updateShop: async (shopId: number, request: UpdateShopReq) => {
         return await axiosInstance.patch<ShopDetailRes>(`/shops/${shopId}`, request);
     },
     getShopTagList: async () => {
@@ -18,7 +18,11 @@ export const shopService = {
         return respone.data;
     },
     getShop: async (shopId: string) => {
-           const response = await axiosInstance.get<ShopDetailRes>(`/auth/shops/${shopId}`);
-            return response.data;
-        }
+        const response = await axiosInstance.get<ShopDetailRes>(`/auth/shops/${shopId}`);
+        return response.data;
+    },
+    getMyShop: async () => {
+        const response = await axiosInstance.get<ShopDetailRes>(`/shops`);
+        return response.data;
+    }
 }

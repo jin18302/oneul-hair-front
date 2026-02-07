@@ -9,10 +9,10 @@ export default function MenuRegister() {
 
     console.log("Menu rendering");
 
-    const { designerId } = useParams();
+    const { designerId } = useParams() as {designerId: string};
     const navigator = useNavigate();
 
-    const { data: categoryList, isLoading } = useGetCategoriesQuery();
+    const { data: categoryList} = useGetCategoriesQuery();
     const { mutateAsync: createMenu } = useCreateMenuQuery();
 
     const [selectCategory, setSelectCategory] = useState<string>("CUT") //분리 고려
@@ -30,8 +30,6 @@ export default function MenuRegister() {
         alert("등록이 완료되었습니다.");
         navigator("/my/designers/management");
     }
-
-    if (isLoading) { return <div>Loading...</div> }
 
     return (
         <div>

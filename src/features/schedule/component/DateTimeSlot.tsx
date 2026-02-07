@@ -1,10 +1,10 @@
 
 // import "../../styles/DateTimeSlot.css"
 import React from "react";
-import { useDesignerTimeSlotQuery } from "../service/scheduleService";
+import { useDesignerTimeSlotQuery } from "../hook/useScheduleQuery";
 
 
-function DateTimeSlot({ designerId, date, setTimeSlot }: { designerId: string | undefined, date: string, setTimeSlot: (t: string) => void }) {
+function DateTimeSlot({ designerId, date, setTimeSlot }: { designerId: string, date: string, setTimeSlot: (t: string) => void }) {
 
     console.log("DateTimeSlot rendering");
 

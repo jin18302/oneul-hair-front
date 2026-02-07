@@ -6,8 +6,8 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { useEffect, useState } from "react";
 import { parseDateToString } from "../../../utils/date";
 import { useGetMyDesignerList } from "../../designer/hook/useDesignerQuery";
-import { useGetShopQuery } from "../../shop/service/shopService";
-import { useGetShopScheduleQuery } from "../service/scheduleService";
+import { useGetShopScheduleQuery } from "../hook/useScheduleQuery";
+import { useGetShopQuery } from "../../shop/hook/useShopQuery";
 // import "../../styles/Shedule.css";
 
 

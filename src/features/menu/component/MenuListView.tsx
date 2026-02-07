@@ -3,7 +3,7 @@ import { useGetCategoriesQuery, useGetDesignerMenusQuery } from "../hook/useMenu
 import MenuItem from "./MenuItem";
 
 export default function MenuListView({ designerId, menuClickFuntion }
-    : { designerId: number, menuClickFuntion: ((n: number) => void) | undefined }
+    : { designerId: string, menuClickFuntion: ((n: number) => void) | undefined }
 ) {
 
     console.log("MenuListView rendering");

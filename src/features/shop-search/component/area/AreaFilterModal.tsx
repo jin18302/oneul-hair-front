@@ -3,8 +3,9 @@
 
 import { useState } from "react";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
-import { useGetAddressQuery } from "../../service/shopSearchService";
+
 import type { AddrRes } from "../../type/response";
+import { useGetAddressQuery } from "../../hook/useShopSearchQuery";
 
 export default function AreaFilterModal({ closeModal }: { closeModal: () => void; }) {
 

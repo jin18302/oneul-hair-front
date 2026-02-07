@@ -13,7 +13,6 @@ export default function MenuEditModal({ menuRes, setEditMode }
     return (
         <>
             <Formik initialValues={menuRes}
-
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
 
                     setSubmitting(true);

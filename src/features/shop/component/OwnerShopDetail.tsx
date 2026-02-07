@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router";
-import { useGetShopQuery } from "../service/shopService";
+import { useGetMyShopQuery } from "../hook/useShopQuery";
+
 
 export default function OwnerShopDetail(){
 
     console.log("ownerShopDetail rendering");
 
     const navigator = useNavigate();
-    const {data: shopDetail} = useGetShopQuery("");
+    const {data: shopDetail} = useGetMyShopQuery();
 
     return ( 
         <div className="shop-detail-container">

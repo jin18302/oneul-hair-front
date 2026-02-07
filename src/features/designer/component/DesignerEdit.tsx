@@ -6,9 +6,8 @@ import { useGetDesignerInfo, useUpdateDesigner } from "../hook/useDesignerQuery"
 
 export default function DesignerEdit() {
 
-    const { designerId } = useParams();
+    const { designerId } = useParams() as {designerId: string};
     const navigate = useNavigate();
-
     const { data: designerDetail} = useGetDesignerInfo(designerId);
     const { mutateAsync } = useUpdateDesigner();
 

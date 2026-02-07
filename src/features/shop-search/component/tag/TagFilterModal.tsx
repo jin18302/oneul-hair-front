@@ -1,7 +1,8 @@
 import React from "react";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
-import { useGetShopTagQuery } from "../../../shop/service/shopService";
+
 import type { ShopTag } from "../../../shop/type/entity";
+import { useGetShopTagQuery } from "../../../shop/hook/useShopQuery";
 
 
 
@@ -9,12 +10,10 @@ export function SearchTagFilterModal({closeModal}:{closeModal: () => void;}){
 
     console.log("SearchTagFilterModal rendering");
 
-    const{data: tagList, isLoading} = useGetShopTagQuery();
+    const{data: tagList} = useGetShopTagQuery();
     const tagAdd = searchConditionStore((s) => s.addTag);
 
     const tagClickHandler = (s: ShopTag) => tagAdd(s);
-
-    if(isLoading){return <div>isLoading...</div>}
 
     return (
         <>
