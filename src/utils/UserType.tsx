@@ -1,10 +1,10 @@
-import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
-import ShopOwnerMyPage from "../owner/ShopOwnerMyPage";
-import UserMyPage from "./UserMyPage";
+import { useLoginInfoStore } from "../contexts/loginInfoStore";
+import ShopOwnerMyPage from "../features/myPage/component/owner/ShopOwnerMyPage";
+import UserMyPage from "../features/myPage/component/user/UserMyPage";
 
 export default function UserType(){
 
-     const userRole = useLoginInfoStore(s => s.userRole);
+    const userRole = useLoginInfoStore(s => s.userRole);
 
     switch(userRole){
         case "CUSTOMER" : return <div className="my-page-container"><UserMyPage/></div>
