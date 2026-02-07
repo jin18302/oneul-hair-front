@@ -1,7 +1,7 @@
 
 import { useState } from "react";
-import "../../../styles/Modal.css";
-import "../../../styles/SearchArea.css"
+// import "../../../styles/Modal.css";
+// import "../../../styles/SearchArea.css"
 import AreaFilterModal from "./AreaFilterModal";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
 

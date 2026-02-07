@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/SearchArea.css";
+// import "../../styles/SearchArea.css";
 import AreaFilter from "./area/AreaFllter";
 import SearchButton from "./SearchButton";
 import TagFilter from "./tag/TagFilter";

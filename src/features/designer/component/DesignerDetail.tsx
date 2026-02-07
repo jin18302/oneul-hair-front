@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
-import { designerService } from "../service/designerService";
-import { designerDetailInit, type DesignerDetail } from "../type/response";
 import MenuListView from "../../menu/component/MenuListView";
+import { useGetDesignerInfo } from "../hook/useDesignerQuery";
+// import MenuListView from "../../menu/component/MenuListView";
 
 export default function DesignerDetail() {
 
+    console.log("designer detail rendering");
+
     const { designerId } = useParams();
     const navigator = useNavigate();
+
     const userRole = useLoginInfoStore(s => s.userRole);
-
-    const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(designerDetailInit);
-    const [isLoding, setIsLoding] = useState<boolean>(true);
-
-
-    useEffect(() => {
-
-        const apiHandler = async () => {
-
-            const response = await designerService.getDesignerDetail(designerId);
-           
-            setDesignerDetail(response);
-            setIsLoding(false);
-        }
-
-        apiHandler();
-
-    }, []);
-
+    const { data: designerDetail} = useGetDesignerInfo(designerId);
 
     const reservationButtonHandler = () => {
         const token = localStorage.getItem("token");
@@ -43,9 +27,6 @@ export default function DesignerDetail() {
 
     const editPageHandler = () => { navigator(`/designers/${designerId}/edit`) };
 
-
-    if (isLoding) { return <div>로딩중입니다...</div> };
-
     return (
         <>
 
@@ -53,7 +34,7 @@ export default function DesignerDetail() {
                 <div className="designer-profile">
                     <div className="images"> profile-image</div>
                     <p>{designerDetail.name}</p>
-                    <p>{designerDetail?.introduction}</p>
+                    <p>{designerDetail.introduction}</p>
                 </div>
                 {
                     userRole == "OWNER"

@@ -1,9 +1,9 @@
 
-import "../../../styles/Modal.css";
+// import "../../../styles/Modal.css";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
-import { shopSearchService } from "../../service/shopSearchService";
+import { useGetAddressQuery } from "../../service/shopSearchService";
 import type { AddrRes } from "../../type/response";
 
 export default function AreaFilterModal({ closeModal }: { closeModal: () => void; }) {
@@ -11,19 +11,8 @@ export default function AreaFilterModal({ closeModal }: { closeModal: () => void
     console.log("AreaFilterModal rendering");
 
     const [ areaCode, setAreaCode ] = useState<AddrRes | null>(null);
-    const [ subAreaList, setSubAreaList ] = useState<AddrRes[]>([]);
+   const {data: subAreaList, isLoading} = useGetAddressQuery(areaCode?.cd ?? "");
     const setSelectArea  = searchConditionStore((s) => s.setSelectArea);
-
-    useEffect(() => {
-
-        const apiHandler = async () => {
-            const response = await shopSearchService.getAllAddress(areaCode?.cd);
-            setSubAreaList(response);
-        };
-
-        apiHandler();
-
-    }, [areaCode]); //페이지가 리렌더링될때마다 api를 불러 상태를 변경하고, 이후에 변경된 리스트를 리렌더링한다.
 
     const clickHandler = (area: AddrRes) => {
 
@@ -37,6 +26,8 @@ export default function AreaFilterModal({ closeModal }: { closeModal: () => void
     };
 
     const cancelHandler = () => { setAreaCode(null); closeModal(); };
+
+    if(isLoading){return <div>Loading...</div>}
 
     return (
         <div className="overlay">

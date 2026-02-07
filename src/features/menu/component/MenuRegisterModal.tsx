@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
 import type { Dispatch, SetStateAction } from "react";
-import "../../styles/Menu.css";
+// import "../../styles/Menu.css";
 import type { CreateMenuReq } from "../type/request";
 
 export default function MenuRegisterModal({ selectCategory, setRequest, setIsShowModal }

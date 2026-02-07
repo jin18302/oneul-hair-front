@@ -1,23 +1,25 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import { authService } from "../service/authService";
+import { useRegisterType } from "../../../utils/useMemberRegisterType";
+import { useSignUpQuery } from "../hook/useAuthQuery";
 
-export default function SignUpForm({ setRegisterType }: { setRegisterType: (t: string) => void }) {
+export default function SignUpForm() {
 
     console.log("SignUp rendering");
-    const pageHandler = () => setRegisterType("SHOP")
+
+    const { setRegisterType, registerType } = useRegisterType();
+    const { mutateAsync: signUp } = useSignUpQuery();
+    const pageHandler = () => setRegisterType("SHOP");
 
     return (
         <>
             <Formik initialValues={{
                 name: "", email: "", password: "",
-                phoneNumber: "", gender: "", userRole:"CUSTOMER"
+                phoneNumber: "", gender: "", userRole: registerType
             }}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-
-                    authService.signUp(data);
-
+                    await signUp(data);
                     setSubmitting(false);
                     resetForm();
                 }}

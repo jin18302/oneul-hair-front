@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
-import { shopService } from "../../../shop/service/shopService";
+import { useGetShopTagQuery } from "../../../shop/service/shopService";
 import type { ShopTag } from "../../../shop/type/entity";
 
 
@@ -9,26 +9,18 @@ export function SearchTagFilterModal({closeModal}:{closeModal: () => void;}){
 
     console.log("SearchTagFilterModal rendering");
 
-    const[tagList, setTagList] = useState<ShopTag[]>([]);
+    const{data: tagList, isLoading} = useGetShopTagQuery();
     const tagAdd = searchConditionStore((s) => s.addTag);
 
-    useEffect(() => {
-
-        const apiHandler =  async () => {
-            const response = await shopService.getShopTagList();
-            setTagList(response);
-        };
-
-        apiHandler();
-    },[]);
-
     const tagClickHandler = (s: ShopTag) => tagAdd(s);
+
+    if(isLoading){return <div>isLoading...</div>}
 
     return (
         <>
         <div className="overlay">
             <div className="modal">
-            {tagList.map(t => (<div className="element" key={t.id} onClick = {() => tagClickHandler(t)}>{t.name}</div>))}
+            {tagList?.map(t => (<div className="element" key={t.id} onClick = {() => tagClickHandler(t)}>{t.name}</div>))}
             {/* 요소를 클릭한다면 요소의 클래스 이름을 추가하고, 리스트에 저장한다. */}
                 <button onClick={closeModal}>창 닫기</button>
                 <button onClick={closeModal}>확인</button>

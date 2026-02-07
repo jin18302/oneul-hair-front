@@ -3,40 +3,31 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import type { ResourceInput } from "@fullcalendar/resource/index.js";
 import { useEffect, useState } from "react";
 import { parseDateToString } from "../../../utils/date";
-import { getAccessToken } from "../../../utils/tokenmanager";
-import { designerService } from "../../designer/service/designerService";
-import { shopService } from "../../shop/service/shopService";
-import { shopDetailInit, type ShopDetailRes } from "../../shop/type/response";
-import "../../styles/Shedule.css";
-import { scheduleService } from "../service/scheduleService";
+import { useGetMyDesignerList } from "../../designer/hook/useDesignerQuery";
+import { useGetShopQuery } from "../../shop/service/shopService";
+import { useGetShopScheduleQuery } from "../service/scheduleService";
+// import "../../styles/Shedule.css";
+
 
 export default function Schedule() {
 
     const [date, setDate] = useState<string>(parseDateToString({ date: new Date }));
     const [isReLoad, setIsReLoad] = useState<boolean>(false);
-    const [resourceList, setResourceList] = useState<ResourceInput[]>();
+    const {data:designerList} = useGetMyDesignerList();
     const [eventList, setEventList] = useState<EventInput[]>();
-    const [shopDetail, setShopDetail] = useState<ShopDetailRes>(shopDetailInit);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const {data: shopSchesule} = useGetShopScheduleQuery(date);
+    const {data: shopDetail} = useGetShopQuery("");
+    const {data: eventData} = useGetShopScheduleQuery(date);
 
     useEffect(() => {
 
         const apiHanelr = async () => {
 
-            const shopData = await shopService.getShopDetailByOwner(getAccessToken());
-            setShopDetail(shopData);
-
-            const designerData = await designerService.getDesignerListByOwner(getAccessToken());
-            setResourceList(designerData.map(d => ({ id: String(d.id), title: d.name })));
-
-            const eventData = await scheduleService.getShopSchedule(getAccessToken(), date);
-
             const events: object[] = [];
 
-            for (let i = 0; i < eventData.length; i++) {
+            for (let i = 0; i < shopSchesule.length; i++) {
                 for (let j = 0; j < eventData[i].blockResponseList.length; j++) {
 
                     const d = new Date(`${eventData[i].blockResponseList[j].date}T${eventData[i].blockResponseList[j].time}:00`);
@@ -50,12 +41,9 @@ export default function Schedule() {
             }
             setEventList(events);
             setIsReLoad(false);
-            setIsLoading(false);
         }
         apiHanelr();
     }, [date, isReLoad]); //TODO 수정
-
-    if (isLoading) { return <div>Loading...</div> }
 
     const dataReLoadHandler = () => { setIsReLoad(true) }
 
@@ -83,7 +71,7 @@ export default function Schedule() {
                     slotMinTime={shopDetail.openTime}
                     slotMaxTime={shopDetail.endTime}
                     slotDuration={{ minute: 30 }}
-                    resources={resourceList}
+                    resources={designerList.map(d => ({ id: String(d.id), title: d.name }))}
                     events={eventList}
                 />
             </div>

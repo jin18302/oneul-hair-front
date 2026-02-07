@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import "../../styles/SearchArea.css"
+// import "../../styles/SearchArea.css"
 import { searchConditionStore } from "../../../contexts/searchConditionStore";
 import type { ShopTag } from "../../shop/type/entity";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MenuEditModal from "./MenuEditModal";
-import "../../styles/MenuView.css"
+// import "../../styles/MenuView.css"
 import type { MenuRes } from "../type/response";
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 

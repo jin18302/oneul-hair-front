@@ -1,0 +1,40 @@
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { shopService } from "../service/shopService";
+import type { CreateShopReq, UpdateShopReq } from "../type/request";
+
+export function useCreateShopQuery() {
+
+    const mutate = useMutation({
+        mutationFn:  (request: CreateShopReq) => {
+         return shopService.createShop(request);
+        }
+    });
+    return mutate;
+}
+
+export function useUpdateShopQuery(){
+    const mutate = useMutation({
+        mutationFn : (request:{shopId:number, body: UpdateShopReq}) => {
+            return shopService.updateShop(request.shopId, request.body);
+        }
+    });
+    return mutate;
+}
+
+export function useGetShopTagQuery() {
+    const { data, isLoading } = useSuspenseQuery({
+        queryKey: ["shop-tag"],
+        queryFn:  () => { return shopService.getShopTagList();}
+    });
+    return { data, isLoading };
+}
+
+export function useGetShopQuery(shopId: string) {
+    const { data, isLoading } = useSuspenseQuery({
+        queryKey: ["shop", shopId],
+        queryFn: () => {
+          return shopService.getShop(shopId);
+        }
+    });
+    return { data, isLoading };
+}

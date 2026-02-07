@@ -2,31 +2,34 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
-import "../../styles/Form.css";
-import { authService } from "../service/authService";
-import { getAccessToken } from "../../../utils/tokenManager";
-import { userService } from "../../user/service/userService";
+// import "../../styles/Form.css";
+import { setAccessToken } from "../../../utils/tokenManager";
+import { useGetUserInfoQuery } from "../../user/hook/useUserQuery";
+import { useLoginQuery } from "../hook/useAuthQuery";
 
 export default function LoginForm() {
 
     console.log("Login rendering")
+
     const navigator = useNavigate();
     const setLoginInfo = useLoginInfoStore(s => s.setLoginInfo);
+    const { mutateAsync: login } = useLoginQuery();
+    const { data: userInfo } = useGetUserInfoQuery();
 
     return (
         <Formik initialValues={{ email: "", password: "" }}
             onSubmit={async (data, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
 
-                authService.login(data);
+                const loginRespone = await login(data);
+                setAccessToken(loginRespone.accessToken);
 
-                const readRespose = await userService.getUserInfo(getAccessToken());
-                setLoginInfo(readRespose);
+                if(userInfo){setLoginInfo(userInfo);}
+                 navigator('/');
 
                 setSubmitting(false);
                 resetForm();
 
-                navigator('/'); //TODO
             }}
 
             validationSchema={Yup.object().shape({
@@ -50,8 +53,6 @@ export default function LoginForm() {
             <button className="login-button" id="naver-login">네이버 로그인</button> */}
             </Form>
         </Formik>
-
-
     )
 
 }

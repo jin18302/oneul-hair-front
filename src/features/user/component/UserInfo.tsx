@@ -1,39 +1,20 @@
-import { useEffect, useState } from "react";
+// import "../../../styles/UserInfo.css";
+
 import { useNavigate } from "react-router";
-import "../../../styles/UserInfo.css";
-import { userService } from "../service/userService";
-import type { UserRes } from "../type/UserRes";
-import { getAccessToken } from "../../../utils/tokenmanager";
+import { useGetUserInfoQuery } from "../hook/useUserQuery";
 
 export default function UserInfo() {
 
     console.log("UserInfo rendering");
-
-    const [userInfo, setUserInfo] = useState<UserRes>();
-    const [isLoding, setIsLoding] = useState<boolean>(false);
-
+    
     const navigator = useNavigate();
+    const{data: userInfo} = useGetUserInfoQuery();
 
     const infoUpdatePageHandler = () => { navigator('/users') }
     const pwUpdatePageHandler = () => { navigator('/password') }
     // const userDeleteHandler = () => {navigator('/password')}
 
-    useEffect(() => {
-
-        const apiHandler = async () => {
-            const userInfo = await userService.getUserInfo(getAccessToken());
-            setUserInfo(userInfo);
-            setIsLoding(true);
-        }
-
-        apiHandler();
-    }, []);
-
-    if (isLoding) { return <div>Loding...</div> }
-
     return (
-        <>
-            {!isLoding &&
                 <div className="user-info-container">
                     <p className="user-info-element"> 이름 : {userInfo?.name}</p>
                     <p className="user-info-element" > email : {userInfo?.email}</p>
@@ -45,7 +26,5 @@ export default function UserInfo() {
                     <button onClick={() => pwUpdatePageHandler()}>비밀번호 수정</button>
                     <button>회원 탈퇴</button>
                 </div>
-            }
-        </>
     )
 }

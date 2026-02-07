@@ -1,26 +1,19 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Yup from 'yup';
-import type { ShopTag } from "../../../types/ShopTag";
-import { shopService } from "../service/shopService";
+import { useCreateShopQuery, useGetShopTagQuery } from "../service/shopService";
+import type { ShopTag } from "../type/entity";
 
 export default function ShopRegistration({ setRegisterType }: { setRegisterType: (t: string) => void }) {
 
     console.log("ShopRegistration rendering");
+    // TODO: 리팩토링 필요
 
-    const [shopTagList, setShopTagList] = useState<ShopTag[]>([]);
     const [selectTagIdList, setSelectTagIdList] = useState<number[]>([]);
-    const [isLoding, setIsLoding] = useState<boolean>(true);
+    const {data: shopTagList} = useGetShopTagQuery();
+    const {mutateAsync: createShop} = useCreateShopQuery();//TODO
 
-    useEffect(() => {
-
-        const shopTagApiHandler = async () => {
-            setShopTagList(await shopService.getShopTagList());
-            setIsLoding(false);
-        }
-
-        shopTagApiHandler();
-    }, []);
+   
 
     const pageHandler = () => setRegisterType("USER");
 
@@ -33,8 +26,6 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
     }
 
     return (
-        <>
-            {!isLoding &&
                 <div className="form-container">
                     <Formik initialValues={{
                         name: "", businessId: "", email: "", password: "", address: "", phoneNumber: "",
@@ -42,32 +33,32 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                     }}
                         onSubmit={async (data, { setSubmitting, resetForm }) => {
                             setSubmitting(true);
-                            const request =   {
+                            const request = {
+                                name: data.name,
+                                businessId: data.businessId,
+                                address: data.address,
+                                phoneNumber: data.phoneNumber,
+                                openTime: data.openTime,
+                                endTime: data.endTime,
+                                introduction: data.introduction,
+                                snsUriList: [],
+                                shopTagList: selectTagIdList,
+                                ownerSignUpRequest: {
                                     name: data.name,
-                                    businessId: data.businessId,
-                                    address: data.address,
+                                    email: data.email,
+                                    password: data.password,
                                     phoneNumber: data.phoneNumber,
-                                    openTime: data.openTime,
-                                    endTime: data.endTime,
-                                    introduction: data.introduction,
-                                    snsUriList: [],
-                                    shopTagList: selectTagIdList,
-                                    ownerSignUpRequest: {
-                                        name: data.name,
-                                        email: data.email,
-                                        password: data.password,
-                                        phoneNumber: data.phoneNumber,
-                                        gender: null,
-                                        userRole: "OWNER"
-                                    }
+                                    gender: null,
+                                    userRole: "OWNER"
                                 }
+                            }
 
-                                await shopService.createShop(request);
+                            await createShop(request);
 
-                                alert("등록이 완료되었습니다.");
-                                setSubmitting(false);
-                                resetForm();
-                           
+                            alert("등록이 완료되었습니다.");
+                            setSubmitting(false);
+                            resetForm();
+
                         }}
 
                         validationSchema={Yup.object().shape({
@@ -86,13 +77,9 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                         })}
                     >
                         <Form className="form">
-
+                            {/*  */}
                             <Field className="input-field" name="name" type="text" placeholder="name:" />
                             <ErrorMessage name="name" component="" />
-
-                            <Field className="input-field" name="businessId" type="text" placeholder="businessId:" />
-                            <ErrorMessage name="businessId" component="" />
-
 
                             <Field className="input-field" name="email" type="email" placeholder="email:" />
                             <ErrorMessage name="email" component="" />
@@ -100,12 +87,15 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                             <Field className="input-field" name="password" type="password" placeholder="password:" />
                             <ErrorMessage name="password" component="" />
 
+                            <Field className="input-field" name="phoneNumber" type="tell" placeholder="phoneNumber:" />
+                            <ErrorMessage name="phoneNumber" component="" />
+                            {/* 공통 */}
+
+                            <Field className="input-field" name="businessId" type="text" placeholder="businessId:" />
+                            <ErrorMessage name="businessId" component="" />
 
                             <Field className="input-field" name="address" type="text" placeholder="address:" />
                             <ErrorMessage name="address" component="" />
-
-                            <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
-                            <ErrorMessage name="phoneNumber" component="" />
 
                             <Field className="input-field" name="openTime" type="time" placeholder="openTime:" />
                             <ErrorMessage name="openTime" component="" />
@@ -115,9 +105,6 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
 
                             <Field className="input-field" as="textarea" name="introduction" type="text" placeholder="introduction:" />
                             <ErrorMessage name="introduction" component="" />
-
-                            <Field className="input-field" name="imageUrlList" type="file" m placeholder="imageUrlList:" />
-                            <ErrorMessage name="imageUrlList" component="" />
 
                             <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
                             <ErrorMessage name="snsUriList" component="" />
@@ -142,7 +129,5 @@ export default function ShopRegistration({ setRegisterType }: { setRegisterType:
                     </Formik>
                     <button type="button" onClick={pageHandler}>일반 회원가입</button>
                 </div>
-            }
-        </>
     )
 }

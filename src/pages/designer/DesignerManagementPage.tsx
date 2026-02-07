@@ -1,33 +1,15 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import type DesignerSummaryRes from "../../types/DesignerSummaryRes";
-import { getAccessToken } from "../../utils/tokenmanager";
-import "../../styles/DesignerMenagement.css";
-import { designerService } from "../../features/designer/service/designerService";
+// import "../../styles/DesignerMenagement.css";
+import { useGetDesignerList } from "../../features/designer/hook/useDesignerQuery";
+import type { DesignerSummaryRes } from "../../features/designer/type/response";
 
 export default function DesignerManagementPage() {
 
     const navigator = useNavigate();
-
-    const [designerList, setDesignerList] = useState<DesignerSummaryRes[]>([]);
-    const [isLoding, setIsLoding] = useState<boolean>(true);
-
-    useEffect(() => {
-
-        const apiHandler = async () => {
-
-            const response = await designerService.getDesignerListByOwner(getAccessToken());
-
-            setDesignerList(response);
-            setIsLoding(false);
-        }
-        apiHandler();
-    }, []);
+    const {data: designerList} = useGetDesignerList("");
 
     const designerClickHandler = (d: DesignerSummaryRes) => { navigator(`/designers/${d.id}`); }
-
-    if (isLoding) { return <div>Loading...</div> }
-
+    
     return (
         <div className="designer-management-container">
             <div className="designer-list">

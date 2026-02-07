@@ -1,39 +1,15 @@
-import { useEffect, useState } from "react"
-import "../../../styles/ReservationHistories.css"
-import { axiosInstance } from "../../utils/axiosInstance";
-import type { CursorPageResponse } from "../../types/CursorPageResponse";
-import { getAccessToken } from "../../utils/tokenmanager";
-import type { ReservationRes } from "../../features/reservation/type/response";
+// import "../../../styles/ReservationHistories.css"
+
+import { useGetReservationListQuery} from "../../features/reservation/service/reservationService";
 
 export default function ReservationHistories(){
 
     console.log("ReservationHistories rendering");
-
-    const [isLoding, setIsLoding] = useState<boolean>(true);
-    const [reservationList, setReservationList] = useState<CursorPageResponse<ReservationRes>>();
-
-    useEffect(() => {
-
-        const apiHandler = async() => {
-            
-            const response = await axiosInstance.get<CursorPageResponse<ReservationRes>>('/reservations',
-                {  headers: { 'Authorization': getAccessToken() } }
-            );
-
-            setReservationList(response.data);
-            setIsLoding(false);
-        };
-
-        apiHandler();
-    },[]);
-
-    if(isLoding){return <div>loding...</div>}
+    const{data: reservationList} = useGetReservationListQuery();
     
     return(
-        <>
-        {!isLoding &&
         <div className="reservations-container">
-            {reservationList?.content.map(r => 
+            {reservationList.map(r => 
                <div key={r.id} className="reservation-element">
                 <p>{r.serviceMenuName}</p>
                 <p>{r.designerName}</p>
@@ -43,7 +19,5 @@ export default function ReservationHistories(){
                </div>
             )}
         </div>
-        }
-        </>
     )
 }

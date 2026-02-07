@@ -1,34 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import * as Yup from 'yup';
-import { designerDetailInit, type DesignerDetail } from "../type/response";
-import { designerService } from "../service/designerService";
-import { getAccessToken } from "../../../utils/tokenmanager";
+import { useGetDesignerInfo, useUpdateDesigner } from "../hook/useDesignerQuery";
+
 
 export default function DesignerEdit() {
 
     const { designerId } = useParams();
-    const [designerDetail, setDesignerDetail] = useState<DesignerDetail>(designerDetailInit);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
-    const nav = useNavigate();
-
-    useEffect(() => {
-
-        const apiHandler = async () => {
-            const response = await designerService.getDesignerDetail(designerId);
-            setDesignerDetail(response);
-            setIsLoading(false);
-            
-        }
-
-        apiHandler();
-
-    }, []);
-
-    if(isLoading){return <div>loading...</div>}
-
+    const { data: designerDetail} = useGetDesignerInfo(designerId);
+    const { mutateAsync } = useUpdateDesigner();
 
     return (
         <div className="form-container">
@@ -37,21 +19,19 @@ export default function DesignerEdit() {
 
                     setSubmitting(true);
 
-                        const requestBody = {
-                            name: data.name,
-                            introduction: data.introduction,
-                            profileImage: data.profileImage,
-                            snsUriList: data.snsUrlList
-                        }
+                    const requestBody = {
+                        name: data.name,
+                        introduction: data.introduction,
+                        profileImage: data.profileImage,
+                        snsUriList: data.snsUrlList
+                    }
 
-                        designerService.updateDesingerInfo(designerId, getAccessToken(), requestBody);
+                    await mutateAsync({designerId:designerId, body: requestBody});
+                    alert("정보 수정이 완료되었습니다.");
+                    navigate(`/designers/${designerId}`);
 
-                     
-                        alert("정보 수정이 완료되었습니다.");
-                        nav(`/designers/${designerId}`);
-
-                        resetForm();
-                        setSubmitting(false);
+                    resetForm();
+                    setSubmitting(false);
                 }}
 
                 validationSchema={Yup.object().shape({

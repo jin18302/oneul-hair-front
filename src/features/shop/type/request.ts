@@ -12,4 +12,15 @@ export interface CreateShopReq {
     snsUriList: string[];
     shopTagList: number[];
     ownerSignUpRequest: UserSignupRequest;
-    }
+}
+
+export interface UpdateShopReq {
+    name: string;
+    address: string;
+    phoneNumber: string;
+    openTime: string;
+    endTime: string;
+    introduction: string;
+    snsUriList: string[];
+    shopTagIdSet: number[];
+}

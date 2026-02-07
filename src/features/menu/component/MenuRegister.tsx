@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import "../../styles/Menu.css";
-import MenuRegisterModal from "./MenuRegisterModal";
-import { menuService } from "../service/menuService";
+// import "../../styles/Menu.css";
+import { useCreateMenuQuery, useGetCategoriesQuery } from "../hook/useMenuQuery";
 import type { CreateMenuReq } from "../type/request";
-import { getAccessToken } from "../../../utils/tokenmanager";
-
+import MenuRegisterModal from "./MenuRegisterModal";
 
 export default function MenuRegister() {
 
@@ -14,42 +12,32 @@ export default function MenuRegister() {
     const { designerId } = useParams();
     const navigator = useNavigate();
 
-    const [categoryList, setCategoryList] = useState<string[]>([]);
+    const { data: categoryList, isLoading } = useGetCategoriesQuery();
+    const { mutateAsync: createMenu } = useCreateMenuQuery();
+
     const [selectCategory, setSelectCategory] = useState<string>("CUT") //분리 고려
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [requestList, setRequest] = useState<CreateMenuReq[]>([]);
-
-    useEffect(() => {
-
-        const categoryApiHandler = async () => {
-
-           const categoryResponse = await menuService.getMenuCategoryList();
-            setCategoryList(categoryResponse);
-            setSelectCategory(categoryResponse[0]);
-        }
-
-        categoryApiHandler();
-    }, []);
-
 
     const menuRegisterHanelr = () => { setIsShowModal(true) }
     const categoryChangeHandler = (c: string) => { setSelectCategory(c); }
 
     const submitHandler = async () => {
 
-        if (requestList.length == 0) {  alert("하나 이상의 메뉴를 등록해야합니다.");};
-        menuService.createMenu(designerId, requestList, getAccessToken());
-
+        if (requestList.length == 0) { alert("하나 이상의 메뉴를 등록해야합니다."); };
+        
+        await createMenu({ designerId: designerId, body: requestList });
         alert("등록이 완료되었습니다.");
         navigator("/my/designers/management");
     }
 
+    if (isLoading) { return <div>Loading...</div> }
 
     return (
         <div>
             <div className="menu-container">
                 <div className="category-container">
-                    {categoryList.map(c => (
+                    {categoryList?.map(c => (
                         <div className="category-element" onClick={() => categoryChangeHandler(c)} key={c}>{c}</div>
                     ))}
                 </div>

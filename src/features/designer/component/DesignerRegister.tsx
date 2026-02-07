@@ -1,12 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { getAccessToken } from "../../../utils/tokenmanager";
-import { designerService } from "../service/designerService";
+import { useCreateDesigner } from "../hook/useDesignerQuery";
 
 export default function DesignerRegister() {
 
-    const navigator = useNavigate();
+    const navigate = useNavigate();
+    const { mutateAsync: createDesigner } = useCreateDesigner();
 
     return (
         <div className="form-container">
@@ -24,10 +24,9 @@ export default function DesignerRegister() {
                             snsUriList: data.snsUriList.split(',')
                         }
 
-                        const response = await designerService.createDesigner(requestBody, getAccessToken());
+                        const response = await createDesigner(requestBody);
 
-                        navigator(`/designers/${response.id}/menus`);
-                        
+                        navigate(`/designers/${response.id}/menus`);
                         resetForm();
                         setSubmitting(false);
                 }}

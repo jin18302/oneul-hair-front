@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router";
 import { useLoginInfoStore } from "../../../../contexts/loginInfoStore";
-import "../../../styles/MyPage.css";
+// import "../../../styles/MyPage.css";
 
 
 export default function UserMyPage() {

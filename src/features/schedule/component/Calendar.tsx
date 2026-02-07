@@ -2,37 +2,21 @@ import type { DayCellContentArg } from '@fullcalendar/core/index.js';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getMonth, parseDateToString } from '../../../utils/date';
-import "../../styles/Calendar.css";
-import { scheduleService } from '../service/scheduleService';
-import type { DayOffResponse } from '../type/response';
+// import "../../styles/Calendar.css";
+import { useGetDesignerDayOffQuery } from '../service/scheduleService';
 
 export function Calendar({ setDate, designerId }: { setDate: (date: string) => void, designerId: string | undefined }) {
 
   console.log("Calendar rendering");
 
-  const dayOffInit = { closedDays: [] };
-  const [dayOffList, setDayOffList] = useState<DayOffResponse>(dayOffInit);
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
-  const [isLoding, setIsLoding] = useState<boolean>(true);
+  const { data: dayOffList} = useGetDesignerDayOffQuery(designerId, month);
 
-  useEffect(() => {
-
-    const apiHandler = async () => {
-
-      const response = await scheduleService.getDayOffListByDesigner(designerId, month)
-
-      setDayOffList(response);
-      setIsLoding(false);
-    }
-
-    apiHandler();
-
-  }, [month]);
-
+  
   const isDayOff = (date: string) => {
-    return dayOffList.closedDays.includes(date);
+    return dayOffList?.closedDays.includes(date);
   }
 
   const dateClickHandler = (arg: DateClickArg) => {
@@ -54,21 +38,17 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
   } //TODO: 클래스 또는 파일로 분리 고려
 
 
-  if (isLoding) { return <div>loding...</div> }
-
   return (
 
     <div className="calendar-container">
-      {!isLoding &&
-        <FullCalendar height={500} contentHeight={500}
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
+      <FullCalendar height={500} contentHeight={500}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
 
-          datesSet={(info) => {setMonth(getMonth(info.start)); setDate("");}}
-          dateClick={(arg) => dateClickHandler(arg)}
-          dayCellClassNames={(arg) => classNameHandler(arg)}
-        /> //fullCalendar
-      }
+        datesSet={(info) => { setMonth(getMonth(info.start)); setDate(""); }}
+        dateClick={(arg) => dateClickHandler(arg)}
+        dayCellClassNames={(arg) => classNameHandler(arg)}
+      />
     </div>
   )
 }

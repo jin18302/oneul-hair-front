@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import type { ShopDetailState } from "../../../types/ShopDetailState";
-import { axiosInstance } from "../../../utils/axiosInstance";
-import "../../styles/ShopDetail.css";
-import { shopService } from "../service/shopService";
+// import "../../styles/ShopDetail.css";
+import { useGetDesignerList } from "../../designer/hook/useDesignerQuery";
 import type { DesignerSummaryRes } from "../../designer/type/response";
+import { useGetShopQuery } from "../service/shopService";
 
 export default function ShopDetail() {
 
@@ -12,41 +10,13 @@ export default function ShopDetail() {
 
     const { shopId } = useParams<{ shopId: string }>();
     const navigate = useNavigate();
-    const dataInit = { shopDetail: null, designerList: [] };
 
-    const [ isLoding, setIsLoding ] = useState<boolean>(true); //서스펜서로 변경 고려
-    const [ shopDetailState, setShopDetailState ] = useState<ShopDetailState>(dataInit);
-    const { shopDetail, designerList } = shopDetailState;
-
-    useEffect(() => {
-
-        const apiHandler = async () => {
-
-            const shopDetailresponse = await shopService.getShopDetailById(shopId);
-            const designerListResponse = await axiosInstance.get<DesignerSummaryRes[]>(`/auth/shops/${shopId}/designers`);
-
-            const data = { shopDetail: shopDetailresponse, designerList: designerListResponse.data};
-
-            setShopDetailState(data);
-            setIsLoding(false);
-        }
-        apiHandler();
-
-    }, [shopId]);
-
+    const {data: shopDetail} = useGetShopQuery(shopId);
+    const {data: designerList} = useGetDesignerList(shopId);
+ 
     const designerClickHandler = (d: DesignerSummaryRes) => { navigate(`/designers/${d.id}`); }
 
-    if (isLoding) { return <div>로딩중입니다...</div>; }
-
-    return ( <>
-
-        {/* 
-        TODO: 
-        -이미지 처리
-        -이모티콘 처리
-        -링크처리
-         */}
-
+    return ( 
 
         <div className="shop-detail-container">
 
@@ -54,13 +24,13 @@ export default function ShopDetail() {
 
             <div className="shop-information">
                 <h2 className="info-element">{shopDetail?.name}</h2>
-                <p>{shopDetail?.introduction}<br /></p>
-                <p>{shopDetail?.address}<br /></p>
-                <p> {shopDetail?.phoneNumber}<br /></p>
+                <p>{shopDetail.introduction}<br /></p>
+                <p>{shopDetail.address}<br /></p>
+                <p> {shopDetail.phoneNumber}<br /></p>
                 {/* <p> snsUriList: {shopDetail?.snsUriList}<br /></p> */}
                 <p>
-                    운영상태: {shopDetail?.shopStatus}<br />
-                    운영시간 : {shopDetail?.openTime} ~ {shopDetail?.endTime}<br />
+                    운영상태: {shopDetail.shopStatus}<br />
+                    운영시간 : {shopDetail.openTime} ~ {shopDetail?.endTime}<br />
                 </p>
             </div>
 
@@ -76,8 +46,5 @@ export default function ShopDetail() {
                 )}
             </div>
         </div>
-
-    </>
-
     )
 }
