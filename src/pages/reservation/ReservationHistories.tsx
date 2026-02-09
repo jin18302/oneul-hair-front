@@ -1,6 +1,7 @@
 // import "../../../styles/ReservationHistories.css"
 
-import { useGetReservationListQuery} from "../../features/reservation/service/reservationService";
+import { useGetReservationListQuery } from "../../features/reservation/hooks/useReservationQuery";
+
 
 export default function ReservationHistories(){
 

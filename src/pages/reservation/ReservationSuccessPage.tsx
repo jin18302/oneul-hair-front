@@ -1,11 +1,11 @@
 
 import { useParams } from "react-router";
+import { useGetReservationQuery } from "../../features/reservation/hooks/useReservationQuery";
 // import "../../styles/ReservationSuccess.css"
-import { useGetReservationQuery } from "../../features/reservation/service/reservationService";
 
 export default function ReservationSuccessPage() {
 
-    const { reservationId } = useParams();
+    const { reservationId } = useParams() as {reservationId: string};
     const {data: reservation} = useGetReservationQuery(reservationId);
 
     return (

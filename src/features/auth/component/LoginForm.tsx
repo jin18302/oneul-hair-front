@@ -5,7 +5,7 @@ import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 // import "../../styles/Form.css";
 import { useGetUserInfoQuery } from "../../user/hook/useUserQuery";
 import { useLoginQuery } from "../hook/useAuthQuery";
-import { setAccessToken } from "../../../utils/tokenManager";
+import { setAccessToken } from "../../../utils/tokenmanager";
 
 export default function LoginForm() {
 
