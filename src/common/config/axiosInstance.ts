@@ -1,9 +1,8 @@
 import axios, { type InternalAxiosRequestConfig } from "axios";
-import { getAccessToken, hasAccessToken } from "../../utils/tokenManager";
+import { getAccessToken, hasAccessToken } from "../../utils/tokenmanager";
 
-
+//내부 서버 통신용
 export const axiosInstance = axios.create({ baseURL: "http://localhost:8080/api" });
-
 
 //requestInterceptor
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -17,4 +16,6 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     return config;
 
 });
+
+export const minioClient = axios.create();
 
