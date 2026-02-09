@@ -1,27 +1,37 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { useRegisterType } from "../../../utils/useMemberRegisterType";
+import ImageUploader from "../../image/components/ImageUploader";
+import "../../image/styles/image.css";
 import { useSignUpQuery } from "../hook/useAuthQuery";
+import { useState } from "react";
 
 export default function SignUpForm() {
 
     console.log("SignUp rendering");
 
+    const navigate = useNavigate();
     const { setRegisterType, registerType } = useRegisterType();
     const { mutateAsync: signUp } = useSignUpQuery();
+    const [profileImage, setProfileImage] = useState<File | undefined>();
+
     const pageHandler = () => setRegisterType("SHOP");
 
     return (
         <>
             <Formik initialValues={{
                 name: "", email: "", password: "",
-                phoneNumber: "", gender: "", userRole: registerType
+                phoneNumber: "", gender: "", userRole: registerType, profileImage: profileImage
             }}
-                onSubmit={async (data, { setSubmitting, resetForm }) => {
+                onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
+
                     await signUp(data);
+
+                    alert("회원가입에 성공하였습니다.")
+                    navigate("/sign-in");
                     setSubmitting(false);
-                    resetForm();
                 }}
 
                 validationSchema={Yup.object().shape({
@@ -50,6 +60,8 @@ export default function SignUpForm() {
 
                     <Field className="input-field" name="gender" type="text" placeholder="gender" />
                     <ErrorMessage name="gender" component="" />
+
+                    <ImageUploader setImage ={setProfileImage} />
 
                     <button id="signup-button" type="submit">회원가입</button>
                     <button id="shop-register-button" onClick={pageHandler}>기업 회원가입</button>

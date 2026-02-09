@@ -1,12 +1,13 @@
 
 import { axiosInstance } from "../../../common/config/axiosInstance";
+import { imageService } from "../../image/service/imageService";
 import type { LoginRequest, UserSignupRequest } from "../type/request";
-import type { LoginResponse } from "../type/response";
+import type { LoginResponse, SignUpResposne } from "../type/response";
 
 export const authService = {
 
     login: async (request: LoginRequest): Promise<LoginResponse> => {
-        const response = await axiosInstance.post<LoginResponse>("/auth/signup", {
+        const response = await axiosInstance.post<LoginResponse>("/auth/login", {
             email: request.email,
             password: request.password,
 
@@ -15,9 +16,13 @@ export const authService = {
     },
 
     signUp: async (request: UserSignupRequest) => {
-        const response = await axiosInstance.post<LoginResponse>("/auth/login", {
 
+        if (request.profileImage) {
+            const url = await imageService.getPostPresignedUrl("profile", request.profileImage.name);
+            await imageService.putImage(url.url, request.profileImage);
+        }
 
+        const signUpResponse = await axiosInstance.post<SignUpResposne>("/auth/signup", {
             name: request.name,
             email: request.email,
             password: request.password,
@@ -25,6 +30,6 @@ export const authService = {
             gender: request.gender,
             userRole: "CUSTOMER"
         });
-        return response.data;
+        return signUpResponse.data;
     }
 }
