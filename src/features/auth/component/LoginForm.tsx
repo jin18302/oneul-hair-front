@@ -1,31 +1,24 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 // import "../../styles/Form.css";
-import { useGetUserInfoQuery } from "../../user/hook/useUserQuery";
 import { useLoginQuery } from "../hook/useAuthQuery";
-import { setAccessToken } from "../../../utils/tokenmanager";
 
 export default function LoginForm() {
 
     console.log("Login rendering")
 
     const navigator = useNavigate();
-    const setLoginInfo = useLoginInfoStore(s => s.setLoginInfo);
     const { mutateAsync: login } = useLoginQuery();
-    const { data: userInfo } = useGetUserInfoQuery();
+
 
     return (
         <Formik initialValues={{ email: "", password: "" }}
             onSubmit={async (data, { setSubmitting, resetForm }) => {
                 setSubmitting(true);
 
-                const loginRespone = await login(data);
-                setAccessToken(loginRespone.accessToken);
-
-                if(userInfo){setLoginInfo(userInfo);}
-                 navigator('/');
+                await login(data);
+                navigator('/');
 
                 setSubmitting(false);
                 resetForm();
