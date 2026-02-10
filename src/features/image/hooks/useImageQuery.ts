@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { imageService } from "../service/imageService";
 
 export function usePostPresigned() {
@@ -10,13 +10,14 @@ export function usePostPresigned() {
     return mutation;
 }
 
-export function useGetPreviewPresigned() {
-    const mutation = useMutation({
-        mutationFn: (request: { imageName: string }) => {
-            return imageService.getPreviewPresignedUrl(request.imageName);
+export function useGetPreviewPresigned(imageName: string) {
+    const {data}= useSuspenseQuery({
+        queryKey:["image", imageName],
+        queryFn: () => {
+            return imageService.getPreviewPresignedUrl(imageName);
         }
     })
-    return mutation;
+    return {data};
 
 }
 
