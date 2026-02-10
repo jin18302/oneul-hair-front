@@ -1,16 +1,20 @@
+import { useFormikContext } from "formik";
 import { useState } from "react";
 
-export default function ImageUploader({setImage}:{setImage: (image: File) => void}){
+export default function ImageUploader({fieldName}
+    :{fieldName: string}){
 
+    const {setFieldValue} = useFormikContext();
     const [uploadImgUrl, setUploadImgUrl] = useState("");
 
 
     const onchangeImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
         if (files == null) { return; }
-        setImage(files[0]);
 
         const uploadFile = files[0];
+        setFieldValue(fieldName, uploadFile);
+
         const reader = new FileReader();
         reader.readAsDataURL(uploadFile);
         reader.onloadend = () => {
@@ -21,7 +25,7 @@ export default function ImageUploader({setImage}:{setImage: (image: File) => voi
     return (
         <>
             <img className="image-preview" src={uploadImgUrl} />
-            <input type="file" accept="image/*" onChange={onchangeImageUpload} />
+            <input name = {fieldName} type="file" accept="image/*" onChange={onchangeImageUpload} />
         </>
     )
 }
