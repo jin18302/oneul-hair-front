@@ -1,3 +1,4 @@
 export interface PresignedUrlRes{
-    url : string
+    url : string,
+    imageName: string
 }
