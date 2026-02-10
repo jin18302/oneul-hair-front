@@ -1,17 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { userService } from "../service/userService";
 
 export function useGetUserInfoQuery() {
 
-    const isLoggedIn = useLoginInfoStore(s => s.isLoggedIn);
-
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading, refetch } = useSuspenseQuery({
         queryKey: ["profile"],
         queryFn: async () => {
            return userService.getUser();
-        },
-        enabled:isLoggedIn
+        }
     }
 );
     return { data, isLoading, refetch };
