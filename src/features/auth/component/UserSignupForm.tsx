@@ -1,19 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { useRegisterType } from "../../../utils/useMemberRegisterType";
 import ImageUploader from "../../image/components/ImageUploader";
 import "../../image/styles/image.css";
 import { useSignUpQuery } from "../hook/useAuthQuery";
-export default function SignUpForm() {
+export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => void}) {
 
-    console.log("SignUp rendering");
+    console.log("UserSignUp rendering");
 
     const navigate = useNavigate();
-    const { setRegisterType, registerType } = useRegisterType();
     const { mutateAsync: signUp } = useSignUpQuery();
 
-    const pageHandler = () => setRegisterType("SHOP");
 
     return (
         <>
@@ -21,7 +18,7 @@ export default function SignUpForm() {
                 enableReinitialize={true}
                 initialValues={{
                     name: "", email: "", password: "",
-                    phoneNumber: "", gender: "", userRole: registerType, profileImage: undefined
+                    phoneNumber: "", gender: "", userRole: "OWNER", profileImage: undefined
                 }}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
@@ -63,7 +60,7 @@ export default function SignUpForm() {
                     <ImageUploader fieldName={"profileImage"} />
 
                     <button id="signup-button" type="submit">회원가입</button>
-                    <button id="shop-register-button" onClick={pageHandler}>기업 회원가입</button>
+                    <button id="shop-register-button" onClick={setRegisterType}>기업 회원가입</button>
 
                 </Form>
             </Formik>

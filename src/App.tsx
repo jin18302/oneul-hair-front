@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router";
 import Init from "./common/Init";
-import Login from "./features/auth/component/LoginForm";
 import DesignerDetail from "./features/designer/component/DesignerDetail";
 import DesignerEdit from "./features/designer/component/DesignerEdit";
 import DesignerRegister from "./features/designer/component/DesignerRegister";
@@ -18,6 +17,7 @@ import ReservationHistories from "./pages/reservation/ReservationHistories";
 import Reservation from "./pages/reservation/ReservationPage";
 import ReservationSuccess from "./pages/reservation/ReservationSuccessPage";
 import LoginForm from "./features/auth/component/LoginForm";
+import SignUpDispatcher from "./features/auth/component/SignUpDispatcher";
 
 export default function App() {
 
@@ -31,7 +31,7 @@ export default function App() {
                         {/* 로그인, 회원가입 관련 */}
                         <Route element={<Authendication />}>
                             <Route path="sign-in" element={<LoginForm />} />
-                            {/* <Route path="sign-up" element={<Register />} /> */}
+                            <Route path="sign-up" element={<SignUpDispatcher />} />
                         </Route>
 
                         <Route path="/users" element={<UserInfo />} />
