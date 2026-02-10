@@ -5,8 +5,6 @@ import { useRegisterType } from "../../../utils/useMemberRegisterType";
 import ImageUploader from "../../image/components/ImageUploader";
 import "../../image/styles/image.css";
 import { useSignUpQuery } from "../hook/useAuthQuery";
-import { useState } from "react";
-
 export default function SignUpForm() {
 
     console.log("SignUp rendering");
@@ -14,16 +12,17 @@ export default function SignUpForm() {
     const navigate = useNavigate();
     const { setRegisterType, registerType } = useRegisterType();
     const { mutateAsync: signUp } = useSignUpQuery();
-    const [profileImage, setProfileImage] = useState<File | undefined>();
 
     const pageHandler = () => setRegisterType("SHOP");
 
     return (
         <>
-            <Formik initialValues={{
-                name: "", email: "", password: "",
-                phoneNumber: "", gender: "", userRole: registerType, profileImage: profileImage
-            }}
+            <Formik
+                enableReinitialize={true}
+                initialValues={{
+                    name: "", email: "", password: "",
+                    phoneNumber: "", gender: "", userRole: registerType, profileImage: undefined
+                }}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
 
@@ -41,7 +40,7 @@ export default function SignUpForm() {
                     password: Yup.string()
                         .matches(/^(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/, "비밀번호는 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.")
                         .required("비밀번호는 필수 입력 요소입니다."),
-                    phoneNumber: Yup.string().matches(/^010-\d{4}-\d{4}$/, "010-1234-567 형식으로 입력해주세요.")
+                    phoneNumber: Yup.string().matches(/^010-\d{4}-\d{4}$/, "010-1234-567 형식으로 입력해주세요.")  //TODO 이넘처럼 빼기
                 })}
             >
 
@@ -61,7 +60,7 @@ export default function SignUpForm() {
                     <Field className="input-field" name="gender" type="text" placeholder="gender" />
                     <ErrorMessage name="gender" component="" />
 
-                    <ImageUploader setImage ={setProfileImage} />
+                    <ImageUploader fieldName={"profileImage"} />
 
                     <button id="signup-button" type="submit">회원가입</button>
                     <button id="shop-register-button" onClick={pageHandler}>기업 회원가입</button>
