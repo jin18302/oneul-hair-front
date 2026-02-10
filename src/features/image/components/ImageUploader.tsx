@@ -24,7 +24,7 @@ export default function ImageUploader({fieldName}
 
     return (
         <>
-            <img className="image-preview" src={uploadImgUrl} />
+            {uploadImgUrl && <img className="image-preview" src={uploadImgUrl} />}
             <input name = {fieldName} type="file" accept="image/*" onChange={onchangeImageUpload} />
         </>
     )
