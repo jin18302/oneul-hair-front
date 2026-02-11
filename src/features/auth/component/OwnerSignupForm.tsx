@@ -1,55 +1,33 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from 'yup';
-import { useGetShopTagQuery, useCreateShopQuery } from "../../shop/hook/useShopQuery";
-import ImageUploader from "../../image/components/ImageUploader";
 import CheckBoxGroup from "../../../common/commponent/CheckBoxGroup";
+import ImageUploader from "../../image/components/ImageUploader";
+import { useGetShopTagQuery } from "../../shop/hook/useShopQuery";
 import type { ShopTag } from "../../shop/type/entity";
-import type { CreateShopReq } from "../../shop/type/request";
+import { type CreateShopReq } from "../../shop/type/request";
+import { useOwnerSignupQuery } from "../hook/useAuthQuery";
+import { ownerSignUpDataInit } from "../type/formData";
+import { useNavigate } from "react-router";
 
 export default function OwnerSignupForm({ setRegisterType }: { setRegisterType: () => void }) {
 
     console.log("OwnerSignupForm rendering");
 
+    const navigate = useNavigate();
     const { data: shopTagList } = useGetShopTagQuery();
-    const { mutateAsync: createShop } = useCreateShopQuery();
+    const { mutateAsync: createShop } = useOwnerSignupQuery();
 
 
     return (
         <div className="form-container">
-            <Formik initialValues={{
-                name: "", businessId: "", email: "", password: "", address: "", phoneNumber: "",
-                openTime: "", endTime: "", introduction: "", snsUriList: "", shopTagList: [], mainImage: undefined
-            }}
+            <Formik initialValues={ownerSignUpDataInit}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
-                    const request = {
-                        name: data.name,
-                        mainImage: data.mainImage,
-                        businessId: data.businessId,
-                        address: data.address,
-                        phoneNumber: data.phoneNumber,
-                        openTime: data.openTime,
-                        endTime: data.endTime,
-                        introduction: data.introduction,
-                        snsUriList: [],
-                        shopTagList: data.shopTagList,
-                        ownerSignUpRequest: {
-                            name: data.name,
-                            email: data.email,
-                            password: data.password,
-                            phoneNumber: data.phoneNumber,
-                            gender: null,
-                            userRole: "OWNER",
-                            profileImage: undefined
-                        }
-                    }
-
-                    console.log(request);
-
-                    await createShop(request);
+                    await createShop(data);
 
                     alert("등록이 완료되었습니다.");
+                    navigate("/sign-in");
                     setSubmitting(false);
                     resetForm();
 
@@ -73,7 +51,7 @@ export default function OwnerSignupForm({ setRegisterType }: { setRegisterType: 
                 <Form className="form">
 
                     <ImageUploader fieldName={"mainImage"} />
-                    {/*  */}
+                    
                     <Field className="input-field" name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="" />
 
@@ -85,7 +63,6 @@ export default function OwnerSignupForm({ setRegisterType }: { setRegisterType: 
 
                     <Field className="input-field" name="phoneNumber" type="tell" placeholder="phoneNumber:" />
                     <ErrorMessage name="phoneNumber" component="" />
-                    {/* 공통 */}
 
                     <Field className="input-field" name="businessId" type="text" placeholder="businessId:" />
                     <ErrorMessage name="businessId" component="" />
@@ -105,7 +82,7 @@ export default function OwnerSignupForm({ setRegisterType }: { setRegisterType: 
                     <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
                     <ErrorMessage name="snsUriList" component="" />
 
-                    <CheckBoxGroup<ShopTag, CreateShopReq> itemList={shopTagList} field={"shopTagList"}/>
+                    <CheckBoxGroup<ShopTag, CreateShopReq> itemList={shopTagList} field={"shopTagIdSet"}/>
 
                     <button type="submit" id="shop-register-button" > 등록 </button>
 

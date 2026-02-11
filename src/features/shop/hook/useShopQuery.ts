@@ -1,16 +1,8 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { shopService } from "../service/shopService";
-import type { CreateShopReq, UpdateShopReq } from "../type/request";
+import type { UpdateShopReq } from "../type/request";
 
-export function useCreateShopQuery() {
 
-    const mutate = useMutation({
-        mutationFn:  (request: CreateShopReq) => {
-         return shopService.createShop(request);
-        }
-    });
-    return mutate;
-}
 
 export function useUpdateShopQuery(){
     const mutate = useMutation({

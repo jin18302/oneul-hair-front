@@ -3,23 +3,21 @@ import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import ImageUploader from "../../image/components/ImageUploader";
 import "../../image/styles/image.css";
-import { useSignUpQuery } from "../hook/useAuthQuery";
+import { useUserSignUpQuery } from "../hook/useAuthQuery";
+import { userSignupReqInit } from "../type/formData";
 export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => void}) {
 
     console.log("UserSignUp rendering");
 
     const navigate = useNavigate();
-    const { mutateAsync: signUp } = useSignUpQuery();
+    const { mutateAsync: signUp } = useUserSignUpQuery();
 
 
     return (
         <>
             <Formik
                 enableReinitialize={true}
-                initialValues={{
-                    name: "", email: "", password: "",
-                    phoneNumber: "", gender: "", userRole: "OWNER", profileImage: undefined
-                }}
+                initialValues={userSignupReqInit}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
 

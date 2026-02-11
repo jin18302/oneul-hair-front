@@ -1,12 +1,12 @@
 
-export interface UserSignupRequest {
+export interface SignupRequest {
   name: string;
   email: string;
   password: string;
   phoneNumber: string;
   gender: string | null;
   userRole: string;
-  profileImage: File | undefined;
+  profileImage: string | null;
 }
 
 export const signupReqInit = {
@@ -16,7 +16,7 @@ export const signupReqInit = {
   phoneNumber: "",
   gender: "",
   userRole: "",
-  profileImage: File
+  profileImage: null
 }
 
 export interface LoginRequest {

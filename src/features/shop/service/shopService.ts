@@ -1,14 +1,12 @@
 
 import { axiosInstance } from "../../../common/config/axiosInstance";
 import type { ShopTag } from "../type/entity";
-import type { CreateShopReq, UpdateShopReq } from "../type/request";
+import type { UpdateShopReq } from "../type/request";
 import type { ShopDetailRes } from "../type/response";
 
 export const shopService = {
-    createShop: async (request: CreateShopReq) => {
-        const respone = await axiosInstance.post<ShopDetailRes>("/auth/shops", request);
-        return respone.data;
-    },
+
+    _imageCategory : "shop-main",
 
     updateShop: async (shopId: number, request: UpdateShopReq) => {
         return await axiosInstance.patch<ShopDetailRes>(`/shops/${shopId}`, request);

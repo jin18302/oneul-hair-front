@@ -2,17 +2,27 @@ import { useMutation } from "@tanstack/react-query";
 import { useLoginInfoStore } from "../../../contexts/loginInfoStore";
 import { userService } from "../../user/service/userService";
 import { authService } from "../service/authService";
-import type { LoginRequest, UserSignupRequest } from "../type/request";
+import type { OwnerSignUpData, SignupData } from "../type/formData";
+import type { LoginRequest } from "../type/request";
 
 
-export function useSignUpQuery() {
+export function useUserSignUpQuery() {
 
       const mutation = useMutation({
-            mutationFn: (request: UserSignupRequest) => {
-                  return authService.signUp(request)
+            mutationFn: (formData: SignupData) => {
+                  return authService.signUp(formData)
             }
       });
       return mutation;
+}
+
+export function useOwnerSignupQuery() {
+    const mutate = useMutation({
+        mutationFn:  (data : OwnerSignUpData) => {
+         return authService.ownerSignUp(data);
+        }
+    });
+    return mutate;
 }
 
 export function useLoginQuery() {
