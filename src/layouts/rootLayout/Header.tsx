@@ -1,8 +1,6 @@
 
 import { useNavigate } from "react-router"
 import SearchArea from "../../features/shop-search/component/SearchBox"
-import "../../styles/Header.css"
-import "../../styles/Layout.css"
 import React from "react";
 
 export default function Header() {
@@ -11,7 +9,7 @@ export default function Header() {
     console.log("Header rendaring")
 
     return (
-        <header>
+        <header className="row-start-1 row-end-3 col-start-1 col-end-13 text-center">
             <h1 onClick={() => navigator('/')}>onuel hair</h1>
             <SearchArea />
         </header>
