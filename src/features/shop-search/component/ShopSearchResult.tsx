@@ -12,12 +12,9 @@ export default function ShopSearchResult() {
     const [searchParams] = useSearchParams();
 
     const [cursor, setCursor] = useState<string | null>(searchParams.get("lastCursor"));
-    const { data: searchResult, isLoading } = useGetFilteringShop({ area: searchParams.get("area"), tagIdList: searchParams.getAll("tagIdList"), lastCursor: cursor });
-
+    const { data: searchResult} = useGetFilteringShop({ area: searchParams.get("area"), tagIdList: searchParams.getAll("tagIdList"), lastCursor: cursor });
 
     const nextPageHandler = () => { setCursor(String(searchResult?.lastCursor)); }
-
-    if (isLoading) { return <div className="loding">로딩 중...</div> }
 
     return (
         <div className="shop-list-container">

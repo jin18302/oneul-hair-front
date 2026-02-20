@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { shopSearchService } from "../service/shopSearchService";
 
 export function useGetAddressQuery(areaCode: string) {
@@ -13,7 +13,7 @@ export function useGetAddressQuery(areaCode: string) {
 }
 
 export function useGetFilteringShop(request:{area: string | null, tagIdList: string[], lastCursor: string | null}){
-     const {data, isLoading} = useQuery({
+     const {data, isLoading} = useSuspenseQuery({
         queryKey:['area', request.area, 'tagList', request.tagIdList, 'cursor', request.lastCursor],
         queryFn:  () => {
             return shopSearchService.getFilteringShop(request.area, request.tagIdList, request.lastCursor);
