@@ -27,7 +27,9 @@ export default function ShopDetail() {
                 <p>{shopDetail.introduction}<br /></p>
                 <p>{shopDetail.address}<br /></p>
                 <p> {shopDetail.phoneNumber}<br /></p>
-                {/* <p> snsUriList: {shopDetail?.snsUriList}<br /></p> */}
+                <p> snsUriList: {shopDetail.snsUriList}<br /></p>
+                {shopDetail.shopTagIdSet.map(t => 
+                    <div key={t.id}>{t.name}</div>)}
                 <p>
                     운영상태: {shopDetail.shopStatus}<br />
                     운영시간 : {shopDetail.openTime} ~ {shopDetail?.endTime}<br />
