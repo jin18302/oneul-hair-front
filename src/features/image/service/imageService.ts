@@ -9,7 +9,7 @@ export const imageService = {
     },
 
     getPreviewPresignedUrl : async(imageName: string) => {
-        const response = await axiosInstance.get<PresignedUrlRes>(`/auth/images/view/${imageName}`);
+        const response = await axiosInstance.get<PresignedUrlRes>(`/auth/images/view`, {params:{"imageName" : imageName}});
         return response.data;
     },
 
