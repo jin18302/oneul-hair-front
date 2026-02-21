@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
-// import "../../styles/SearchShopView.css";
 import ShopSummary from "../../shop/component/ShopSummary";
 import { useGetFilteringShop } from "../hook/useShopSearchQuery";
 
@@ -17,7 +16,7 @@ export default function ShopSearchResult() {
     const nextPageHandler = () => { setCursor(String(searchResult?.lastCursor)); }
 
     return (
-        <div className="shop-list-container">
+        <div className="col-start-1 col-end-12 row-start-1 row-end-12 overflow-auto ">
             {searchResult?.content.map(c => <ShopSummary shop={c} />)}
             <button className="next-page-button" onClick={nextPageHandler}>다음 페이지</button>
         </div>

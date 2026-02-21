@@ -1,5 +1,4 @@
 import { useState } from "react"
-// import "../../../styles/SearchArea.css"
 import TagFilterModal from "./TagFilterModal";
 import { searchConditionStore } from "../../../../contexts/searchConditionStore";
 
@@ -12,10 +11,10 @@ export default function TagFilter(){
     const clickHandler = () => setIsShowModal(true);
 
     return(
-       <div className="tag-filter-container">
-          <button className= "tag-filter-button" onClick={clickHandler}> 태그 선택 </button>
+       <div className="col-start-1 col-end-2 row-start-1 row-end-2 inline-block">
+          <button className= "bg-blue-500" onClick={clickHandler}> 태그 선택 </button>
               {isShowTagModal && <TagFilterModal closeModal = {() => setIsShowModal(false)} />}
-              {selectTags && selectTags.map(t => (<div key={t.id} className="seleted-element">{t.name}</div>))}
+              {selectTags && selectTags.map(t => (<div key={t.id} className="inline-block py-1 px-2 m-1 bg-[rgb(163,163,245)] rounded-sm">{t.name}</div>))}
        </div>
     )
 

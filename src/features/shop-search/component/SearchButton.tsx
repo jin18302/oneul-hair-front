@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-// import "../../styles/SearchArea.css"
 import { searchConditionStore } from "../../../contexts/searchConditionStore";
 import type { ShopTag } from "../../shop/type/entity";
 
@@ -26,7 +25,7 @@ export default function SearchButton() {
     }
 
     return (
-        <button className="search-button" onClick={searchHandler}>검색</button>
+        <button className="col-start-3 col-end-4 row-start-1 row-end-2 bg-[#3e9aef] mr-2" onClick={searchHandler}>검색</button>
     )
 }
 

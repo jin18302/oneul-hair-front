@@ -11,12 +11,13 @@ export default function ShopSummary({ shop }: { shop: ShopSummaryResponse }) {
     };
 
     return (
-        <div className="shop-summary-res" key={shop.id} onClick={() => shopDetailViewHandler(shop)}>
+        <div className="w-200 h-37.5 text-[15px] border border-black" 
+        key={shop.id} onClick={() => shopDetailViewHandler(shop)}>
             {shop.name}<br />
             {shop.introduction}<br />
             {shop.address}<br />
             {shop.shopStatus}<br />
-            {shop.imageList}<br />
+            {/* {shop.mainImage}<br /> */}
         </div>
     )
 
