@@ -2,7 +2,6 @@
 import AuthButton from "../../features/auth/component/AuthButton";
 import UserType from "../../utils/UserType";
 import { useLoginInfoStore } from "../../contexts/loginInfoStore";
-import "../../styles/Layout.css";
 
 export default function Article() {
 
