@@ -48,43 +48,43 @@ export default function OwnerSignupForm({ setRegisterType }: { setRegisterType: 
                     introduction: Yup.string().required(),
                 })}
             >
-                <Form className="form">
+                <Form className="flex flex-col justify-center items-center w-full">
 
                     <ImageUploader fieldName={"mainImage"} />
                     
-                    <Field className="input-field" name="name" type="text" placeholder="name:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="" />
 
-                    <Field className="input-field" name="email" type="email" placeholder="email:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="email" type="email" placeholder="email:" />
                     <ErrorMessage name="email" component="" />
 
-                    <Field className="input-field" name="password" type="password" placeholder="password:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="password" type="password" placeholder="password:" />
                     <ErrorMessage name="password" component="" />
 
-                    <Field className="input-field" name="phoneNumber" type="tell" placeholder="phoneNumber:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="phoneNumber" type="tell" placeholder="phoneNumber:" />
                     <ErrorMessage name="phoneNumber" component="" />
 
-                    <Field className="input-field" name="businessId" type="text" placeholder="businessId:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="businessId" type="text" placeholder="businessId:" />
                     <ErrorMessage name="businessId" component="" />
 
-                    <Field className="input-field" name="address" type="text" placeholder="address:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="address" type="text" placeholder="address:" />
                     <ErrorMessage name="address" component="" />
 
-                    <Field className="input-field" name="openTime" type="time" placeholder="openTime:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="openTime" type="time" placeholder="openTime:" />
                     <ErrorMessage name="openTime" component="" />
 
-                    <Field className="input-field" name="endTime" type="time" placeholder="endTime:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="endTime" type="time" placeholder="endTime:" />
                     <ErrorMessage name="endTime" component="" />
 
-                    <Field className="input-field" as="textarea" name="introduction" type="text" placeholder="introduction:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" as="textarea" name="introduction" type="text" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="" />
 
-                    <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="snsUriList" type="url" placeholder="snsUriList:" />
                     <ErrorMessage name="snsUriList" component="" />
 
                     <CheckBoxGroup<ShopTag, CreateShopReq> itemList={shopTagList} field={"shopTagIdSet"}/>
 
-                    <button type="submit" id="shop-register-button" > 등록 </button>
+                    <button type="submit" id="block box-border w-[400px] h-[50px] mb-[10px] bg-[##3DADFF]" > 등록 </button>
 
                 </Form>
             </Formik>

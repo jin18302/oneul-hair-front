@@ -1,7 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-// import "../../styles/Form.css";
 import { useLoginQuery } from "../hook/useAuthQuery";
 
 export default function LoginForm() {
@@ -33,12 +32,12 @@ export default function LoginForm() {
                     .required("비밀번호는 필수 입력요소입니다.")
             })}
         >
-            <Form className="form">
-                <Field className="input-field" name="email" type="email" placeholder="email:" />
+            {/* TODO: 필드, 폼 컴포넌트화 or 모둘 적용 고려*/}
+            <Form className="flex flex-col justify-center items-center w-full">
+                <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="email" type="email" placeholder="email:" />
                 <ErrorMessage name="password" component="" />
 
-
-                <Field className="input-field" name="password" type="password" placeholder="password:" />
+                <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="password" type="password" placeholder="password:" />
                 <ErrorMessage name="email" component="" />
 
                 <button id="login-button" type="submit"> 로그인 </button>

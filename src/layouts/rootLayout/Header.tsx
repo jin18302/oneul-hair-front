@@ -9,7 +9,7 @@ export default function Header() {
     console.log("Header rendaring")
 
     return (
-        <header className="row-start-1 row-end-3 col-start-1 col-end-13 text-center">
+        <header onClick={() => {console.log("click")}} className="row-start-1 row-end-3 col-start-1 col-end-13 text-center">
             <h1 onClick={() => navigator('/')}>onuel hair</h1>
             <SearchArea />
         </header>

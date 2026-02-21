@@ -39,26 +39,26 @@ export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => 
                 })}
             >
 
-                <Form className="form">
-                    <Field className="input-field" name="name" type="text" placeholder="name:" />
+                <Form className="flex flex-col justify-center items-center w-full">
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="" />
 
-                    <Field className="input-field" name="email" type="email" placeholder="email:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="email" type="email" placeholder="email:" />
                     <ErrorMessage name="email" component="" />
 
-                    <Field className="input-field" name="password" type="password" placeholder="password:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="password" type="password" placeholder="password:" />
                     <ErrorMessage name="password" component="" />
 
-                    <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"name="phoneNumber" type="tel" placeholder="phoneNumber:" />
                     <ErrorMessage name="phoneNumber" component="" />
 
-                    <Field className="input-field" name="gender" type="text" placeholder="gender" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="gender" type="text" placeholder="gender" />
                     <ErrorMessage name="gender" component="" />
 
                     <ImageUploader fieldName={"profileImage"} />
 
-                    <button id="signup-button" type="submit">회원가입</button>
-                    <button id="shop-register-button" onClick={setRegisterType}>기업 회원가입</button>
+                    <button id="block border-box mb-[10px] w-[400px] h-[50px] bg-[#3DADFF]" type="submit">회원가입</button>
+                    <button id="block border-box mb-[10px] w-[400px] h-[50px] bg-[#b4dbf7]" onClick={setRegisterType}>기업 회원가입</button>
 
                 </Form>
             </Formik>

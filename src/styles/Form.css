@@ -26,38 +26,3 @@
 #naver-login {
     background-color: #66D575;
 }
-
-#signup-button{
-    width: 400px;
-    height: 50px;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-    background-color: #3DADFF;
-}
-
-#shop-register-button{
-    width: 400px;
-    height: 50px;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-    background-color: #b4dbf7;
-
-}
-
-#shop-register-button{
-    width: 400px;
-    height: 50px;
-    box-sizing: border-box;
-    display: block;
-    margin-bottom: 10px;
-    background-color: #3DADFF;
-}
-.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
