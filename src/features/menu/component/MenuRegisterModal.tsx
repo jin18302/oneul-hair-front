@@ -9,7 +9,7 @@ export default function MenuRegisterModal({ selectCategory, setRequest, setIsSho
 ) {
 
     return (
-        <div className="menu-register-container">
+        <div className="w-175 border border-black">
             <Formik initialValues={{ name: "", price: "", introduction: "" }}
              
              onSubmit={async (data, { setSubmitting, resetForm }) => {
@@ -35,15 +35,15 @@ export default function MenuRegisterModal({ selectCategory, setRequest, setIsSho
 
                 })}
             >
-                <Form className="form">
-                    <Field className="input-field" name="name" type="name" placeholder="name:" />
+                <Form className="flex flex-col justify-center items-center w-full">
+                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="name" type="name" placeholder="name:" />
                     <ErrorMessage name="name" component="" />
 
 
-                    <Field className="input-field" name="price" type="text" placeholder="price:" />
+                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="price" type="text" placeholder="price:" />
                     <ErrorMessage name="price" component="" />
 
-                    <Field className="input-field" name="introduction" type="text" placeholder="introduction:" />
+                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="introduction" type="text" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="" />
 
                     <button type="submit"> 완료 </button>

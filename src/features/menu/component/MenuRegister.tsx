@@ -33,16 +33,17 @@ export default function MenuRegister() {
 
     return (
         <div>
-            <div className="menu-container">
-                <div className="category-container">
+            <div className="col-start-1 col-end-12 row-start-1 row-end-12
+            flex flex-col items-center text-center w-200 border border-black">
+                <div className="flex w-200 border border-black">
                     {categoryList?.map(c => (
-                        <div className="category-element" onClick={() => categoryChangeHandler(c)} key={c}>{c}</div>
+                        <div className="inline-block grow border border-black" onClick={() => categoryChangeHandler(c)} key={c}>{c}</div>
                     ))}
                 </div>
 
-                <div className="menu-list">
+                <div >
                     {requestList.filter(r => r.category == selectCategory).map(m =>
-                        <div className="menu-element" key={m.name}>
+                        <div className="w-200 border border-black" key={m.name}>
                             {m.name}<br />
                             {m.price}<br />
                             {m.introduction}

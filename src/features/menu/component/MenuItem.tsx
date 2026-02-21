@@ -18,7 +18,7 @@ export default function MenuItem({ menuRes, menuClickFuntion }
     return (
         <>
             {isEditMode ? <MenuEditModal menuRes={menuRes} setEditMode={setEditMode} />
-                : <div className="menu" onClick={() => fun}>
+                : <div className="w-150 bg-white border border-black" onClick={() => fun}>
                     {menuRes.name} <br /><br />
                     {menuRes.price} <br /><br />
                     {menuRes.introduction} <br />
