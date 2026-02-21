@@ -21,7 +21,8 @@ function DateTimeSlot({ designerId, date, setTimeSlot }: { designerId: string, d
     };
 
     return (
-        <div className="time-slot-container">
+        <div className="col-start-1 col-end-12 row-start-4 row-end-6 w-150
+        flex justify-center items-center flex-wrap">
             {timeSlotList?.map(t =>
                 <div className={t.isReservable ? "time-slot" : "time-slot-deactivation"} key={t.time}
                     onClick={() => slotClickHandler(t.time)}>{t.time}</div>)

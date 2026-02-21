@@ -1,11 +1,4 @@
 
-.calendar-container{
-    grid-column: 1/12;
-    grid-row: 1/4;
-
-    width: 500px;
-}
-
 .fc_day_off{
 
     background-color: rgb(200, 199, 199);

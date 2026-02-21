@@ -26,11 +26,6 @@
     grid-row: 4/8;
 }
 
-.designer-list{
-    grid-column: 2/10;
-    grid-row: 10/13;
-}
-
 .designer{
     width: 800px;
 

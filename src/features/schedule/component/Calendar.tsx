@@ -40,7 +40,7 @@ export function Calendar({ setDate, designerId }: { setDate: (date: string) => v
 
   return (
 
-    <div className="calendar-container">
+    <div className="col-start-1 col-end-12 row-start-1 row-end-4">
       <FullCalendar height={500} contentHeight={500}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"

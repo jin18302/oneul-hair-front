@@ -8,7 +8,6 @@ import { parseDateToString } from "../../../utils/date";
 import { useGetMyDesignerList } from "../../designer/hook/useDesignerQuery";
 import { useGetShopScheduleQuery } from "../hook/useScheduleQuery";
 import { useGetShopQuery } from "../../shop/hook/useShopQuery";
-// import "../../styles/Shedule.css";
 
 
 export default function Schedule() {
@@ -49,7 +48,7 @@ export default function Schedule() {
 
     return (
         <>
-            <div className="shop-schedule-container">
+            <div className="col-start-1 col-end-12 row-start-1 row-end-12 w-250 h-200">
                 <FullCalendar height={500} contentHeight={500}
                     plugins={[dayGridPlugin, interactionPlugin, resourceTimelinePlugin]}
                     initialView="resourceTimelineDay"
