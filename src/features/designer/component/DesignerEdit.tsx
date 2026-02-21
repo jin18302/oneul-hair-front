@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate, useParams } from "react-router";
 import * as Yup from 'yup';
 import { useGetDesignerInfo, useUpdateDesigner } from "../hook/useDesignerQuery";
+import ImageEditor from "../../image/components/ImageEditor";
 
 
 export default function DesignerEdit() {
@@ -12,7 +13,6 @@ export default function DesignerEdit() {
     const { mutateAsync } = useUpdateDesigner();
 
     return (
-        <div className="form-container">
             <Formik initialValues={designerDetail}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
 
@@ -39,25 +39,23 @@ export default function DesignerEdit() {
                     snsUriList: Yup.string()
                 })}
             >
-                <Form className="form">
+                <Form className="flex flex-col justify-center items-center w-full">
 
-                    <Field className="input-field" name="name" type="text" placeholder="name:" />
+                    <ImageEditor fieldName="profileImage" currentImage={designerDetail.profileImage}/>
+
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="div" />
 
-                    <Field as="textarea" className="input-field" name="introduction" placeholder="introduction:" />
+                    <Field as="textarea" className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="introduction" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="div" />
 
-                    {/* <Field className="input-field" name="profileImage" type="file" />
-                    <ErrorMessage name="profileImage" component="div" /> */}
-
-                    <Field className="input-field" name="snsUriList" type="url" placeholder="sns uri list:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="snsUriList" type="url" placeholder="sns uri list:" />
                     <ErrorMessage name="snsUriList" component="div" />
 
                     <button type="submit">저장</button>
                 </Form>
 
             </Formik>
-        </div>
 
     )
 }

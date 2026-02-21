@@ -9,7 +9,6 @@ export default function DesignerRegister() {
     const { mutateAsync: createDesigner } = useCreateDesigner();
 
     return (
-        <div className="form-container">
             <Formik initialValues={{
                 name: "", introduction: "", profileImage: "", snsUriList: ""
 
@@ -37,23 +36,22 @@ export default function DesignerRegister() {
                     snsUriList: Yup.string()
                 })}
             >
-                <Form className="form">
+                <Form className="flex flex-col justify-center items-center w-full">
 
-                    <Field className="input-field" name="name" type="text" placeholder="name:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="div" />
 
-                    <Field as="textarea" className="input-field" name="introduction" placeholder="introduction:" />
+                    <Field as="textarea" className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="introduction" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="div" />
 
-                    <Field className="input-field" name="profileImage" type="file" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="profileImage" type="file" />
                     <ErrorMessage name="profileImage" component="div" />
 
-                    <Field className="input-field" name="snsUriList" type="url" placeholder="sns uri list:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="snsUriList" type="url" placeholder="sns uri list:" />
                     <ErrorMessage name="snsUriList" component="div" />
 
                     <button type="submit">다음</button>
                 </Form>
             </Formik>
-        </div>
     )
 }
