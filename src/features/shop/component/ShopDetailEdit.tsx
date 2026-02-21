@@ -1,41 +1,39 @@
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
-import { useGetShopQuery, useGetShopTagQuery, useUpdateShopQuery } from "../hook/useShopQuery";
-import type { ShopTag } from "../type/entity";
-import { shopDetailInit } from "../type/response";
+import CheckBoxGroup from "../../../common/commponent/CheckBoxGroup";
+import ImageEditor from "../../image/components/ImageEditor";
+import { useGetMyShopQuery, useGetShopTagQuery, useUpdateShopQuery } from "../hook/useShopQuery";
 
 export default function ShopDetailEdit() {
 
+    console.log("ShopDetailEdit rerendering");
+
     const navigator = useNavigate();
 
-    const { data: shopDetail } = useGetShopQuery("");
+    const { data: shopDetail } = useGetMyShopQuery();
     const { data: shopTagList } = useGetShopTagQuery();
     const { mutateAsync: updateShop } = useUpdateShopQuery();
-    const [selectTagIdList, setSelectTagIdList] = useState<number[]>([]);
 
-    useEffect(() => {
-        const apiHandler = async () => {
-            const prevSelectedTag = shopTagList?.filter(t => shopDetail?.shopTagList.includes(t.name));
-            setSelectTagIdList(prevSelectedTag?.map(t => t.id) ?? []);
-        };
-        apiHandler();
-    }, []);
+    // shopDetail을 업데이트 샵 리퀘스트로 바인딩 시키고, 이미지 소스는 일단 프리뷰로만 설정한다.
 
-    const checkHandler = (e: React.ChangeEvent<HTMLInputElement>, newTag: ShopTag) => {
-        if (e.target.checked) {
-            setSelectTagIdList((prev) => [...prev, newTag.id]);
-        } else {
-            setSelectTagIdList(selectTagIdList.filter(t => t != newTag.id));
-        }
-    }
+    const updateRequest =  {
+    name: shopDetail.name,
+    address: shopDetail.address,
+    phoneNumber: shopDetail.phoneNumber,
+    openTime: shopDetail.openTime,
+    endTime: shopDetail.endTime,
+    introduction: shopDetail.introduction,
+    snsUriList: shopDetail.snsUriList,
+    shopTagIdSet: shopDetail.shopTagIdSet.map(t => t.id),
+    mainImage : ""
+}
 
     return (
 
-        <div className="form-container">
-            <Formik initialValues={shopDetail ?? shopDetailInit}
+       
+            <Formik initialValues={updateRequest}
                 onSubmit={async (data, { setSubmitting }) => {
 
                     setSubmitting(true);
@@ -57,48 +55,38 @@ export default function ShopDetailEdit() {
                 })}
             >
 
-                <Form className="form">
-                    <Field className="input-field" name="name" type="text" placeholder="name:" />
+                <Form className="flex flex-col justify-center items-center w-full">
+
+                    <ImageEditor currentImage={shopDetail.mainImage} fieldName={"mainImage"}/>
+
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="text" placeholder="name:" />
                     <ErrorMessage name="name" component="" />
 
-                    <Field className="input-field" name="address" type="text" placeholder="address:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="address" type="text" placeholder="address:" />
                     <ErrorMessage name="address" component="" />
 
-                    <Field className="input-field" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="phoneNumber" type="tel" placeholder="phoneNumber:" />
                     <ErrorMessage name="phoneNumber" component="" />
 
-                    <Field className="input-field" name="openTime" type="time" placeholder="openTime:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="openTime" type="time" placeholder="openTime:" />
                     <ErrorMessage name="openTime" component="" />
 
-                    <Field className="input-field" name="endTime" type="time" placeholder="endTime:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="endTime" type="time" placeholder="endTime:" />
                     <ErrorMessage name="endTime" component="" />
 
-                    <Field className="input-field" as="textarea" name="introduction" type="text" placeholder="introduction:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" as="textarea" name="introduction" type="text" placeholder="introduction:" />
                     <ErrorMessage name="introduction" component="" />
 
-                    {/* <Field className="input-field" name="imageUrlList" type="file" placeholder="imageUrlList:" />
-                        <ErrorMessage name="imageUrlList" component="" /> */}
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="mainImage" type="file" />
+                    <ErrorMessage name="imageUrlList" component="" />
 
-                    <Field className="input-field" name="snsUriList" type="url" placeholder="snsUriList:" />
+                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="snsUriList" type="url" placeholder="snsUriList:" />
                     <ErrorMessage name="snsUriList" component="" />
 
-                    <div>
-                        <h3>shopTag list</h3>
-                        {shopTagList?.map(tag => (
-                            <div key={tag.id}>
-                                <input type="checkBox" id={tag.name}
-                                    checked={selectTagIdList.includes(tag.id)}
-                                    onChange={(e) => checkHandler(e, tag)}
-                                />
-                                <label htmlFor={tag.name}>{tag.name}</label>
-                                <br />
-                            </div>
-                        ))}
-                    </div>
+                    <CheckBoxGroup itemList={shopTagList} field={"shopTagIdSet"}/>
 
                     <button type="submit">확인</button>
                 </Form>
             </Formik>
-        </div>
     )
 }
