@@ -1,7 +1,7 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from 'yup';
+import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
-// import "../../styles/Menu.css";
+import * as Yup from 'yup';
+import InputField from "../../../common/commponent/InputField";
 import type { CreateMenuReq } from "../type/request";
 
 export default function MenuRegisterModal({ selectCategory, setRequest, setIsShowModal }
@@ -11,8 +11,8 @@ export default function MenuRegisterModal({ selectCategory, setRequest, setIsSho
     return (
         <div className="w-175 border border-black">
             <Formik initialValues={{ name: "", price: "", introduction: "" }}
-             
-             onSubmit={async (data, { setSubmitting, resetForm }) => {
+
+                onSubmit={async (data, { setSubmitting, resetForm }) => {
 
                     setSubmitting(true);
 
@@ -20,7 +20,7 @@ export default function MenuRegisterModal({ selectCategory, setRequest, setIsSho
                         category: selectCategory,
                         name: data.name,
                         price: Number(data.price),
-                        introduction: data.introduction 
+                        introduction: data.introduction
                     };
 
                     setRequest(prev => [...prev, request]);
@@ -36,15 +36,9 @@ export default function MenuRegisterModal({ selectCategory, setRequest, setIsSho
                 })}
             >
                 <Form className="flex flex-col justify-center items-center w-full">
-                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="name" type="name" placeholder="name:" />
-                    <ErrorMessage name="name" component="" />
-
-
-                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="price" type="text" placeholder="price:" />
-                    <ErrorMessage name="price" component="" />
-
-                    <Field  className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"  name="introduction" type="text" placeholder="introduction:" />
-                    <ErrorMessage name="introduction" component="" />
+                    <InputField name="name" type="text" placeholder="name:" />
+                    <InputField name="price" type="text" placeholder="₩" />
+                    <InputField as="textarea" name="introduction" type="email" placeholder="introduction:" />
 
                     <button type="submit"> 완료 </button>
                 </Form>

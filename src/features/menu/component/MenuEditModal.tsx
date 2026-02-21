@@ -1,6 +1,6 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from 'yup';
-// import "../../styles/Menu.css";
+import InputField from "../../../common/commponent/InputField";
 import { useUpdateMenuQuery } from "../hook/useMenuQuery";
 import type { MenuRes } from "../type/response";
 
@@ -39,15 +39,10 @@ export default function MenuEditModal({ menuRes, setEditMode }
                 })}
             >
                 <Form className="flex flex-col justify-center items-center w-full">
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="name" placeholder="name:" />
-                    <ErrorMessage name="name" component="" />
 
-
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="price" type="text" placeholder="price:" />
-                    <ErrorMessage name="price" component="" />
-
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="introduction" type="text" placeholder="introduction:" />
-                    <ErrorMessage name="introduction" component="" />
+                    <InputField name="name" type="text" placeholder="name:" />
+                    <InputField name="price" type="text" placeholder="₩" />
+                    <InputField as="textarea" name="introduction" type="email" placeholder="introduction:" />
 
                     <button type="submit"> 완료 </button>
                 </Form>

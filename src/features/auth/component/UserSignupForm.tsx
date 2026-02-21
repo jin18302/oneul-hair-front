@@ -1,11 +1,12 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
+import InputField from "../../../common/commponent/InputField";
 import ImageUploader from "../../image/components/ImageUploader";
 import "../../image/styles/image.css";
 import { useUserSignUpQuery } from "../hook/useAuthQuery";
 import { userSignupReqInit } from "../type/formData";
-export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => void}) {
+export default function UserSignUpForm({ setRegisterType }: { setRegisterType: () => void }) {
 
     console.log("UserSignUp rendering");
 
@@ -16,7 +17,6 @@ export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => 
     return (
         <>
             <Formik
-                enableReinitialize={true}
                 initialValues={userSignupReqInit}
                 onSubmit={async (data, { setSubmitting }) => {
                     setSubmitting(true);
@@ -40,22 +40,13 @@ export default function UserSignUpForm({setRegisterType}:{setRegisterType:() => 
             >
 
                 <Form className="flex flex-col justify-center items-center w-full">
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="name" type="text" placeholder="name:" />
-                    <ErrorMessage name="name" component="" />
 
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="email" type="email" placeholder="email:" />
-                    <ErrorMessage name="email" component="" />
-
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="password" type="password" placeholder="password:" />
-                    <ErrorMessage name="password" component="" />
-
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]"name="phoneNumber" type="tel" placeholder="phoneNumber:" />
-                    <ErrorMessage name="phoneNumber" component="" />
-
-                    <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="gender" type="text" placeholder="gender" />
-                    <ErrorMessage name="gender" component="" />
-
-                    <ImageUploader fieldName={"profileImage"} />
+                    <ImageUploader fieldName="profileImage" />
+                    <InputField name="name" type="name" placeholder="name:" />
+                    <InputField name="email" type="email" placeholder="email:" />
+                    <InputField name="password" type="password" placeholder="password:" />
+                    <InputField name="phoneNumber" type="tell" placeholder="phoneNumber:" />
+                    <InputField name="gender" type="text" placeholder="gender:" />
 
                     <button id="block border-box mb-[10px] w-[400px] h-[50px] bg-[#3DADFF]" type="submit">회원가입</button>
                     <button id="block border-box mb-[10px] w-[400px] h-[50px] bg-[#b4dbf7]" onClick={setRegisterType}>기업 회원가입</button>

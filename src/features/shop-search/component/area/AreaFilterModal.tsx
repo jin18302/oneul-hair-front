@@ -27,8 +27,6 @@ export default function AreaFilterModal({ closeModal }: { closeModal: () => void
 
     if (isLoading) { return <div>Loading...</div> }
 
-    //TODO : 모달 컴포넌트화 필요
-
     return (
         <div className="fixed size-full top-0 bottom-0 left-0 right-0 bg-black z-9999 ">
             <div className="bg-white w-125 h-62.5 overflow-y-auto

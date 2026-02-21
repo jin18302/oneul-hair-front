@@ -1,7 +1,8 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import * as Yup from 'yup';
 import { useLoginQuery } from "../hook/useAuthQuery";
+import InputField from "../../../common/commponent/InputField";
 
 export default function LoginForm() {
 
@@ -34,15 +35,11 @@ export default function LoginForm() {
         >
             {/* TODO: 필드, 폼 컴포넌트화 or 모둘 적용 고려*/}
             <Form className="flex flex-col justify-center items-center w-full">
-                <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="email" type="email" placeholder="email:" />
-                <ErrorMessage name="password" component="" />
 
-                <Field className="w-[90%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name="password" type="password" placeholder="password:" />
-                <ErrorMessage name="email" component="" />
+                <InputField name="email" type="email" placeholder="email:" />
+                <InputField name="password" type="password" placeholder="password:" />
 
                 <button id="login-button" type="submit"> 로그인 </button>
-                {/* <button className="login-button" id="kakao-login">카카오 로그인</button>
-            <button className="login-button" id="naver-login">네이버 로그인</button> */}
             </Form>
         </Formik>
     )
