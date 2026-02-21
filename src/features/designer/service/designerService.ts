@@ -19,7 +19,7 @@ export const designerService = {
         return response.data;
     },
     getDesignerListByShop: async (shopId: string) => {
-        const response = await axiosInstance.get<DesignerSummaryRes[]>(`/shops/${shopId}/designers`)
+        const response = await axiosInstance.get<DesignerSummaryRes[]>(`/auth/shops/${shopId}/designers`)
         return response.data;
     },
 
