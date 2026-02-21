@@ -10,7 +10,7 @@ export default function ReservationSuccessPage() {
 
     return (
         <>
-                <div className="reservation-success-info">
+                <div className="col-start-1 col-end-12 row-start-1 row-end-12 bg-white border border-black">
                     <h1>예약이 완료되었습니다.</h1>
                     <p>{reservation.designerName}</p>
                     <p>{reservation.serviceMenuName}</p>

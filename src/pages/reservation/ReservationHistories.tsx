@@ -9,9 +9,9 @@ export default function ReservationHistories(){
     const{data: reservationList} = useGetReservationListQuery();
     
     return(
-        <div className="reservations-container">
+        <div className="col-start-2 col-end-12 row-start-2 row-end-12 w-200 bg-white border border-black">
             {reservationList.map(r => 
-               <div key={r.id} className="reservation-element">
+               <div key={r.id} className="bg-white border border-black">
                 <p>{r.serviceMenuName}</p>
                 <p>{r.designerName}</p>
                 <p>{r.reservationStatus}</p>
