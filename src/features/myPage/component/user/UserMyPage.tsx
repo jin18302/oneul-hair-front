@@ -24,8 +24,8 @@ export default function UserMyPage() {
                 <button onClick={logOut}>로그아웃</button>
             </div>
 
-            <div className="member-info" onClick={memberInfoPageHandler}>나의 정보 확인</div>
-            <div className="reservation-histories" onClick={reservationHistoryHandler}>예약 내역 조회</div>
+            <div className="inline-block w-75 border border-black" onClick={memberInfoPageHandler}>나의 정보 확인</div>
+            <div className="inline-block w-75 border border-black" onClick={reservationHistoryHandler}>예약 내역 조회</div>
 
             {/* <div>좋아요 한 샵 </div>
             <div>작성한 리뷰리스트</div> */}

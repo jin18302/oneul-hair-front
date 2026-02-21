@@ -24,15 +24,3 @@
     display: inline-block;
     border: 1px solid black;
 }
-
-.member-info {
-    width: 300px;
-    display: inline-block;
-    border: 1px solid black;
-}
-
-.reservation-histories {
-    width: 300px;
-    display: inline-block;
-    border: 1px solid black;
-}
