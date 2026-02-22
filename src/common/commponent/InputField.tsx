@@ -5,8 +5,10 @@ export default function InputField({ name, type, placeholder, label, as }: { nam
     return (
         <>
             {label && <label htmlFor={name}>{name}</label>}
-            <Field as ={as ? as : "input"} id={name} className="inline w-[70%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" name={name} type={type} placeholder={placeholder} />
-            <ErrorMessage name="name" component="" />
+            
+            <Field  className="inline w-[70%] h-12.5 mb-2.5 bg-[#D9D9D9] rounded-[5px]" 
+            as ={as ? as : "input"} id={name}name={name} type={type} placeholder={placeholder} />
+            <ErrorMessage name={name} component="" />
         </>
     )
 }
