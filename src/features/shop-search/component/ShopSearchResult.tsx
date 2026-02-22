@@ -9,8 +9,8 @@ export default function ShopSearchResult() {
     console.log("ShopSearchResult rendering");
 
     const [searchParams] = useSearchParams();
-
     const [cursor, setCursor] = useState<string | null>(searchParams.get("lastCursor"));
+    
     const { data: searchResult} = useGetFilteringShop({ area: searchParams.get("area"), tagIdList: searchParams.getAll("tagIdList"), lastCursor: cursor });
 
     const nextPageHandler = () => { setCursor(String(searchResult?.lastCursor)); }

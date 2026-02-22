@@ -51,9 +51,7 @@ export default function MenuRegister() {
                 </div>
 
                 {isShowModal &&
-                    <MenuRegisterModal
-                        selectCategory={selectCategory} setRequest={setRequest} setIsShowModal={setIsShowModal} />
-                }
+                <MenuRegisterModal selectCategory={selectCategory} setRequest={setRequest} setIsShowModal={setIsShowModal} />}
 
                 <button onClick={menuRegisterHanelr}>추가</button>
             </div>

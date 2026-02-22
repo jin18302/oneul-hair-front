@@ -9,8 +9,6 @@ export default function ShopDetailPage() {
     const { shopId } = useParams() as { shopId: string };
     const { data: designerList } = useGetDesignerList(shopId);
 
-
-
     return (
         <>
             <ShopDetail id={shopId} />
@@ -19,7 +17,5 @@ export default function ShopDetailPage() {
                 {designerList.map(d => <DesignerSummary data={d} />)}
             </div>
         </>
-
-
     )
 }

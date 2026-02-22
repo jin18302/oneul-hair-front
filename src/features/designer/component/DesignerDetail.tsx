@@ -30,8 +30,6 @@ export default function DesignerDetail() {
 
     return (
         <>
-
-            <div>
                 <div>
                     {designerDetail.profileImage && <ImagePreview image={designerDetail.profileImage} />}
                     <p>{designerDetail.name}</p>
@@ -42,8 +40,6 @@ export default function DesignerDetail() {
                 }
 
                 <MenuListView designerId={designerId} menuClickFuntion={undefined} />
-            </div>
-
         </>
     )
 }
